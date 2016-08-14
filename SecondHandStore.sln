@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHandStoreApp", "Secon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHandStoreApp.Tests", "SecondHandStoreApp.Tests\SecondHandStoreApp.Tests.csproj", "{0486F9AC-AF40-4E7B-9DE0-C9008E4E8DA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHandStore.Entities", "SecondHandStore.Entities\SecondHandStore.Entities.csproj", "{AB2A4012-B866-4B58-A8BF-6CB861B617BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHandStore.Repository", "SecondHandStore.Repository\SecondHandStore.Repository.csproj", "{5A052FD7-D681-4203-AAB8-14A6BF23E010}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{0486F9AC-AF40-4E7B-9DE0-C9008E4E8DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0486F9AC-AF40-4E7B-9DE0-C9008E4E8DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0486F9AC-AF40-4E7B-9DE0-C9008E4E8DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB2A4012-B866-4B58-A8BF-6CB861B617BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB2A4012-B866-4B58-A8BF-6CB861B617BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB2A4012-B866-4B58-A8BF-6CB861B617BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB2A4012-B866-4B58-A8BF-6CB861B617BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A052FD7-D681-4203-AAB8-14A6BF23E010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A052FD7-D681-4203-AAB8-14A6BF23E010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A052FD7-D681-4203-AAB8-14A6BF23E010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A052FD7-D681-4203-AAB8-14A6BF23E010}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
