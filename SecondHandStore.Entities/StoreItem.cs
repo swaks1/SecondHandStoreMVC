@@ -34,6 +34,8 @@ namespace SecondHandStore.Entities
         public int? length { get; set; }
         public int? width { get; set; }
 
+        public virtual int? SellerId { get; set; }
+        public virtual Seller seller { get; set; }
 
 
     }
