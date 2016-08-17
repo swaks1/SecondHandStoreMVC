@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SecondHandStore.Entities
+namespace SecondHandStoreApp.Models
 {
     public class Seller
     {
+        public int ID { get; set; }
+
         public string TransactionNum { get; set; }
 
         public virtual ICollection<StoreItem> SellingItems { get; set; }

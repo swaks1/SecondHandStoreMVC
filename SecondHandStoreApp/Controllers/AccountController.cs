@@ -151,8 +151,13 @@ namespace SecondHandStoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address,
-                    City = model.City, FullName = model.FullName, PhoneNumber = model.Phone};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone};
+                user.MyUser = new MyUser
+                {
+                    Address = model.Address,
+                    City = model.City,
+                    FullName = model.FullName
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

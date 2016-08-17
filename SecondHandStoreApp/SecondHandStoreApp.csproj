@@ -173,10 +173,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608171442335_iniital.cs" />
+    <Compile Include="Migrations\201608171442335_iniital.Designer.cs">
+      <DependentUpon>201608171442335_iniital.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyUser.cs" />
+    <Compile Include="Models\Seller.cs" />
+    <Compile Include="Models\StoreItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -238,6 +245,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controllers\fonts\glyphicons-halflings-regular.woff" />
@@ -248,14 +256,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SecondHandStore.Entities\SecondHandStore.Entities.csproj">
-      <Project>{ab2a4012-b866-4b58-a8bf-6cb861b617ba}</Project>
-      <Name>SecondHandStore.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SecondHandStore.Repository\SecondHandStore.Repository.csproj">
-      <Project>{5a052fd7-d681-4203-aab8-14a6bf23e010}</Project>
-      <Name>SecondHandStore.Repository</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Migrations\201608171442335_iniital.resx">
+      <DependentUpon>201608171442335_iniital.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
