@@ -10,6 +10,8 @@ namespace SecondHandStoreApp.Models
     {
         public int ID { get; set; }
 
+        public bool IsActive { get; set; }
+
         public string TransactionNum { get; set; }
 
         public virtual ICollection<StoreItem> SellingItems { get; set; }
