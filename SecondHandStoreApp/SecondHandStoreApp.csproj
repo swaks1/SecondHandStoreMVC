@@ -173,9 +173,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IGenericInterface.cs" />
     <Compile Include="Migrations\201608171442335_iniital.cs" />
     <Compile Include="Migrations\201608171442335_iniital.Designer.cs">
       <DependentUpon>201608171442335_iniital.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608171837502_initial2.cs" />
+    <Compile Include="Migrations\201608171837502_initial2.Designer.cs">
+      <DependentUpon>201608171837502_initial2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -185,6 +190,9 @@
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\StoreItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\SellerRepository.cs" />
+    <Compile Include="Repository\StoreItemRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -242,10 +250,29 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\MyUsers\Create.cshtml" />
+    <Content Include="Views\MyUsers\Delete.cshtml" />
+    <Content Include="Views\MyUsers\Details.cshtml" />
+    <Content Include="Views\MyUsers\Edit.cshtml" />
+    <Content Include="Views\MyUsers\Index.cshtml" />
+    <Content Include="Views\Sellers\Create.cshtml" />
+    <Content Include="Views\Sellers\Delete.cshtml" />
+    <Content Include="Views\Sellers\Details.cshtml" />
+    <Content Include="Views\Sellers\Edit.cshtml" />
+    <Content Include="Views\Sellers\Index.cshtml" />
+    <Content Include="Views\StoreItems\Create.cshtml" />
+    <Content Include="Views\StoreItems\Delete.cshtml" />
+    <Content Include="Views\StoreItems\Details.cshtml" />
+    <Content Include="Views\StoreItems\Edit.cshtml" />
+    <Content Include="Views\StoreItems\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\Create.cshtml" />
+    <Content Include="Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Views\ApplicationUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controllers\fonts\glyphicons-halflings-regular.woff" />
@@ -258,6 +285,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608171442335_iniital.resx">
       <DependentUpon>201608171442335_iniital.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608171837502_initial2.resx">
+      <DependentUpon>201608171837502_initial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
