@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SecondHandStoreApp.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -17,6 +18,8 @@ namespace SecondHandStoreApp.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManger;
+
 
         public AccountController()
         {
@@ -49,6 +52,18 @@ namespace SecondHandStoreApp.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManger ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManger = value;
             }
         }
 
@@ -407,6 +422,53 @@ namespace SecondHandStoreApp.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+
+        [AllowAnonymous]
+        public String AddAdmin()
+        {
+            const string name = "admin@admin.com";
+            const string password = "Admin123#";
+            const string roleName = "Admin";
+
+            //Create Role Admin if it does not exist
+            var role = RoleManager.FindByName(roleName);
+            if (role == null)
+            {
+                role = new IdentityRole(roleName);
+                var roleresult = RoleManager.Create(role);
+            }
+
+            var user = UserManager.FindByName(name);
+            if (user == null)
+            {
+                user = new ApplicationUser { UserName = name, Email = name };
+                var result = UserManager.Create(user, password);
+                result = UserManager.SetLockoutEnabled(user.Id, false);
+
+
+                // Add user admin to Role Admin if not already added
+                var rolesForUser = UserManager.GetRoles(user.Id);
+                if (!rolesForUser.Contains(role.Name))
+                {
+                    var resultRole = UserManager.AddToRole(user.Id, role.Name);
+                }
+
+                user.EmailConfirmed = true;
+                UserManager.Update(user);
+
+               
+            }
+
+            return "Admin CREATED SUCCESSFULY";
+
+        }
+
+        [Authorize(Roles = "Admin,User")]
+        public String Test()
+        {
+            return "GG  ";
         }
 
         protected override void Dispose(bool disposing)

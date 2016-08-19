@@ -35,9 +35,9 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public bool MakeSeller(MyUser obj, Seller s)
+        public bool MakeSeller(int id, Seller s)
         {
-            ApplicationUser u = GetById(obj.ID);
+            ApplicationUser u = GetById(id);
 
             u.MyUser.seller = s;
 
@@ -45,10 +45,10 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public List<StoreItem> GetSellingItems(MyUser u)
+        public List<StoreItem> GetSellingItems(int id)
         {
-            ApplicationUser dbU = GetById(u.ID);
-            return _sellerRepository.getSellingItemsForSeller(dbU.My.seller);
+            ApplicationUser dbU = GetById(id);
+            return _sellerRepository.getSellingItemsForSeller(dbU.MyUser.seller);
         }
 
     }

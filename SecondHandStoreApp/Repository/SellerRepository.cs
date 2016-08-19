@@ -48,9 +48,9 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public bool AddSellingItem(Seller obj,StoreItem si)
+        public bool AddSellingItem(int sId,StoreItem si)
         {
-            Seller s = GetById(obj.ID);
+            Seller s = GetById(sId);
             if (s == null)
                 return false;
             s.SellingItems.Add(si);
