@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SecondHandStoreApp.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SecondHandStoreApp.Repository;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -19,7 +20,7 @@ namespace SecondHandStoreApp.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManger;
-
+        private UserRepository _userRepository = new UserRepository();
 
         public AccountController()
         {
@@ -72,6 +73,10 @@ namespace SecondHandStoreApp.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return View("Unauthorized");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -83,6 +88,7 @@ namespace SecondHandStoreApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+           
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -173,9 +179,19 @@ namespace SecondHandStoreApp.Controllers
                     City = model.City,
                     FullName = model.FullName
                 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var role = RoleManager.FindByName("User");
+                    if (role == null)
+                    {
+                        role = new IdentityRole("User");
+                        RoleManager.Create(role);
+                    }
+
+                    UserManager.AddToRole(user.Id, role.Name);
+                    
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -460,6 +476,7 @@ namespace SecondHandStoreApp.Controllers
 
                
             }
+            
 
             return "Admin CREATED SUCCESSFULY";
 
@@ -468,7 +485,25 @@ namespace SecondHandStoreApp.Controllers
         [Authorize(Roles = "Admin,User")]
         public String Test()
         {
+            var user = UserManager.FindById("e137c540-7ad7-48e6-bbfe-38a2c45e22ba");
+
+            user.LockoutEndDateUtc = new DateTime(2016,8,22);
+
+            UserManager.Update(user);
+
+
             return "GG  ";
+           
+
+        }
+
+        
+
+        public ActionResult MakeSeller(int id)
+        {
+            _userRepository.MakeSeller(id,new Seller { TransactionNum="dasd"} );
+
+            return RedirectToAction("ListUsers");
         }
 
         protected override void Dispose(bool disposing)
@@ -519,7 +554,6 @@ namespace SecondHandStoreApp.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
         internal class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri)

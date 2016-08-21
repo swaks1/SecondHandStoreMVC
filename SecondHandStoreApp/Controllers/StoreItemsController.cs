@@ -7,18 +7,34 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SecondHandStoreApp.Models;
+using SecondHandStoreApp.Repository;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace SecondHandStoreApp.Controllers
 {
     public class StoreItemsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private StoreItemRepository _storeItemRepository = new StoreItemRepository();
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         // GET: StoreItems
         public ActionResult Index()
         {
-            var storeItems = db.StoreItems.Include(s => s.seller);
-            return View(storeItems.ToList());
+            //var storeItems = db.StoreItems.Include(s => s.seller);
+            return View(_storeItemRepository.GetAllApproved());
         }
 
         // GET: StoreItems/Details/5
@@ -28,7 +44,7 @@ namespace SecondHandStoreApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StoreItem storeItem = db.StoreItems.Find(id);
+            StoreItem storeItem = _storeItemRepository.GetById((int)id);
             if (storeItem == null)
             {
                 return HttpNotFound();
@@ -39,7 +55,6 @@ namespace SecondHandStoreApp.Controllers
         // GET: StoreItems/Create
         public ActionResult Create()
         {
-            ViewBag.SellerId = new SelectList(db.Sellers, "ID", "TransactionNum");
             return View();
         }
 
@@ -48,16 +63,18 @@ namespace SecondHandStoreApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IsAvailable,DateCreated,ItemName,Price,itemGender,category,subcategoryClothes,subcategoryBags,subcategoryShoes,subcategoryAccessories,Description,condition,material,size,shoeSize,Brand,length,width,SellerId")] StoreItem storeItem)
+        public ActionResult Create([Bind(Include = "ItemName,Price,itemGender,category,subcategoryClothes,subcategoryBags,subcategoryShoes,subcategoryAccessories,Description,condition,material,size,shoeSize,Brand,length,width")] StoreItem storeItem)
         {
             if (ModelState.IsValid)
             {
-                db.StoreItems.Add(storeItem);
-                db.SaveChanges();
+                string UserID = User.Identity.GetUserId();
+                var appUser = _userManager.FindById(UserID);
+                storeItem.SellerId = appUser.MyUser.SellerID;
+
+                _storeItemRepository.Create(storeItem);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SellerId = new SelectList(db.Sellers, "ID", "TransactionNum", storeItem.SellerId);
             return View(storeItem);
         }
 
@@ -68,12 +85,11 @@ namespace SecondHandStoreApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StoreItem storeItem = db.StoreItems.Find(id);
+            StoreItem storeItem = _storeItemRepository.GetById((int)id);
             if (storeItem == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SellerId = new SelectList(db.Sellers, "ID", "TransactionNum", storeItem.SellerId);
             return View(storeItem);
         }
 
@@ -82,15 +98,13 @@ namespace SecondHandStoreApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,IsAvailable,DateCreated,ItemName,Price,itemGender,category,subcategoryClothes,subcategoryBags,subcategoryShoes,subcategoryAccessories,Description,condition,material,size,shoeSize,Brand,length,width,SellerId")] StoreItem storeItem)
+        public ActionResult Edit(StoreItem storeItem)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(storeItem).State = EntityState.Modified;
-                db.SaveChanges();
+                _storeItemRepository.Update(storeItem);
                 return RedirectToAction("Index");
             }
-            ViewBag.SellerId = new SelectList(db.Sellers, "ID", "TransactionNum", storeItem.SellerId);
             return View(storeItem);
         }
 
@@ -101,7 +115,7 @@ namespace SecondHandStoreApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StoreItem storeItem = db.StoreItems.Find(id);
+            StoreItem storeItem = _storeItemRepository.GetById((int)id);
             if (storeItem == null)
             {
                 return HttpNotFound();
@@ -114,19 +128,10 @@ namespace SecondHandStoreApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            StoreItem storeItem = db.StoreItems.Find(id);
-            db.StoreItems.Remove(storeItem);
-            db.SaveChanges();
+            _storeItemRepository.Delete(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
     }
 }

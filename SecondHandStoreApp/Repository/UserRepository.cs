@@ -35,11 +35,12 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public bool MakeSeller(int id, Seller s)
+        public bool MakeSeller(int id, Seller seller)
         {
-            ApplicationUser u = GetById(id);
+            ApplicationUser user = GetById(id);
 
-            u.MyUser.seller = s;
+            user.MyUser.seller = seller;
+            user.MyUser.seller.IsActive = true;
 
             db.SaveChanges();
             return true;

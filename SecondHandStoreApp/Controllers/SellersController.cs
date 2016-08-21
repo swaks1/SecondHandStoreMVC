@@ -7,17 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SecondHandStoreApp.Models;
+using SecondHandStoreApp.Repository;
 
 namespace SecondHandStoreApp.Controllers
 {
     public class SellersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private SellerRepository _sellerRepository = new SellerRepository();
+
 
         // GET: Sellers
         public ActionResult Index()
         {
-            return View(db.Sellers.ToList());
+            return View(_sellerRepository.GetAll());
         }
 
         // GET: Sellers/Details/5
@@ -27,7 +29,7 @@ namespace SecondHandStoreApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seller seller = db.Sellers.Find(id);
+            Seller seller = _sellerRepository.GetById((int)id);
             if (seller == null)
             {
                 return HttpNotFound();
@@ -46,12 +48,12 @@ namespace SecondHandStoreApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IsActive,TransactionNum")] Seller seller)
+        public ActionResult Create([Bind(Include = "TransactionNum")] Seller seller)
         {
             if (ModelState.IsValid)
             {
-                db.Sellers.Add(seller);
-                db.SaveChanges();
+                seller.IsActive = true;
+                _sellerRepository.Create(seller);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +67,7 @@ namespace SecondHandStoreApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seller seller = db.Sellers.Find(id);
+            Seller seller = _sellerRepository.GetById((int)id);
             if (seller == null)
             {
                 return HttpNotFound();
@@ -78,12 +80,11 @@ namespace SecondHandStoreApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,IsActive,TransactionNum")] Seller seller)
+        public ActionResult Edit(Seller seller)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(seller).State = EntityState.Modified;
-                db.SaveChanges();
+                _sellerRepository.Update(seller);
                 return RedirectToAction("Index");
             }
             return View(seller);
@@ -96,7 +97,7 @@ namespace SecondHandStoreApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seller seller = db.Sellers.Find(id);
+            Seller seller = _sellerRepository.GetById((int)id);
             if (seller == null)
             {
                 return HttpNotFound();
@@ -109,19 +110,10 @@ namespace SecondHandStoreApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Seller seller = db.Sellers.Find(id);
-            db.Sellers.Remove(seller);
-            db.SaveChanges();
+            _sellerRepository.Delete(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        
     }
 }

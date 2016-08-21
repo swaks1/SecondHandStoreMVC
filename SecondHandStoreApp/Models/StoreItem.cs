@@ -11,6 +11,7 @@ namespace SecondHandStoreApp.Models
         public int ID { get; set; }
         public bool IsAvailable { get; set; }
         public DateTime DateCreated { get; set; }
+        public bool IsApproved { get; set; }            
 
         public string ItemName { get; set; }
         public int Price { get; set; }

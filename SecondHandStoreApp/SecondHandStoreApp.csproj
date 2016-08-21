@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SellersController.cs" />
@@ -184,8 +185,12 @@
     <Compile Include="Migrations\201608171837502_initial2.Designer.cs">
       <DependentUpon>201608171837502_initial2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608210659066_StoreItePropertyIsApproved.cs" />
+    <Compile Include="Migrations\201608210659066_StoreItePropertyIsApproved.Designer.cs">
+      <DependentUpon>201608210659066_StoreItePropertyIsApproved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyUser.cs" />
@@ -272,6 +277,8 @@
     <Content Include="Views\ApplicationUsers\Details.cshtml" />
     <Content Include="Views\ApplicationUsers\Edit.cshtml" />
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\Account\Unauthorized.cshtml" />
+    <Content Include="Views\Admin\ListUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -290,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608171837502_initial2.resx">
       <DependentUpon>201608171837502_initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608210659066_StoreItePropertyIsApproved.resx">
+      <DependentUpon>201608210659066_StoreItePropertyIsApproved.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
