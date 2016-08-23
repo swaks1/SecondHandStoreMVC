@@ -11,14 +11,17 @@ namespace SecondHandStoreApp.Repository
     public class StoreItemRepository : IGenericInterface<StoreItem>
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        UserRepository _userRepository = new UserRepository();
 
         public bool Create(StoreItem obj)
         {
             obj.DateCreated = DateTime.Now;
             obj.IsAvailable = true;
             obj.IsApproved = false;
+         
             db.StoreItems.Add(obj);
             db.SaveChanges();
+            AddImages(obj.ID, obj.HelperImagePaths);
             return true;
         }
 
@@ -67,6 +70,30 @@ namespace SecondHandStoreApp.Repository
             return GetAll().FindAll(s => s.IsApproved == false && s.IsAvailable == true);
         }
 
+        public List<StoreItem> GetItemsForUser(int id)
+        {
+            var user = _userRepository.GetById(id);
+            return GetAllApproved().FindAll(s => s.SellerId == user.MyUser.SellerID);
+        }
+
+
+        public bool AddImages(int storeItemID, List<string> images)
+        {
+            StoreItem s = GetById(storeItemID);
+            if (s == null)
+                return false;
+           
+            if(s.Images == null)
+            {
+                s.Images = new List<MyImage>();
+            }
+            foreach (string img in images)
+            {
+                s.Images.Add(new MyImage { Image = img, StoreItemId = storeItemID});
+             }
+            db.SaveChanges();
+            return true;
+        }
 
 
 

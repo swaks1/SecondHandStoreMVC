@@ -23,8 +23,8 @@ namespace SecondHandStoreApp.Models
         public SubcategoryShoes subcategoryShoes { get; set; }
         public SubcategoryAccessories subcategoryAccessories { get; set; }
 
-
-        public List<string> photos { get; set; }
+        public virtual ICollection<MyImage> Images { get; set; }
+        public List<string> HelperImagePaths { get; set; }
         public string Description { get; set; }
         public Condition condition { get; set; }
         public Material material { get; set; }

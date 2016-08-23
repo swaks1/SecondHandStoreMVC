@@ -45,8 +45,100 @@ namespace SecondHandStoreApp.Controllers
             return View(users);
         }
 
-        // GET: Admin/DeleteUser/5
-        public ActionResult DeleteUser(int? id)
+        //     USERS
+
+        // GET: Admin/DisableUser/5
+        public ActionResult DisableUser(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = UserManager.FindById(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Admin/DisableUser/5
+        [HttpPost, ActionName("DisableUser")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DisableConfirmedUser(string id)
+        {
+            var user = UserManager.FindById(id);
+            user.LockoutEndDateUtc = DateTime.Now.AddDays(3);
+            UserManager.Update(user);
+            return RedirectToAction("Index");
+        }
+
+        // GET: Admin/DetailsUser/5
+        public ActionResult DetailsUser(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = UserManager.FindById(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //    STORE ITEMS
+
+        public ActionResult ListStoreItems()
+        {
+            var items = _storeItemRepository.GetAll();
+
+            return View(items);
+        }
+
+        // GET: Admin/DisableItem/5
+        public ActionResult DisableItem(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var item = _storeItemRepository.GetById((int)id);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            return View(item);
+        }
+
+        // POST: Admin/DisableItem/5
+        [HttpPost, ActionName("DisableItem")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DisableConfirmedItem(int id)
+        {
+
+            _storeItemRepository.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        // GET: Admin/DetailsItem/5
+        public ActionResult DetailsItem(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var item = _storeItemRepository.GetById((int)id);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            return View(item);
+        }
+
+        // GET: Admin/EditItem/5
+        public ActionResult EditItem(int? id)
         {
             if (id == null)
             {
@@ -60,33 +152,20 @@ namespace SecondHandStoreApp.Controllers
             return View(storeItem);
         }
 
-        // POST: Admin/DeleteUser/5
-        [HttpPost, ActionName("DeleteUser")]
+        // POST: Admin/EditItem/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmedUser(int id)
+        public ActionResult EditItem(StoreItem storeItem)
         {
-            var user = UserManager.FindById("e137c540-7ad7-48e6-bbfe-38a2c45e22ba");
-
-            user.LockoutEndDateUtc = new DateTime(2016, 8, 22);
-
-            UserManager.Update(user);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _storeItemRepository.Update(storeItem);
+                return RedirectToAction("ListStoreItems");
+            }
+            return View(storeItem);
         }
-
-        // GET: Admin/DetailsUser/5
-        //public ActionResult DetailsUser(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    if (storeItem == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(storeItem);
-        //}
 
 
 

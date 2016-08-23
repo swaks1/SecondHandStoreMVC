@@ -10,6 +10,7 @@ using SecondHandStoreApp.Models;
 using SecondHandStoreApp.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.IO;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -63,15 +64,33 @@ namespace SecondHandStoreApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemName,Price,itemGender,category,subcategoryClothes,subcategoryBags,subcategoryShoes,subcategoryAccessories,Description,condition,material,size,shoeSize,Brand,length,width")] StoreItem storeItem)
+        public ActionResult Create(HttpPostedFileBase[] file, StoreItem storeItem)
         {
             if (ModelState.IsValid)
             {
                 string UserID = User.Identity.GetUserId();
-                var appUser = _userManager.FindById(UserID);
+                var appUser = UserManager.FindById(UserID);
+                List<string> listImgPaths = new List<string>();
+                var count = 0;
+                foreach (var image in file)
+                {
+                    count++;
+                    if (image != null && image.ContentLength > 0)
+                    {
+                        string extension = Path.GetExtension(image.FileName);
+                        string path = System.IO.Path.Combine(
+                                               Server.MapPath("~/Images/"), UserID + "_" + count + extension);
+                        listImgPaths.Add(path);
+                        // file is uploaded
+                        image.SaveAs(path);
+                    }
+                }
+
+                storeItem.HelperImagePaths = listImgPaths;
                 storeItem.SellerId = appUser.MyUser.SellerID;
 
                 _storeItemRepository.Create(storeItem);
+
                 return RedirectToAction("Index");
             }
 

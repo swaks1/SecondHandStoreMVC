@@ -189,7 +189,16 @@
     <Compile Include="Migrations\201608210659066_StoreItePropertyIsApproved.Designer.cs">
       <DependentUpon>201608210659066_StoreItePropertyIsApproved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608230854479_MyPhotos.cs" />
+    <Compile Include="Migrations\201608230854479_MyPhotos.Designer.cs">
+      <DependentUpon>201608230854479_MyPhotos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608230908030_MyPhotos2.cs" />
+    <Compile Include="Migrations\201608230908030_MyPhotos2.Designer.cs">
+      <DependentUpon>201608230908030_MyPhotos2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\MyImage.cs" />
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -279,9 +288,16 @@
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
     <Content Include="Views\Account\Unauthorized.cshtml" />
     <Content Include="Views\Admin\ListUsers.cshtml" />
+    <Content Include="Views\Admin\DisableUser.cshtml" />
+    <Content Include="Views\Admin\DetailsUser.cshtml" />
+    <Content Include="Views\Admin\ListStoreItems.cshtml" />
+    <Content Include="Views\Admin\DisableItem.cshtml" />
+    <Content Include="Views\Admin\DetailsItem.cshtml" />
+    <Content Include="Views\Admin\EditItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controllers\fonts\glyphicons-halflings-regular.woff" />
@@ -300,6 +316,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608210659066_StoreItePropertyIsApproved.resx">
       <DependentUpon>201608210659066_StoreItePropertyIsApproved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608230854479_MyPhotos.resx">
+      <DependentUpon>201608230854479_MyPhotos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608230908030_MyPhotos2.resx">
+      <DependentUpon>201608230908030_MyPhotos2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
