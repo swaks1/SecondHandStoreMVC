@@ -8,12 +8,56 @@ using System.Web;
 using System.Web.Mvc;
 using SecondHandStoreApp.Models;
 using SecondHandStoreApp.Repository;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SecondHandStoreApp.Controllers
 {
     public class SellersController : Controller
     {
         private SellerRepository _sellerRepository = new SellerRepository();
+        private UserRepository _userRepository = new UserRepository();
+
+
+        private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManger;
+        private ApplicationSignInManager _signInManager;
+
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManger ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManger = value;
+            }
+        }
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
 
 
         // GET: Sellers
@@ -34,29 +78,6 @@ namespace SecondHandStoreApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(seller);
-        }
-
-        // GET: Sellers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Sellers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TransactionNum")] Seller seller)
-        {
-            if (ModelState.IsValid)
-            {
-                seller.IsActive = true;
-                _sellerRepository.Create(seller);
-                return RedirectToAction("Index");
-            }
-
             return View(seller);
         }
 
@@ -114,6 +135,50 @@ namespace SecondHandStoreApp.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        [HttpGet]
+        [Authorize]
+        public ActionResult MakeSeller()
+        {
+            if (User.IsInRole("Seller"))
+                return RedirectToAction("UnAuthorized", "Account");
+
+            var userId = User.Identity.GetUserId();         
+            var user = UserManager.FindById(userId);
+
+            return View(user); 
+         }
+
+        [HttpPost ,ActionName("MakeSeller")]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult MakeSellerPost(Seller seller)
+        {
+         
+            var userId = User.Identity.GetUserId();          
+            var user = UserManager.FindById(userId);
+
+            var isSaved =  _userRepository.MakeSeller(user.MyUser.ID, seller);
+
+            if (isSaved)
+            {    
+                var role = RoleManager.FindByName("Seller");
+
+                if(role == null)
+                {
+                    role = new IdentityRole("Seller");
+                    RoleManager.Create(role);
+                }
+
+                UserManager.AddToRole(userId, role.Name);
+
+                //usr must re-log so the Roles will take effect
+                HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+            }
+
+            return RedirectToAction("index","StoreItems");
+        }
+
+
     }
 }

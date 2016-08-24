@@ -8,6 +8,11 @@ namespace SecondHandStoreApp.Models
 {
     public class StoreItem
     {
+        public StoreItem()
+        {
+            Images = new List<MyImage>();
+            HelperImagePaths = new List<string>();
+        }
         public int ID { get; set; }
         public bool IsAvailable { get; set; }
         public DateTime DateCreated { get; set; }

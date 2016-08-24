@@ -75,7 +75,7 @@ namespace SecondHandStoreApp.Controllers
         {
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                return View("Unauthorized");
+                return RedirectToAction("UnAuthorized");
             }
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -497,13 +497,9 @@ namespace SecondHandStoreApp.Controllers
 
         }
 
-        
-
-        public ActionResult MakeSeller(int id)
+        public ActionResult UnAuthorized()
         {
-            _userRepository.MakeSeller(id,new Seller { TransactionNum="dasd"} );
-
-            return RedirectToAction("ListUsers");
+            return View("Unauthorized");
         }
 
         protected override void Dispose(bool disposing)

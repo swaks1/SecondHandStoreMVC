@@ -53,6 +53,7 @@ namespace SecondHandStoreApp.Controllers
             return View(storeItem);
         }
 
+        [Authorize(Roles ="Seller")]
         // GET: StoreItems/Create
         public ActionResult Create()
         {
@@ -68,9 +69,18 @@ namespace SecondHandStoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                _storeItemRepository.Create(storeItem);
+
                 string UserID = User.Identity.GetUserId();
                 var appUser = UserManager.FindById(UserID);
                 List<string> listImgPaths = new List<string>();
+
+                //check if folder exist if not create it...
+                var pathToImages = "~/Images/" + storeItem.ItemName + "_" + storeItem.ID + "/";
+                bool exists = Directory.Exists(Server.MapPath(pathToImages));           
+                if (!exists)
+                   Directory.CreateDirectory(Server.MapPath(pathToImages));
+
                 var count = 0;
                 foreach (var image in file)
                 {
@@ -79,7 +89,7 @@ namespace SecondHandStoreApp.Controllers
                     {
                         string extension = Path.GetExtension(image.FileName);
                         string path = System.IO.Path.Combine(
-                                               Server.MapPath("~/Images/"), UserID + "_" + count + extension);
+                                               Server.MapPath(pathToImages), UserID + "_" + count + extension);
                         listImgPaths.Add(path);
                         // file is uploaded
                         image.SaveAs(path);
@@ -89,7 +99,7 @@ namespace SecondHandStoreApp.Controllers
                 storeItem.HelperImagePaths = listImgPaths;
                 storeItem.SellerId = appUser.MyUser.SellerID;
 
-                _storeItemRepository.Create(storeItem);
+                _storeItemRepository.Update(storeItem);
 
                 return RedirectToAction("Index");
             }

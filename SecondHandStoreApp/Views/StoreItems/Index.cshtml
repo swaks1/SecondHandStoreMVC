@@ -8,6 +8,23 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @{ 
+        if (!User.IsInRole("Seller"))
+        {
+            <div class="alert alert-danger">
+                @Html.ActionLink("Become Seller", "MakeSeller", "Sellers")
+            </div>
+
+        }
+        else
+        {
+            <div class="alert alert-success">
+               You already are Seller...start adding items 
+            </div>
+
+        }
+
+    }
 </p>
 <table class="table">
     <tr>

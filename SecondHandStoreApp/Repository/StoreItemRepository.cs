@@ -21,7 +21,13 @@ namespace SecondHandStoreApp.Repository
          
             db.StoreItems.Add(obj);
             db.SaveChanges();
-            AddImages(obj.ID, obj.HelperImagePaths);
+
+            foreach (string img in obj.HelperImagePaths)
+            {
+                obj.Images.Add(new MyImage { Image = img, StoreItemId = obj.ID });
+            }
+
+            db.SaveChanges();
             return true;
         }
 
@@ -45,17 +51,25 @@ namespace SecondHandStoreApp.Repository
 
         public bool Update(StoreItem obj)
         {
-            //var dbObj = GetById(obj.ID);
-            //if (dbObj == null)
-            //    return false;
+            var dbObj = GetById(obj.ID);
+            if (dbObj == null)
+                return false;
 
-            //dbObj.ItemName = obj.ItemName;
-            //dbObj.Price = obj.Price;
-            //dbObj.Description = obj.Description;
-            //dbObj.Brand = obj.Brand;
+            //TODO: falat stvari treba da se dodadat
+            dbObj.ItemName = obj.ItemName;
+            dbObj.Price = obj.Price;
+            dbObj.Description = obj.Description;
+            dbObj.Brand = obj.Brand;
+            dbObj.HelperImagePaths = obj.HelperImagePaths;
+            dbObj.SellerId = obj.SellerId;
 
-            db.Entry(obj).State = EntityState.Modified;
+            foreach (string img in dbObj.HelperImagePaths)
+            {
+                dbObj.Images.Add(new MyImage { Image = img, StoreItemId = dbObj.ID });
+            }
+
             db.SaveChanges();
+
             return true;
         }
 
@@ -75,26 +89,6 @@ namespace SecondHandStoreApp.Repository
             var user = _userRepository.GetById(id);
             return GetAllApproved().FindAll(s => s.SellerId == user.MyUser.SellerID);
         }
-
-
-        public bool AddImages(int storeItemID, List<string> images)
-        {
-            StoreItem s = GetById(storeItemID);
-            if (s == null)
-                return false;
-           
-            if(s.Images == null)
-            {
-                s.Images = new List<MyImage>();
-            }
-            foreach (string img in images)
-            {
-                s.Images.Add(new MyImage { Image = img, StoreItemId = storeItemID});
-             }
-            db.SaveChanges();
-            return true;
-        }
-
 
 
     }
