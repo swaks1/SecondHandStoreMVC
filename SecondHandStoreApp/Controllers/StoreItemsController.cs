@@ -88,9 +88,12 @@ namespace SecondHandStoreApp.Controllers
                     if (image != null && image.ContentLength > 0)
                     {
                         string extension = Path.GetExtension(image.FileName);
+                        string imageName = UserID + "_" + count + extension;
+
                         string path = System.IO.Path.Combine(
-                                               Server.MapPath(pathToImages), UserID + "_" + count + extension);
-                        listImgPaths.Add(path);
+                                               Server.MapPath(pathToImages), imageName);
+
+                        listImgPaths.Add("Images/"+storeItem.ID+"/"+imageName);
                         // file is uploaded
                         image.SaveAs(path);
                     }
@@ -119,6 +122,13 @@ namespace SecondHandStoreApp.Controllers
             {
                 return HttpNotFound();
             }
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            if(!User.IsInRole("Admin") || storeItem.SellerId != user.MyUser.SellerID)
+            {
+                return RedirectToAction("UnAuthorized","Account");
+            }
+
             return View(storeItem);
         }
 
@@ -149,6 +159,14 @@ namespace SecondHandStoreApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            if (!User.IsInRole("Admin") || storeItem.SellerId != user.MyUser.SellerID)
+            {
+                return RedirectToAction("UnAuthorized", "Account");
+            }
+
             return View(storeItem);
         }
 

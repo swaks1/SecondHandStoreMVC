@@ -156,6 +156,7 @@ namespace SecondHandStoreApp.Controllers
          
             var userId = User.Identity.GetUserId();          
             var user = UserManager.FindById(userId);
+            seller.Name = user.MyUser.FullName;
 
             var isSaved =  _userRepository.MakeSeller(user.MyUser.ID, seller);
 

@@ -12,7 +12,14 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.MyUser.FullName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Email)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EmailConfirmed)
@@ -39,7 +46,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.MyUser.FullName)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EmailConfirmed)
@@ -61,8 +74,8 @@
         </td>
 
         <td>
-            @Html.ActionLink("Details", "DetailsUser", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DisableUser", new { id=item.Id }) |
+            @Html.ActionLink("Details", "DetailsUser", new { id=item.Id } ,new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "DisableUser", new { id=item.Id }, new { @class = "btn btn-danger" }) |
         </td>
     </tr>
 }

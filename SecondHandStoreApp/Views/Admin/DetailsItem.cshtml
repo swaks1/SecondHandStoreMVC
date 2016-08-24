@@ -167,5 +167,12 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "EditItem", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "ListStoreItems")
+    @Html.ActionLink("Back to List", "ListStoreItems") 
+
+    @if (!Model.IsApproved)
+    {
+        @Html.ActionLink("Approve this ITEM", "ApproveItem", new { id = Model.ID }, new { @class = "btn btn-success" })
+    }
+      
+
 </p>

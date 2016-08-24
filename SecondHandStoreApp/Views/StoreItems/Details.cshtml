@@ -164,6 +164,13 @@
 
     </dl>
 </div>
+
+<div>
+    @foreach(var item in Model.Images)
+    {
+        <img  src="~/@item.Image" style="width:100px; height:100px;"/>
+    }
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

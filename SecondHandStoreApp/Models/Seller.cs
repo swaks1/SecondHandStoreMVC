@@ -14,6 +14,8 @@ namespace SecondHandStoreApp.Models
 
         public string TransactionNum { get; set; }
 
+        public string Name { get; set; }
+
         public virtual ICollection<StoreItem> SellingItems { get; set; }
     }
 }

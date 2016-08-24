@@ -44,6 +44,7 @@ namespace SecondHandStoreApp.Repository
 
             s.TransactionNum = obj.TransactionNum;
             s.IsActive = obj.IsActive;
+            s.Name = obj.Name;
             db.SaveChanges();
             return true;
         }

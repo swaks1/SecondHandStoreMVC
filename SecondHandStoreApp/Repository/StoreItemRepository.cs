@@ -83,6 +83,13 @@ namespace SecondHandStoreApp.Repository
             return GetAllApproved().FindAll(s => s.SellerId == user.MyUser.SellerID);
         }
 
+        public bool ApproveItem(int id)
+        {
+            var dbItem = GetById(id);
+            dbItem.IsApproved = true;
+            db.SaveChanges();
 
+            return true;
+        }
     }
 }

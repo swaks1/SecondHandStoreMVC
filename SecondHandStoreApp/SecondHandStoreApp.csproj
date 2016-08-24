@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201608230908030_MyPhotos2.Designer.cs">
       <DependentUpon>201608230908030_MyPhotos2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608241134355_addNameToSeller.cs" />
+    <Compile Include="Migrations\201608241134355_addNameToSeller.Designer.cs">
+      <DependentUpon>201608241134355_addNameToSeller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MyImage.cs" />
     <Compile Include="Models\ViewModels.cs" />
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608230908030_MyPhotos2.resx">
       <DependentUpon>201608230908030_MyPhotos2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241134355_addNameToSeller.resx">
+      <DependentUpon>201608241134355_addNameToSeller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

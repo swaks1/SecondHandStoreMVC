@@ -90,9 +90,21 @@ namespace SecondHandStoreApp.Controllers
 
         //    STORE ITEMS
 
-        public ActionResult ListStoreItems()
+        public ActionResult ListStoreItems(string query)
         {
             var items = _storeItemRepository.GetAll();
+
+            switch (query)
+            {
+                case "notApproved":
+                    items = items.Where(i => i.IsApproved == false && i.IsAvailable == true).ToList();
+                    break;
+                case "Avaible":
+                    items = items.Where(i => i.IsAvailable == true).ToList();
+                    break;
+
+            }
+            
 
             return View(items);
         }
@@ -165,6 +177,13 @@ namespace SecondHandStoreApp.Controllers
                 return RedirectToAction("ListStoreItems");
             }
             return View(storeItem);
+        }
+
+        [HttpGet]
+        public ActionResult ApproveItem(int id)
+        {
+            var storeItem = _storeItemRepository.ApproveItem(id);
+            return RedirectToAction("ListStoreItems", new { query = "notApproved" });
         }
 
 

@@ -460,6 +460,12 @@ namespace SecondHandStoreApp.Controllers
             if (user == null)
             {
                 user = new ApplicationUser { UserName = name, Email = name };
+                user.MyUser = new MyUser
+                {
+                    Address = "NO ADRESS",
+                    City = "NO CITY",
+                    FullName = "Admin"
+                };
                 var result = UserManager.Create(user, password);
                 result = UserManager.SetLockoutEnabled(user.Id, false);
 
