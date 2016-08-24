@@ -124,7 +124,7 @@ namespace SecondHandStoreApp.Controllers
             }
             var user = UserManager.FindById(User.Identity.GetUserId());
 
-            if(!User.IsInRole("Admin") || storeItem.SellerId != user.MyUser.SellerID)
+            if(storeItem.SellerId != user.MyUser.SellerID)
             {
                 return RedirectToAction("UnAuthorized","Account");
             }
