@@ -76,7 +76,7 @@ namespace SecondHandStoreApp.Controllers
                 List<string> listImgPaths = new List<string>();
 
                 //check if folder exist if not create it...
-                var pathToImages = "~/Images/" + storeItem.ItemName + "_" + storeItem.ID + "/";
+                var pathToImages = "~/Images/" + storeItem.ID + "/";
                 bool exists = Directory.Exists(Server.MapPath(pathToImages));           
                 if (!exists)
                    Directory.CreateDirectory(Server.MapPath(pathToImages));

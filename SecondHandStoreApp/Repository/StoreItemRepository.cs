@@ -21,13 +21,6 @@ namespace SecondHandStoreApp.Repository
          
             db.StoreItems.Add(obj);
             db.SaveChanges();
-
-            foreach (string img in obj.HelperImagePaths)
-            {
-                obj.Images.Add(new MyImage { Image = img, StoreItemId = obj.ID });
-            }
-
-            db.SaveChanges();
             return true;
         }
 
