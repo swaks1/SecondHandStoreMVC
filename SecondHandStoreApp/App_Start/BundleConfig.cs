@@ -26,6 +26,30 @@ namespace SecondHandStoreApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
+                //TEMPLATE CUSTOM STYLES AND SCRIPTS    
+            bundles.Add(new StyleBundle("~/Content/template-css").Include(
+                   "~/Content/Template/font-awesome.css",
+                   "~/Content/Template/bootstrap.min.css",
+                   "~/Content/Template/animate.min.css",
+                   "~/Content/Template/owl.carousel.css",
+                   "~/Content/Template/owl.theme.css",
+                   "~/Content/Template/style.default.css",
+                   "~/Content/Template/custom.css"
+                     ));
+
+  
+            bundles.Add(new ScriptBundle("~/bundles/template-scripts").Include(
+                   "~/Scripts/Template/jquery-1.11.0.min.js",
+                   "~/Scripts/Template/bootstrap.min.js",
+                   "~/Scripts/Template/waypoints.min.js",
+                   "~/Scripts/Template/modernizr.js",
+                   "~/Scripts/Template/bootstrap-hover-dropdown.js",
+                   "~/Scripts/Template/owl.carousel.min.js",
+                   "~/Scripts/Template/front.js"));
+
+
         }
     }
 }
