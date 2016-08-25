@@ -165,6 +165,15 @@
 
     </dl>
 
+    <div>
+        @foreach (var item in Model.Images)
+        {
+            <img src="~/@item.Image" style="width:100px; height:100px;" />
+        }
+    </div>
+
+
+
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
@@ -174,3 +183,5 @@
         </div>
     }
 </div>
+
+

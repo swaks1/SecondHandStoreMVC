@@ -1,4 +1,7 @@
-﻿@model IEnumerable<SecondHandStoreApp.Models.ApplicationUser>
+﻿@model PagedList.IPagedList<SecondHandStoreApp.Models.ApplicationUser>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "ListUsers";
@@ -6,38 +9,43 @@
 
 <h2>ListUsers</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("ListUsers", "Admin", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MyUser.FullName)
+            @Html.ActionLink("Full Name", "ListUsers", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.ActionLink("Email", "ListUsers", new { sortOrder = ViewBag.EmailSortParm , currentFilter=ViewBag.CurrentFilter })
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
+            Lockout End Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
+            Email Confirmed
         </th>    
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+           Phone Number
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.MyUser.City)
+            City
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.MyUser.Address)
+            Adress
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.MyUser.SellerID)
+           Seller ID
         </th>
            
         <th></th>
@@ -81,3 +89,8 @@
 }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("ListUsers", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -38,11 +39,52 @@ namespace SecondHandStoreApp.Controllers
             return View();
         }
 
-        public ActionResult ListUsers()
+        //tutorial used: http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
+        public ActionResult ListUsers(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.EmailSortParm = sortOrder == "email_asc" ? "email_desc" : "email_asc";
             var users = _userRepository.GetAll();
 
-            return View(users);
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.MyUser.FullName.ToLower().Contains(searchString.ToLower())
+                                       || s.Email.Contains(searchString)).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(s => s.MyUser.FullName).ToList();
+                    break;
+                case "email_asc":
+                    users = users.OrderBy(s => s.Email).ToList();
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(s => s.Email).ToList();
+                    break;
+                default:
+                    users = users.OrderBy(s => s.MyUser.FullName).ToList();
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(users.ToPagedList(pageNumber, pageSize));
+               
         }
 
         //     USERS
