@@ -1,0 +1,146 @@
+﻿@model SecondHandStoreApp.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+    .NavA {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        color: #4fbfa8;
+        text-decoration: none;
+    }
+
+        .NavA:hover {
+            background-color: #eeeeee;
+            text-decoration: none;
+            background-color: #eee;
+        }
+</style>
+
+<div class="container">
+
+    <div class="col-md-12">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home/Index">Home</a>
+            </li>
+            <li>Change Password</li>
+        </ul>
+
+    </div>
+
+    <div class="col-md-3">
+        <!-- *** CUSTOMER MENU ***
+        _________________________________________________________ -->
+        <div class="panel panel-default sidebar-menu">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer section</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="customer-orders.html"><i class="fa fa-list"></i> My orders</a>
+                    </li>
+                    <li>
+                        <a href="customer-wishlist.html"><i class="fa fa-heart"></i> My wishlist</a>
+                    </li>
+                    <li class="active">
+                        <a href="~/Account/Edit"><i class="fa fa-user"></i> My account</a>
+                    </li>
+                    <li >
+                        <a href="~/Manage/ChangePassword"><i class="fa fa-user"></i> Change Password</a>
+                    </li>
+                    <li>
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form-inline" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a class="NavA" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i>Log off</a>
+
+                        }
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.col-md-3 -->
+        <!-- *** CUSTOMER MENU END *** -->
+    </div>
+
+    <div class="col-md-9">
+        <div class="box">
+            <h2>Edit</h2>
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal disabled">
+                    <h4>Personal details</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control disabled", @readonly = "readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MyUser.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MyUser.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MyUser.FullName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MyUser.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MyUser.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MyUser.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MyUser.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MyUser.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MyUser.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="form-group">
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+                      </div>
+        </div>
+
+</div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }

@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using SecondHandStoreApp.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SecondHandStoreApp.Repository;
+using System.Net;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -438,6 +439,38 @@ namespace SecondHandStoreApp.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+
+        // GET: Account/Edit/
+        public ActionResult Edit()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Account/Edit/
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ApplicationUser model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser u = UserManager.FindById(model.Id);
+                u.PhoneNumber = model.PhoneNumber;
+                u.MyUser.FullName = model.MyUser.FullName;
+                u.MyUser.City = model.MyUser.City;
+                u.MyUser.Address = model.MyUser.Address;
+                UserManager.Update(u);
+               // return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
 
