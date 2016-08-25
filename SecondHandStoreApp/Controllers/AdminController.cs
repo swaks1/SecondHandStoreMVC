@@ -185,12 +185,10 @@ namespace SecondHandStoreApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var item = _storeItemRepository.GetById((int)id);
-            var imgsForItem = _myImageRepository.GetImagesForItem((int)id);
             if (item == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.img = imgsForItem;
             return View(item);
         }
 
@@ -222,12 +220,10 @@ namespace SecondHandStoreApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             StoreItem storeItem = _storeItemRepository.GetById((int)id);
-            var imgsForItem = _myImageRepository.GetImagesForItem((int)id);
             if (storeItem == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.img = imgsForItem;
             return View(storeItem);
         }
 
