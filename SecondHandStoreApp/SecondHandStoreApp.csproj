@@ -217,6 +217,7 @@
     <Compile Include="Models\Seller.cs" />
     <Compile Include="Models\StoreItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\MyImageRepository.cs" />
     <Compile Include="Repository\SellerRepository.cs" />
     <Compile Include="Repository\StoreItemRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
@@ -881,6 +882,11 @@
     <Content Include="Views\Admin\EditItem.cshtml" />
     <Content Include="Views\Sellers\MakeSeller.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\MyImages\Create.cshtml" />
+    <Content Include="Views\MyImages\Delete.cshtml" />
+    <Content Include="Views\MyImages\Details.cshtml" />
+    <Content Include="Views\MyImages\Edit.cshtml" />
+    <Content Include="Views\MyImages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

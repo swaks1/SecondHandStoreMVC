@@ -19,6 +19,7 @@ namespace SecondHandStoreApp.Controllers
         private UserRepository _userRepository = new UserRepository();
         private SellerRepository _sellerRepository = new SellerRepository();
         private StoreItemRepository _storeItemRepository = new StoreItemRepository();
+        private MyImageRepository _myImageRepository = new MyImageRepository();
         private ApplicationUserManager _userManager;
 
         public ApplicationUserManager UserManager
@@ -184,12 +185,34 @@ namespace SecondHandStoreApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var item = _storeItemRepository.GetById((int)id);
+            var imgsForItem = _myImageRepository.GetImagesForItem((int)id);
             if (item == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.img = imgsForItem;
             return View(item);
         }
+
+        public ActionResult DeleteImg(int? itemID, int imgID)
+        {
+            if (itemID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var imgToDeletge = _myImageRepository.GetById(imgID);
+            string fullPath = Server.MapPath("~/" + imgToDeletge.Image);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+            _myImageRepository.Delete(imgToDeletge.ID);
+           
+            return RedirectToAction("EditItem", new { id = itemID });
+
+        }
+
+
 
         // GET: Admin/EditItem/5
         public ActionResult EditItem(int? id)
@@ -199,10 +222,12 @@ namespace SecondHandStoreApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             StoreItem storeItem = _storeItemRepository.GetById((int)id);
+            var imgsForItem = _myImageRepository.GetImagesForItem((int)id);
             if (storeItem == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.img = imgsForItem;
             return View(storeItem);
         }
 
