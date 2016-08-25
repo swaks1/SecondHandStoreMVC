@@ -21,10 +21,10 @@
 
         <table>
             <tr>
-                @foreach (var item in ViewBag.img)
+                @foreach (var item in Model.Images)
                 {
                     <td width="150px" height="200px">
-                        <img class="img-responsive img-thumbnail" src="@Url.Content("~/" + item.Image)" alt="" />
+                        <img class="img-responsive img-thumbnail" src="~/@item.Image" alt="" />
                         @Html.ActionLink("Delete Image", "DeleteImg", new { itemID = Model.ID, imgID = item.ID })
                     </td>
                 }
