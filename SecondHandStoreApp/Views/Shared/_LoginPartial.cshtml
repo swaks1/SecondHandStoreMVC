@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+                                                         @*  NE SE KORISTI VO NASIOV TEMPLATE.. se koristi so toa Layout_OLD  *@ 
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
