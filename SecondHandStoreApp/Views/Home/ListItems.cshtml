@@ -226,25 +226,25 @@
                     <div class="flip-container">
                         <div class="flipper">
                             <div class="front">
-                                <a href="~/storeItems/Detail/@item.ID">
+                                <a href="~/StoreItems/Details/@item.ID">
                                     <img src="~/@item.Images.ElementAt(0).Image" alt="" class="img-responsive">
                                 </a>
                             </div>
                             <div class="back">
-                                <a href="~/storeItems/Detail/@item.ID">
+                                <a href="~/StoreItems/Details/@item.ID">
                                     <img src="~/@item.Images.ElementAt(1).Image" alt="" class="img-responsive">
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <a href="~/storeItems/Detail/@item.ID" class="invisible">
+                    <a href="~/StoreItems/Details/@item.ID" class="invisible">
                         <img src="~/@item.Images.ElementAt(0).Image" alt="" class="img-responsive">
                     </a>
                     <div class="text">
-                        <h3><a href="~/storeItems/Detail/@item.ID">@item.ItemName</a></h3>
+                        <h3><a href="~/StoreItems/Details/@item.ID">@item.ItemName</a></h3>
                         <p class="price">@item.Price</p>
                         <p class="buttons">
-                            <a href="~/storeItems/Details/@item.ID" class="btn btn-default">View detail</a>
+                            <a href="~/StoreItems/Details/@item.ID" class="btn btn-default">View detail</a>
                             <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                         </p>
                     </div>
@@ -264,7 +264,7 @@
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                 @Html.PagedListPager(Model, page => Url.Action("ListItems",
-                 new { page, sortOrder = ViewBag.PriceSortParm,
+                 new { page, sortOrder = ViewBag.CurrentSort,
                      currentFilter = ViewBag.CurrentFilter,
                      searchGender = ViewBag.Gender,
                      searchCategory = ViewBag.Category,

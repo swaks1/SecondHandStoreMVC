@@ -87,11 +87,9 @@ namespace SecondHandStoreApp.Models
         [Display(Name = "Full name")]
         public string FullName { get; set; }
 
-        [Required]
         [Display(Name = "Address")]
         public string Address { get; set; }
 
-        [Required]
         [Display(Name = "City")]
         public string City { get; set; }
        
