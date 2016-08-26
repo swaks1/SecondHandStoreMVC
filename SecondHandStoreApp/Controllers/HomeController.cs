@@ -34,6 +34,7 @@ namespace SecondHandStoreApp.Controllers
 
             return View();
         }
+    
 
         public ActionResult ListItems(string sortOrder, string searchString, string searchGender,
             string searchCategory, string searchSubcategory, string currentFilter, int? page)
@@ -44,8 +45,9 @@ namespace SecondHandStoreApp.Controllers
             ViewBag.Gender = searchGender;
             ViewBag.Category = searchCategory;
             ViewBag.Subcategory = searchSubcategory;
-            
-            var items = _storeItemRepository.GetAllApproved();
+
+            //var items = _storeItemRepository.GetAllApproved();
+            IEnumerable<StoreItem> items;
 
             if (searchString != null)
             {
@@ -62,28 +64,30 @@ namespace SecondHandStoreApp.Controllers
                 switch (searchGender)
                 {
                     case "female":
-                    items = items.Where(i => i.itemGender.HasFlag(Gender.FEMALE)).ToList();
-                    break;
-                    case "male":
-                        items = items.Where(i => i.itemGender.HasFlag(Gender.MALE)).ToList();
+                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.FEMALE));
                         break;
+
+                    case "male":
+                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.MALE));
+                        break;
+
                     default:
-                        items = items.Where(i => i.itemGender.HasFlag(Gender.UNGENDERED)).ToList();
+                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.UNGENDERED));
                         break;
                 }
                 switch (searchCategory)
                 {
                     case "clothes":
-                        items = items.Where(i => i.category.HasFlag(Category.Clothes)).ToList();
+                        items = items.Where(i => i.category.HasFlag(Category.Clothes));
                         break;
                     case "shoes":
-                        items = items.Where(i =>i.category.HasFlag(Category.Shoes)).ToList();
+                        items = items.Where(i =>i.category.HasFlag(Category.Shoes));
                         break;
                     case "accessories":
-                        items = items.Where(i => i.category.HasFlag(Category.Accessories)).ToList();
+                        items = items.Where(i => i.category.HasFlag(Category.Accessories));
                         break;
                     case "bags":
-                        items = items.Where(i => i.category.HasFlag(Category.Bags)).ToList();
+                        items = items.Where(i => i.category.HasFlag(Category.Bags));
                         break;
                     default:
                         break;
@@ -92,16 +96,16 @@ namespace SecondHandStoreApp.Controllers
             switch (sortOrder)
             {
                 case "name_desc":
-                    items = items.OrderByDescending(i => i.ItemName).ToList();
+                    items = items.OrderByDescending(i => i.ItemName);
                     break;
                 case "price_asc":
                     items = items.OrderBy(i => i.Price).ToList();
                     break;
                 case "price_desc":
-                    items = items.OrderByDescending(i => i.Price).ToList();
+                    items = items.OrderByDescending(i => i.Price);
                     break;
                 default:
-                    items = items.OrderBy(i => i.ItemName).ToList();
+                    items = items.OrderBy(i => i.ItemName);
                     break;
             }
 
