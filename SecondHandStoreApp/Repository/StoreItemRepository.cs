@@ -36,8 +36,8 @@ namespace SecondHandStoreApp.Repository
         public IQueryable<StoreItem> Filter(Expression<Func<StoreItem,bool>> predicate)
         {
             var result = db.StoreItems
-                    .Where(s => s.IsApproved == true && s.IsAvailable == true)
-                    .Where(predicate);
+                    .Where(predicate)
+                    .Where(s => s.IsApproved == true && s.IsAvailable == true);
             return result;
         }
 
