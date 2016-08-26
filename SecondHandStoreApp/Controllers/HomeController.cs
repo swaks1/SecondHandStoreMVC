@@ -112,6 +112,8 @@ namespace SecondHandStoreApp.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             ViewBag.PageSize = pageSize;
+
+            //return items ToList... or ToPagedList
             return View(items.ToPagedList(pageNumber, pageSize));
 
         }
