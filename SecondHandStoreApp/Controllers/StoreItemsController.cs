@@ -176,7 +176,7 @@ namespace SecondHandStoreApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _storeItemRepository.Delete(id);
+            _storeItemRepository.DisableItem(id);
             return RedirectToAction("Index");
         }
 

@@ -7,90 +7,122 @@
     ViewBag.Title = "ListUsers";
 }
 
-<h2>ListUsers</h2>
+<div class="container">
 
-@using (Html.BeginForm("ListUsers", "Admin", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home/Index">Home</a>
+            </li>
+            <li>
+                <a href="~/Admin/Index">Admin</a> 
+            </li>
+            <li>
+                List Users
+            </li>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Full Name", "ListUsers", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Email", "ListUsers", new { sortOrder = ViewBag.EmailSortParm , currentFilter=ViewBag.CurrentFilter })
-        </th>
+        </ul>
 
-        <th>
-            Lockout End Date
-        </th>
-        <th>
-            Email Confirmed
-        </th>    
-        <th>
-           Phone Number
-        </th>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+            @using (Html.BeginForm("ListUsers", "Admin", FormMethod.Get))
+            {
+                <p>
+                    Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Search" />
+                </p>
+            }
 
-        <th>
-            City
-        </th>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Full Name", "ListUsers", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Email", "ListUsers", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
+                    </th>
 
-        <th>
-            Adress
-        </th>
+                    <th>
+                        Lockout End Date
+                    </th>
+                    <th>
+                        Email Confirmed
+                    </th>
+                    <th>
+                        Phone Number
+                    </th>
 
-        <th>
-           Seller ID
-        </th>
-           
-        <th></th>
-    </tr>
+                    <th>
+                        City
+                    </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MyUser.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
+                    <th>
+                        Adress
+                    </th>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.MyUser.City)
-        </td>
+                    <th>
+                        Seller ID
+                    </th>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.MyUser.Address)
-        </td>
+                    <th></th>
+                </tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.MyUser.SellerID)
-        </td>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MyUser.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
 
-        <td>
-            @Html.ActionLink("Details", "DetailsUser", new { id=item.Id } ,new { @class = "btn btn-info" }) |
-            @Html.ActionLink("Delete", "DisableUser", new { id=item.Id }, new { @class = "btn btn-danger" }) |
-        </td>
-    </tr>
-}
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MyUser.City)
+                        </td>
 
-</table>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MyUser.Address)
+                        </td>
 
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MyUser.SellerID)
+                        </td>
 
-@Html.PagedListPager(Model, page => Url.Action("ListUsers", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        <td>
+                            @Html.ActionLink("Details", "DetailsUser", new { id = item.Id }, new { @class = "btn btn-info" }) |
+                            @if (item.LockoutEndDateUtc == null)
+                            {
+                                @Html.ActionLink("Disable", "DisableUser", new { id = item.Id }, new { @class = "btn btn-danger" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Enable", "EnableUser", new { id = item.Id }, new { @class = "btn btn-success" })
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+            <br />
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("ListUsers", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+        </div>
+    </div>
+</div>
+

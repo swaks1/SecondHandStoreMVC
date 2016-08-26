@@ -4,93 +4,130 @@
     ViewBag.Title = "ListStoreItems";
 }
 
-<h2>ListStoreItems</h2>
-    @Html.ActionLink("Show ALL", "ListStoreItems", new { query = "" }, new { @class = "btn btn-info" })
-    @Html.ActionLink("Show NOT APPROVED", "ListStoreItems", new { query = "notApproved" }, new { @class ="btn btn-info" })
-    @Html.ActionLink("Show  AVAIBLE", "ListStoreItems", new { query = "Avaible" }, new { @class = "btn btn-info" })
-<p>
-</p>
-<table class="table">
-    <tr>
-        <th>
-           Seller ID
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsAvailable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ItemName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsApproved)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>          
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.itemGender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.condition)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Brand)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.seller.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAvailable)
-        </td>
-        <td>
-            @Html.ActionLink(item.ItemName, "DetailsItem", new { id = item.ID })           
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsApproved)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>  
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.itemGender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.condition)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Brand)
-        </td>
-        <td>         
-            @Html.ActionLink("Details", "DetailsItem", new { id=item.ID }, new { @class = "btn btn-info" }) |
-            @Html.ActionLink("DisableItem", "DisableItem", new { id=item.ID }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
+<div class="container">
 
-</table>
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home/Index">Home</a>
+            </li>
+            <li>
+                <a href="~/Admin/Index">Admin</a>
+            </li>
+            <li>
+                List Store Items
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="box">
+
+            @Html.ActionLink("Show ALL", "ListStoreItems", new { query = "" }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Show NOT APPROVED", "ListStoreItems", new { query = "notApproved" }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Show  AVAIBLE", "ListStoreItems", new { query = "Avaible" }, new { @class = "btn btn-info" })
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Seller ID
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsAvailable)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsApproved)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.itemGender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.category)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.condition)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Brand)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.seller.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsAvailable)
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.ItemName, "DetailsItem", new { id = item.ID })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsApproved)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.itemGender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.condition)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "DetailsItem", new { id = item.ID }, new { @class = "btn btn-info" }) |
+                            
+                            @if (item.IsAvailable == true)
+                            {
+                              @Html.ActionLink("DisableItem", "DisableItem", new { id = item.ID }, new { @class = "btn btn-danger" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("EnableItem", "EnableItem", new { id = item.ID }, new { @class = "btn btn-success" })
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts{
     

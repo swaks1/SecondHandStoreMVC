@@ -4,185 +4,212 @@
     ViewBag.Title = "DetailsItem";
 }
 
-<h2>DetailsItem</h2>
+<div class="container">
 
-<div>
-    <h4>StoreItem</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <table>
-            <tr>
-                @foreach (var item in Model.Images)
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home/Index">Home</a>
+            </li>
+            <li>
+                <a href="~/Admin/Index">Admin</a>
+            </li>
+            <li>
+                <a href="~/Admin/ListStoreItems">Items</a>
+            </li>
+            <li>
+               Store Item Details
+            </li>
+
+        </ul>
+
+    </div>
+ 
+    <div class="col-md-12">
+        <div class="box">
+            <div>
+                <h4>StoreItem</h4>
+                <hr />
+               
+                    <table>
+                        <tr>
+                            @foreach (var item in Model.Images)
+                            {
+                                <td width="150px" height="200px">
+                                    <img class="img-responsive img-thumbnail" src="~/@item.Image" alt="" />
+                                </td>
+                            }
+                        </tr>
+
+                    </table>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsAvailable)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IsAvailable)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DateCreated)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsApproved)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IsApproved)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ItemName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ItemName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.itemGender)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.itemGender)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.category)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.category)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.subcategoryClothes)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.subcategoryClothes)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.subcategoryBags)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.subcategoryBags)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.subcategoryShoes)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.subcategoryShoes)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.subcategoryAccessories)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.subcategoryAccessories)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.condition)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.condition)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.material)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.material)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.size)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.size)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.shoeSize)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.shoeSize)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Brand)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Brand)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.length)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.length)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.width)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.width)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "EditItem", new { id = Model.ID }) |
+                @Html.ActionLink("Back to List", "ListStoreItems")
+
+                @if (!Model.IsApproved)
                 {
-                    <td width="150px" height="200px">
-                        <img class="img-responsive img-thumbnail" src="~/@item.Image" alt="" />
-                    </td>
+                    @Html.ActionLink("Approve this ITEM", "ApproveItem", new { id = Model.ID }, new { @class = "btn btn-success" })
                 }
-            </tr>
 
-        </table>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAvailable)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsAvailable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsApproved)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsApproved)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ItemName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.itemGender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.itemGender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.subcategoryClothes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.subcategoryClothes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.subcategoryBags)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.subcategoryBags)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.subcategoryShoes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.subcategoryShoes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.subcategoryAccessories)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.subcategoryAccessories)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.condition)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.condition)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.material)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.material)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.size)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.size)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.shoeSize)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.shoeSize)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.length)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.length)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.width)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.width)
-        </dd>
-
-    </dl>
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "EditItem", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "ListStoreItems")
-
-    @if (!Model.IsApproved)
-    {
-        @Html.ActionLink("Approve this ITEM", "ApproveItem", new { id = Model.ID }, new { @class = "btn btn-success" })
-    }
 
 
-</p>

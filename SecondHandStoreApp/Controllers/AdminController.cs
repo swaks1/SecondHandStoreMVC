@@ -81,7 +81,7 @@ namespace SecondHandStoreApp.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
 
             return View(users.ToPagedList(pageNumber, pageSize));
@@ -113,8 +113,38 @@ namespace SecondHandStoreApp.Controllers
             var user = UserManager.FindById(id);
             user.LockoutEndDateUtc = DateTime.Now.AddDays(3);
             UserManager.Update(user);
-            return RedirectToAction("Index");
+            return RedirectToAction("ListUsers");
         }
+
+
+
+        // GET: Admin/DisableUser/5
+        public ActionResult EnableUser(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = UserManager.FindById(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Admin/DisableUser/5
+        [HttpPost, ActionName("EnableUser")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableUserConfirmed(string id)
+        {
+            var user = UserManager.FindById(id);
+            user.LockoutEndDateUtc = null;
+            UserManager.Update(user);
+            return RedirectToAction("ListUsers");
+        }
+
+
 
         // GET: Admin/DetailsUser/5
         public ActionResult DetailsUser(string id)
@@ -173,8 +203,33 @@ namespace SecondHandStoreApp.Controllers
         public ActionResult DisableConfirmedItem(int id)
         {
 
-            _storeItemRepository.Delete(id);
-            return RedirectToAction("Index");
+            _storeItemRepository.DisableItem(id);
+            return RedirectToAction("ListStoreItems");
+        }
+
+        // GET: Admin/DisableItem/5
+        public ActionResult EnableItem(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var item = _storeItemRepository.GetById((int)id);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            return View(item);
+        }
+
+        // POST: Admin/DisableItem/5
+        [HttpPost, ActionName("EnableItem")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmedItem(int id)
+        {
+
+            _storeItemRepository.EnableItem(id);
+            return RedirectToAction("ListStoreItems");
         }
 
         // GET: Admin/DetailsItem/5

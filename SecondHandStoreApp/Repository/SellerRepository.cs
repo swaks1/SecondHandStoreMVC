@@ -18,7 +18,7 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public bool Delete(int id)
+        public bool DisableItem(int id)
         {
             Seller s = GetById(id);
             s.IsActive = false;

@@ -25,10 +25,18 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public bool Delete(int id)
+        public bool DisableItem(int id)
         {
             StoreItem si = GetById(id);
             si.IsAvailable = false;
+            db.SaveChanges();
+            return true;
+        }
+
+        public bool EnableItem(int id)
+        {
+            StoreItem si = GetById(id);
+            si.IsAvailable = true;
             db.SaveChanges();
             return true;
         }

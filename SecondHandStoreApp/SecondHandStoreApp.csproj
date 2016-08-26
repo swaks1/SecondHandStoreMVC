@@ -343,6 +343,8 @@
     <Content Include="Views\Home\ListItems.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\ShoppingCart.cshtml" />
+    <Content Include="Views\Admin\EnableUser.cshtml" />
+    <Content Include="Views\Admin\EnableItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

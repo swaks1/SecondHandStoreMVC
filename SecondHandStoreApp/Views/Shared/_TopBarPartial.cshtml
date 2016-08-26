@@ -9,7 +9,7 @@
         <div class="col-md-6" data-animate="fadeInDown">
             <ul class="menu">
                 @if (Request.IsAuthenticated)
-                {
+                {                
                     <li>
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm",@class="form-inline"}))
                         {
@@ -21,6 +21,11 @@
 
                         }
                     </li>
+
+                    if (User.IsInRole("Admin"))
+                    {
+                        <li><a href="~/Admin/Index">ADMIN</a></li>
+                    }
                 }
                 else
                 {
