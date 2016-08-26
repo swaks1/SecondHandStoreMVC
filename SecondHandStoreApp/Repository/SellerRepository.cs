@@ -28,6 +28,7 @@ namespace SecondHandStoreApp.Repository
 
         public List<Seller> GetAll()
         {
+           
             return db.Sellers.ToList();
         }
 
