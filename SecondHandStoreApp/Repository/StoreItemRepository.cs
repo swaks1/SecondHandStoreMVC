@@ -33,10 +33,9 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public IEnumerable<StoreItem> Filter(Expression<Func<StoreItem,bool>> predicate)
+        public IQueryable<StoreItem> Filter(Expression<Func<StoreItem,bool>> predicate)
         {
-            var result = db.StoreItems.Where(predicate).AsEnumerable()
-                ;
+            var result = db.StoreItems.Where(predicate);
             return result;
         }
 

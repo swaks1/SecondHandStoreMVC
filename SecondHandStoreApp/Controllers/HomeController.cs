@@ -47,7 +47,7 @@ namespace SecondHandStoreApp.Controllers
             ViewBag.Subcategory = searchSubcategory;
 
             //var items = _storeItemRepository.GetAllApproved();
-            IEnumerable<StoreItem> items;
+            IQueryable<StoreItem> items;
 
             if (searchString != null)
             {
@@ -78,7 +78,7 @@ namespace SecondHandStoreApp.Controllers
                 switch (searchCategory)
                 {
                     case "clothes":
-                        items = items.Where(i => i.category.HasFlag(Category.Clothes));
+                    items = items.Where(i => i.category.HasFlag(Category.Clothes));
                         break;
                     case "shoes":
                         items = items.Where(i =>i.category.HasFlag(Category.Shoes));
@@ -99,7 +99,7 @@ namespace SecondHandStoreApp.Controllers
                     items = items.OrderByDescending(i => i.ItemName);
                     break;
                 case "price_asc":
-                    items = items.OrderBy(i => i.Price).ToList();
+                    items = items.OrderBy(i => i.Price);
                     break;
                 case "price_desc":
                     items = items.OrderByDescending(i => i.Price);
