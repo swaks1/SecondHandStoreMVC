@@ -18,7 +18,7 @@ namespace SecondHandStoreApp.Repository
 
         public ApplicationUser GetById(int id)
         {
-            return GetAll().FirstOrDefault(u => u.MyUser.ID == id);
+            return db.Users.FirstOrDefault(u => u.MyUser.ID == id);
         }
 
         public bool Update(MyUser obj)
@@ -45,12 +45,46 @@ namespace SecondHandStoreApp.Repository
             db.SaveChanges();
             return true;
         }
+        public MyUser GetMyUser(string id)
+        {
+            var dbUser = db.Users.FirstOrDefault(u => u.Id == id);
+
+            return dbUser.MyUser;
+        }
+
+
 
         public List<StoreItem> GetSellingItems(int id)
         {
             ApplicationUser dbU = GetById(id);
-            return _sellerRepository.getSellingItemsForSeller(dbU.MyUser.seller);
+            return _sellerRepository.getSellingItemsForSeller(dbU.MyUser.seller.ID);
         }
+
+        public bool AddItemToShopingCart(string userId, int itemId)
+        {
+            ApplicationUser dbUser = db.Users.FirstOrDefault(u => u.Id == userId);
+            StoreItem dbUtem = db.StoreItems.FirstOrDefault(s => s.ID == itemId);
+            dbUser.MyUser.shopingCart.Add(dbUtem);
+
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public bool DeleteItemFromShopingCart(string userId, int itemId)
+        {
+            ApplicationUser dbUser = db.Users.FirstOrDefault(u => u.Id == userId);
+            StoreItem dbUtem = db.StoreItems.FirstOrDefault(s => s.ID == itemId);
+            dbUser.MyUser.shopingCart.Remove(dbUtem);
+
+            db.SaveChanges();
+
+            return true;
+        }
+
+      
+
+
 
     }
 }

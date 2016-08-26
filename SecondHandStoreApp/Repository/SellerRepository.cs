@@ -60,9 +60,9 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
-        public List<StoreItem> getSellingItemsForSeller(Seller obj)
+        public List<StoreItem> getSellingItemsForSeller(int id)
         {
-            return GetById(obj.ID).SellingItems.ToList();
+            return GetById(id).SellingItems.ToList();
         }
 
 

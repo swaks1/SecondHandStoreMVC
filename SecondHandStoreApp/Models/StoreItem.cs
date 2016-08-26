@@ -43,6 +43,8 @@ namespace SecondHandStoreApp.Models
         public virtual int? SellerId { get; set; }
         public virtual Seller seller { get; set; }
 
+        public virtual ICollection<MyUser> UsersCarts { get; set; }
+
 
     }
 
