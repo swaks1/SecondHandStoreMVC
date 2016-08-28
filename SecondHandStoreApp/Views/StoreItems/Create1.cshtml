@@ -118,8 +118,75 @@
                         </div>
                         <!-- /.row -->
 
+                        <div class="hidden" style="display: none;">
+                            @* TODO: hidden images to render in step 2 *@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-                    </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.condition, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.condition, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.condition, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.material, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.material, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.material, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group size">
+                                @Html.LabelFor(model => model.size, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.size, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group shoeSize">
+                                @Html.LabelFor(model => model.shoeSize, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(model => model.shoeSize, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.shoeSize, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.length, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.length, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.length, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.width, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.width, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.width, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        </div>
 
                     <div class="box-footer">
                         <div class="pull-left">
