@@ -152,7 +152,7 @@ namespace SecondHandStoreApp.Controllers
         [HttpPost, ActionName("MakeSeller")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult MakeSellerPost(Seller seller, ApplicationUser model, int? itemId, int? storeItemId)
+        public ActionResult MakeSellerPost(ApplicationUser model, int? itemId, int? storeItemId)
         {
 
             var userId = User.Identity.GetUserId();
@@ -163,25 +163,32 @@ namespace SecondHandStoreApp.Controllers
             user.MyUser.Address = model.MyUser.Address;
             UserManager.Update(user);
 
-            seller.Name = user.MyUser.FullName;
-
-            var isSaved = _userRepository.MakeSeller(user.MyUser.ID, seller);
-
-            if (isSaved)
+            if (user.MyUser.SellerID != null)
             {
-                var role = RoleManager.FindByName("Seller");
+                _userRepository.UpdateSeller(user.MyUser.ID, model.MyUser.seller.TransactionNum);
+            }
+            else
+            {
+                
+                var isSaved = _userRepository.MakeSeller(user.MyUser.ID, model.MyUser.seller.TransactionNum, user.MyUser.FullName);
+                _storeItemRepository.UpdateStep3((int)(itemId ?? storeItemId), user.MyUser.seller.ID);
 
-                if (role == null)
+                if (isSaved)
                 {
-                    role = new IdentityRole("Seller");
-                    RoleManager.Create(role);
+                    var role = RoleManager.FindByName("Seller");
+
+                    if (role == null)
+                    {
+                        role = new IdentityRole("Seller");
+                        RoleManager.Create(role);
+                    }
+
+                    UserManager.AddToRole(userId, role.Name);
+
+                    //usr must re-log so the Roles will take effect
+                    HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 }
-
-                UserManager.AddToRole(userId, role.Name);
-
-                //usr must re-log so the Roles will take effect
-                HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-                SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
             }
 
             return RedirectToAction("CreateCheck", "StoreItems", new { storeItemId = itemId ?? storeItemId});
