@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,16 @@ namespace SecondHandStoreApp.Models
         public int ID { get; set; }
         public bool IsAvailable { get; set; }
         public DateTime DateCreated { get; set; }
-        public bool IsApproved { get; set; }            
+        public bool IsApproved { get; set; }
 
+        [Required]
         public string ItemName { get; set; }
+        [Required]
         public int Price { get; set; }
 
+        [Required]
         public Gender itemGender { get; set; }
+        [Required]
         public Category category { get; set; }
         public SubcategoryClothes subcategoryClothes { get; set; }
         public SubcategoryBags subcategoryBags { get; set; }

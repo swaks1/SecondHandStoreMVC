@@ -17,6 +17,7 @@ namespace SecondHandStoreApp.Controllers
     public class SellersController : Controller
     {
         private SellerRepository _sellerRepository = new SellerRepository();
+        private StoreItemRepository _storeItemRepository = new StoreItemRepository();
         private UserRepository _userRepository = new UserRepository();
 
 
@@ -137,34 +138,40 @@ namespace SecondHandStoreApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult MakeSeller()
+        public ActionResult MakeSeller(int? itemId, int? storeItemId)
         {
-            if (User.IsInRole("Seller"))
-                return RedirectToAction("UnAuthorized", "Account");
-
+            
+            if (storeItemId == null && User.IsInRole("Seller"))
+                return RedirectToAction("CreateCheck", "StoreItems", new { storeItemId = itemId }); ;
             var userId = User.Identity.GetUserId();         
             var user = UserManager.FindById(userId);
-
+            ViewBag.stoteItemID = itemId ?? storeItemId;
             return View(user); 
          }
 
-        [HttpPost ,ActionName("MakeSeller")]
+        [HttpPost, ActionName("MakeSeller")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult MakeSellerPost(Seller seller)
+        public ActionResult MakeSellerPost(Seller seller, ApplicationUser model, int? itemId, int? storeItemId)
         {
-         
-            var userId = User.Identity.GetUserId();          
+
+            var userId = User.Identity.GetUserId();
             var user = UserManager.FindById(userId);
+            user.PhoneNumber = model.PhoneNumber;
+            user.MyUser.FullName = model.MyUser.FullName;
+            user.MyUser.City = model.MyUser.City;
+            user.MyUser.Address = model.MyUser.Address;
+            UserManager.Update(user);
+
             seller.Name = user.MyUser.FullName;
 
-            var isSaved =  _userRepository.MakeSeller(user.MyUser.ID, seller);
+            var isSaved = _userRepository.MakeSeller(user.MyUser.ID, seller);
 
             if (isSaved)
-            {    
+            {
                 var role = RoleManager.FindByName("Seller");
 
-                if(role == null)
+                if (role == null)
                 {
                     role = new IdentityRole("Seller");
                     RoleManager.Create(role);
@@ -177,8 +184,10 @@ namespace SecondHandStoreApp.Controllers
                 SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
             }
 
-            return RedirectToAction("index","StoreItems");
+            return RedirectToAction("CreateCheck", "StoreItems", new { storeItemId = itemId ?? storeItemId});
         }
+
+       
 
 
     }

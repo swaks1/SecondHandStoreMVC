@@ -53,33 +53,76 @@ namespace SecondHandStoreApp.Controllers
             return View(storeItem);
         }
 
-        [Authorize(Roles ="Seller")]
-        // GET: StoreItems/Create
-        public ActionResult Create()
+        [Authorize(Roles ="User")]
+        // GET: StoreItems/Create1
+        public ActionResult Create1(int? id)
         {
+            if (id != null || id == 0)
+            {
+                StoreItem storeItem = _storeItemRepository.GetById((int)id);
+                return View(storeItem);
+            }
             return View();
         }
 
-        // POST: StoreItems/Create
+        // POST: StoreItems/Create1
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HttpPostedFileBase[] file, StoreItem storeItem)
+        public ActionResult Create1(StoreItem storeItem, int? id)
         {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
-                _storeItemRepository.Create(storeItem);
+                // this is null always ??
+                if (id != null)
+                {
+                    _storeItemRepository.Update(storeItem);
+                    return RedirectToAction("Create2", new { id = storeItem.ID });
+                }
 
                 string UserID = User.Identity.GetUserId();
                 var appUser = UserManager.FindById(UserID);
+              
+                storeItem.SellerId = appUser.MyUser.SellerID;
+                _storeItemRepository.Create(storeItem);
+                return RedirectToAction("Create2", new { id = storeItem.ID});
+            }
+
+            return View(storeItem);
+        }
+
+        [Authorize(Roles = "User")]
+        // GET: StoreItems/Create2/4
+        public ActionResult Create2(int? id)
+        {
+            if (id == null || id == 0)
+                return RedirectToAction("Create1");
+            var item = _storeItemRepository.GetById((int)id);
+            if(item == null)
+                return RedirectToAction("Create1");
+            return View(item);
+        }
+
+        // POST: StoreItems/Create2
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create2(HttpPostedFileBase[] file, StoreItem storeItem)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            if (ModelState.IsValid)
+            {
+                string UserID = User.Identity.GetUserId();
                 List<string> listImgPaths = new List<string>();
 
                 //check if folder exist if not create it...
                 var pathToImages = "~/Images/" + storeItem.ID + "/";
-                bool exists = Directory.Exists(Server.MapPath(pathToImages));           
+                bool exists = Directory.Exists(Server.MapPath(pathToImages));
                 if (!exists)
-                   Directory.CreateDirectory(Server.MapPath(pathToImages));
+                    Directory.CreateDirectory(Server.MapPath(pathToImages));
 
                 var count = 0;
                 foreach (var image in file)
@@ -93,22 +136,36 @@ namespace SecondHandStoreApp.Controllers
                         string path = System.IO.Path.Combine(
                                                Server.MapPath(pathToImages), imageName);
 
-                        listImgPaths.Add("Images/"+storeItem.ID+"/"+imageName);
+                        listImgPaths.Add("Images/" + storeItem.ID + "/" + imageName);
                         // file is uploaded
                         image.SaveAs(path);
                     }
                 }
 
                 storeItem.HelperImagePaths = listImgPaths;
-                storeItem.SellerId = appUser.MyUser.SellerID;
 
                 _storeItemRepository.Update(storeItem);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("MakeSeller", "Sellers", new { itemId = storeItem.ID });
             }
 
             return View(storeItem);
         }
+
+        [Authorize(Roles = "User")]
+        // GET: StoreItems/CreateCheck/4
+        public ActionResult CreateCheck(int? storeItemId)
+        {
+            if (storeItemId == null || storeItemId == 0)
+                return RedirectToAction("Create1");
+            var item = _storeItemRepository.GetById((int)storeItemId);
+            if (item == null)
+                return RedirectToAction("Create1");
+            ViewBag.stoteItemID = storeItemId;
+            return View(item);
+        }
+
+
 
         // GET: StoreItems/Edit/5
         public ActionResult Edit(int? id)

@@ -4,37 +4,107 @@
     ViewBag.Title = "MakeSeller";
 }
 
-<h2>MakeSeller</h2>
+<div class="container">
 
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Seller</h4>
-        <hr />
-        <span>Welcome @Model.MyUser.FullName</span><br />
-        <span>Enter Transaction number so u will be seller </span><br />
-
-        <div class="form-group">
-            <label class="col-md-2" for="tansactionNumInput">Transaction number: </label>
-            <div class="col-md-10">
-                <input class="form-control" type="text" name="TransactionNum" id="tansactionNumInput"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home/Index">Home</a>
+            </li>
+            <li>Seller info</li>
+        </ul>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="col-md-12" id="checkout">
+
+        <div class="box">
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <h4>Bank account and seller info</h4>
+
+                <div class="form-horizontal">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="">
+                            <a href="~/StoreItems/Create1/@ViewBag.stoteItemID"><i class="fa fa-map-marker"></i><br>Item</a>
+                        </li>
+                        <li class="">
+                            <a href="~/StoreItems/Create2/@ViewBag.stoteItemID"><i class="fa fa-truck"></i><br>Details</a>
+                        </li>
+                        <li class="active">
+                            <a href="#"><i class="fa fa-money"></i><br> Bank account</a>
+                        </li>
+                        <li class="disabled">
+                            <a href="#"><i class="fa fa-eye"></i><br>Check & done</a>
+                        </li>
+                    </ul>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="content">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-2" for="tansactionNumInput">Transaction number: </label>
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="TransactionNum" id="tansactionNumInput" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MyUser.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.MyUser.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MyUser.Address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MyUser.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.MyUser.City, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MyUser.City, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                        <!-- /.row -->
+
+
+                    </div>
+
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="~/StoreItems/Create2/@ViewBag.stoteItemID" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back</a>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">
+                                Continue<i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.col-md-12 -->
+
+
 </div>
+<!-- /.container -->
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

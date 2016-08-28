@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201608261144151_shopCart.Designer.cs">
       <DependentUpon>201608261144151_shopCart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608271507555_idk.cs" />
+    <Compile Include="Migrations\201608271507555_idk.Designer.cs">
+      <DependentUpon>201608271507555_idk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MyImage.cs" />
     <Compile Include="Models\ViewModels.cs" />
@@ -317,7 +321,7 @@
     <Content Include="Views\Sellers\Details.cshtml" />
     <Content Include="Views\Sellers\Edit.cshtml" />
     <Content Include="Views\Sellers\Index.cshtml" />
-    <Content Include="Views\StoreItems\Create.cshtml" />
+    <Content Include="Views\StoreItems\Create1.cshtml" />
     <Content Include="Views\StoreItems\Delete.cshtml" />
     <Content Include="Views\StoreItems\Details.cshtml" />
     <Content Include="Views\StoreItems\Edit.cshtml" />
@@ -345,6 +349,8 @@
     <Content Include="Views\Users\ShoppingCart.cshtml" />
     <Content Include="Views\Admin\EnableUser.cshtml" />
     <Content Include="Views\Admin\EnableItem.cshtml" />
+    <Content Include="Views\StoreItems\Create2.cshtml" />
+    <Content Include="Views\StoreItems\CreateCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -378,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608261144151_shopCart.resx">
       <DependentUpon>201608261144151_shopCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608271507555_idk.resx">
+      <DependentUpon>201608271507555_idk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

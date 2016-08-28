@@ -44,8 +44,8 @@ namespace SecondHandStoreApp.Repository
         public IQueryable<StoreItem> Filter(Expression<Func<StoreItem,bool>> predicate)
         {
             var result = db.StoreItems
-                    .Where(predicate)
-                    .Where(s => s.IsApproved == true && s.IsAvailable == true);
+                    .Where(s => s.IsApproved == true && s.IsAvailable == true)
+                    .Where(predicate);
             return result;
         }
 
@@ -72,7 +72,6 @@ namespace SecondHandStoreApp.Repository
             dbObj.SellerId = obj.SellerId;
             dbObj.category = obj.category;
             dbObj.condition = obj.condition;
-            dbObj.DateCreated = obj.DateCreated;
             dbObj.HelperImagePaths = obj.HelperImagePaths;
             dbObj.IsApproved = obj.IsApproved;
             dbObj.IsAvailable = obj.IsAvailable;

@@ -1,0 +1,208 @@
+﻿@model SecondHandStoreApp.Models.StoreItem
+@{
+    ViewBag.Title = "CreateCheck";
+}
+
+<div class="container">
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home">Home</a>
+            </li>
+            <li>Checkout - Order review</li>
+        </ul>
+    </div>
+
+    <div class="col-md-9" id="checkout">
+
+        <div class="box">
+                <h1>Checkout - Order review</h1>
+                <ul class="nav nav-pills nav-justified">
+                    <li class="">
+                        <a href="~/StoreItems/Create1/@ViewBag.stoteItemID"><i class="fa fa-map-marker"></i><br>Item</a>
+                    </li>
+                    <li class="">
+                        <a href="~/StoreItems/Create2/@ViewBag.stoteItemID"><i class="fa fa-truck"></i><br>Details</a>
+                    </li>
+                    <li class="">
+                        <a href="~/Sellers/MakeSeller?storeItemId=@ViewBag.stoteItemID"><i class="fa fa-money"></i><br> Bank account</a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-eye"></i><br>Check & done</a>
+                    </li>
+                </ul>
+
+                <div class="content">
+                    <table>
+                        <tr>
+                            @foreach (var item in Model.Images)
+                            {
+                                <td width="150px" height="200px">
+                                    <img class="img-responsive img-thumbnail" src="~/@item.Image" alt="" />
+                                </td>
+                            }
+                        </tr>
+
+                    </table>
+                    <dl class="dl-horizontal">
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ItemName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ItemName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Price)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.itemGender)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.itemGender)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.category)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.category)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.subcategoryClothes)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.subcategoryClothes)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.subcategoryBags)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.subcategoryBags)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.subcategoryShoes)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.subcategoryShoes)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.subcategoryAccessories)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.subcategoryAccessories)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.condition)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.condition)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.material)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.material)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.size)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.size)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.shoeSize)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.shoeSize)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Brand)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Brand)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.length)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.length)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.width)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.width)
+                        </dd>
+
+                    </dl>
+                    <div class="">
+                        <a href="~/StoreItems/Create1/@ViewBag.stoteItemID" class="btn btn-default">Edit item.</a>
+                    </div>
+                    <div class="">
+                        <a href="~/Sellers/MakeSeller?storeItemId=@ViewBag.stoteItemID" class="btn btn-default">See info</a>
+                    </div>
+                </div>
+                <!-- /.content -->
+
+                <div class="box-footer">
+                    <div class="pull-left">
+                        <a href="~/Sellers/MakeSeller?storeItemId=@ViewBag.stoteItemID" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to Payment method</a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="~/Home" class="btn btn-primary">
+                            Finish<i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.col-md-12 -->
+
+   
+
+</div>
+<!-- /.container -->
