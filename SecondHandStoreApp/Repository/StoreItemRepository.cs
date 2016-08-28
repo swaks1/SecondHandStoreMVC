@@ -69,17 +69,13 @@ namespace SecondHandStoreApp.Repository
             dbObj.Price = obj.Price;
             dbObj.Description = obj.Description;
             dbObj.Brand = obj.Brand;
-            dbObj.SellerId = obj.SellerId;
             dbObj.category = obj.category;
             dbObj.condition = obj.condition;
             dbObj.HelperImagePaths = obj.HelperImagePaths;
-            dbObj.IsApproved = obj.IsApproved;
-            dbObj.IsAvailable = obj.IsAvailable;
             dbObj.itemGender = obj.itemGender;
             dbObj.ItemName = obj.ItemName;
             dbObj.length = obj.length;
             dbObj.material = obj.material;
-            dbObj.SellerId = obj.SellerId;
             dbObj.shoeSize = obj.shoeSize;
             dbObj.size = obj.size;
             dbObj.subcategoryAccessories = obj.subcategoryAccessories;
@@ -98,6 +94,61 @@ namespace SecondHandStoreApp.Repository
 
             return true;
         }
+
+        public bool UpdateStep1(StoreItem obj)
+        {
+            var dbObj = GetById(obj.ID);
+            if (dbObj == null)
+                return false;
+
+            dbObj.ItemName = obj.ItemName;
+            dbObj.Price = obj.Price;
+            dbObj.category = obj.category;
+            dbObj.itemGender = obj.itemGender;
+            dbObj.subcategoryAccessories = obj.subcategoryAccessories;
+            dbObj.subcategoryBags = obj.subcategoryBags;
+            dbObj.subcategoryClothes = obj.subcategoryClothes;
+            dbObj.subcategoryShoes = obj.subcategoryShoes;
+
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public bool UpdateStep2(StoreItem obj)
+        {
+            var dbObj = GetById(obj.ID);
+            if (dbObj == null)
+                return false;
+
+            dbObj.Description = obj.Description;
+            dbObj.Brand = obj.Brand;
+            dbObj.condition = obj.condition;
+            dbObj.material = obj.material;
+            dbObj.shoeSize = obj.shoeSize;
+            dbObj.size = obj.size;
+            dbObj.width = obj.width;
+            dbObj.length = obj.length;
+
+            foreach (string img in obj.HelperImagePaths)
+            {
+                dbObj.Images.Add(new MyImage { Image = img, StoreItemId = dbObj.ID });
+            }
+            db.SaveChanges();
+            return true;
+        }
+
+        public bool UpdateStep3(int storeItemID, int sellerID)
+        {
+            var dbObj = GetById(storeItemID);
+            if (dbObj == null)
+                return false;
+            dbObj.SellerId = sellerID;      
+            db.SaveChanges();
+            return true;
+        }
+
+
 
         public List<StoreItem> GetAllApproved()
         {

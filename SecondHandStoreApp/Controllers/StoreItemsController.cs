@@ -57,9 +57,13 @@ namespace SecondHandStoreApp.Controllers
         // GET: StoreItems/Create1
         public ActionResult Create1(int? id)
         {
-            if (id != null || id == 0)
+            if (id != null)
             {
                 StoreItem storeItem = _storeItemRepository.GetById((int)id);
+                string UserID = User.Identity.GetUserId();
+                var appUser = UserManager.FindById(UserID);
+                if (appUser.MyUser.SellerID != null && appUser.MyUser.SellerID != storeItem.SellerId)
+                    return View();
                 return View(storeItem);
             }
             return View();
@@ -75,10 +79,9 @@ namespace SecondHandStoreApp.Controllers
             var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
-                // this is null always ??
                 if (id != null)
                 {
-                    _storeItemRepository.Update(storeItem);
+                    _storeItemRepository.UpdateStep1(storeItem);
                     return RedirectToAction("Create2", new { id = storeItem.ID });
                 }
 
@@ -101,6 +104,10 @@ namespace SecondHandStoreApp.Controllers
                 return RedirectToAction("Create1");
             var item = _storeItemRepository.GetById((int)id);
             if(item == null)
+                return RedirectToAction("Create1");
+            string UserID = User.Identity.GetUserId();
+            var appUser = UserManager.FindById(UserID);
+            if (appUser.MyUser.SellerID != item.SellerId)
                 return RedirectToAction("Create1");
             return View(item);
         }
@@ -144,7 +151,7 @@ namespace SecondHandStoreApp.Controllers
 
                 storeItem.HelperImagePaths = listImgPaths;
 
-                _storeItemRepository.Update(storeItem);
+                _storeItemRepository.UpdateStep2(storeItem);
 
                 return RedirectToAction("MakeSeller", "Sellers", new { itemId = storeItem.ID });
             }
