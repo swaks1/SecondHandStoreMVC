@@ -12,6 +12,8 @@ using SecondHandStoreApp.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SecondHandStoreApp.Repository;
 using System.Net;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -22,6 +24,7 @@ namespace SecondHandStoreApp.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManger;
         private UserRepository _userRepository = new UserRepository();
+        private StoreItemRepository _storeItemRepository = new StoreItemRepository();
 
         public AccountController()
         {
@@ -475,7 +478,7 @@ namespace SecondHandStoreApp.Controllers
 
 
         [AllowAnonymous]
-        public String AddAdmin()
+        public ActionResult AddAdmin()
         {
             const string name = "admin@admin.com";
             const string password = "Admin123#";
@@ -515,27 +518,131 @@ namespace SecondHandStoreApp.Controllers
 
                
             }
-            
 
-            return "Admin CREATED SUCCESSFULY";
+
+            //return "Admin CREATED SUCCESSFULY";
+            return RedirectToAction("PopulateDatabase");
 
         }
 
-        [Authorize(Roles = "Admin,User")]
-        public String Test()
+        [AllowAnonymous]
+        public ActionResult PopulateDataBase()
         {
-            var user = UserManager.FindById("e137c540-7ad7-48e6-bbfe-38a2c45e22ba");
+            var db = new ApplicationDbContext();
+            if (db.Users.Count() == 1)
+            {
+               
+                string name1 = "r@r.com";
+                string password1 = "riste123";
 
-            user.LockoutEndDateUtc = new DateTime(2016,8,22);
+                string name2 = "m@m.com";
+                string password2 = "marija123";
 
+                string name3 = "i@i.com";
+                string password3 = "igor123";
+
+                string roleName = "User";
+
+                //Create Role User if it does not exist
+                var role = new IdentityRole(roleName);
+                var roleresult = RoleManager.Create(role);
+
+                //register the user and make it seller and add some Items
+                var appUser1 = RegisterUser(name1, password1, role);
+                var appUser2 = RegisterUser(name2, password2, role);
+                var appUser3 = RegisterUser(name3, password3, role);
+
+                return Json("Database Populated SUCCESSFULY...", JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        public ApplicationUser RegisterUser(string username,string password,IdentityRole role) 
+        {
+            var user = new ApplicationUser { UserName = username, Email = username };
+            user.MyUser = new MyUser
+            {
+                Address = "SomeWhere1",
+                City = "SomeWhereCity1",
+                FullName = username + " " + username
+            };
+            var result = UserManager.Create(user, password);
+
+            // Add user  to Role User if not already added
+            var resultRole = UserManager.AddToRole(user.Id, role.Name);
             UserManager.Update(user);
 
-
-            return "GG  ";
-           
-
+            user = MakeSeller(user);
+            addItemsToUser(user);
+            return user;
         }
 
+        public ApplicationUser MakeSeller(ApplicationUser user)
+        {
+        
+            var isSaved = _userRepository.MakeSeller(user.MyUser.ID, "transactionNum12345", user.MyUser.FullName);
+
+            var role = RoleManager.FindByName("Seller");
+            if (role == null)
+            {
+                role = new IdentityRole("Seller");
+                RoleManager.Create(role);
+            }
+
+            UserManager.AddToRole(user.Id, role.Name);
+
+            user = _userRepository.GetById(user.MyUser.ID);
+
+            return user;        
+        }
+
+        public void addItemsToUser(ApplicationUser user)
+        {
+            var random = new Random();
+            for (int j = 0; j < 3; j++)
+            {
+                var storeItem = new StoreItem
+                {
+                    Brand = "someBrand",
+                    condition = Condition.LikeNew,
+                    Description = "Something to describe here",
+                    category = Category.Bags,
+                    itemGender = random.Next(50) > 25 ? Gender.MALE : Gender.FEMALE,
+                    ItemName = "Item " + user.UserName,
+                    Price = 99 + random.Next(1200),
+                    SellerId = user.MyUser.seller.ID,
+
+                };
+                _storeItemRepository.Create(storeItem);
+                _storeItemRepository.ApproveItem(storeItem.ID);
+
+                List<string> listImgPaths = new List<string>();
+
+                //check if folder exist if not create it...
+                var pathToImages = "~/Images/" + storeItem.ID + "/";
+                bool exists = Directory.Exists(Server.MapPath(pathToImages));
+                if (!exists)
+                    Directory.CreateDirectory(Server.MapPath(pathToImages));
+
+                var count = 0;
+                for (int i = 0; i < 3; i++)
+                {
+                    count++;
+                    string extension = ".jpg";
+                    string imageName = storeItem.ID + "_" + count + extension;
+                    listImgPaths.Add("Images/" + storeItem.ID + "/" + imageName);
+                }
+
+                storeItem.HelperImagePaths = listImgPaths;
+
+                _storeItemRepository.UpdateStep2(storeItem);
+            }
+        }
+
+
+
+
+        [AllowAnonymous]
         public ActionResult UnAuthorized()
         {
             return View("Unauthorized");
