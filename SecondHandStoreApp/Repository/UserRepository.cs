@@ -63,6 +63,12 @@ namespace SecondHandStoreApp.Repository
             return dbUser.MyUser;
         }
 
+        public ApplicationUser GetAppUser(string id)
+        {
+            var dbUser = db.Users.FirstOrDefault(u => u.Id == id);
+
+            return dbUser;
+        }
 
 
         public List<StoreItem> GetSellingItems(int id)

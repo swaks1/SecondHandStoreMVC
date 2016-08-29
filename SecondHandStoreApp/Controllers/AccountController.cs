@@ -611,6 +611,7 @@ namespace SecondHandStoreApp.Controllers
                     ItemName = "Item " + user.UserName,
                     Price = 99 + random.Next(1200),
                     SellerId = user.MyUser.seller.ID,
+                    IsFinished = true
 
                 };
                 _storeItemRepository.Create(storeItem);

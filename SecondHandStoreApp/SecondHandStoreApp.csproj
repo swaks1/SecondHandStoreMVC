@@ -359,6 +359,8 @@
     <Content Include="Views\Admin\EnableItem.cshtml" />
     <Content Include="Views\StoreItems\Create2.cshtml" />
     <Content Include="Views\StoreItems\CreateCheck.cshtml" />
+    <Content Include="Views\Users\GetSellings.cshtml" />
+    <Content Include="Views\Users\NotSeller.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

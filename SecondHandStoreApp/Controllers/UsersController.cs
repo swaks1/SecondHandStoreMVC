@@ -46,6 +46,20 @@ namespace SecondHandStoreApp.Controllers
             return RedirectToAction("ShoppingCart");
         }
 
+
+        public ActionResult GetSellings()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = _userRepository.GetAppUser(userId);
+
+            if(user.MyUser.SellerID == null)
+            {
+                return View("NotSeller");
+            }
+
+            return View(user.MyUser.seller.SellingItems.ToList());
+        }
+
         
     }
 }
