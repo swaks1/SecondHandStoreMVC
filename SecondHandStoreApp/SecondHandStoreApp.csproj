@@ -359,6 +359,9 @@
     <Content Include="Views\Admin\EnableItem.cshtml" />
     <Content Include="Views\StoreItems\Create2.cshtml" />
     <Content Include="Views\StoreItems\CreateCheck.cshtml" />
+    <Content Include="Views\Users\UserDetails.cshtml" />
+    <Content Include="Views\Users\PaymentMetohod.cshtml" />
+    <Content Include="Views\Users\OrderReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

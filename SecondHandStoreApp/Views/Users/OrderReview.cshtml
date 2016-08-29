@@ -1,0 +1,178 @@
+﻿@model SecondHandStoreApp.Models.MyUser
+
+@{
+    ViewBag.Title = "OrderReview";
+}
+
+<div class="container">
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>Checkout - Address</li>
+        </ul>
+    </div>
+
+    <div class="col-md-9" id="checkout">
+
+        <div class="box">
+            @using (Html.BeginForm())
+            {
+                <h1>Checkout</h1>
+                <ul class="nav nav-pills nav-justified">
+                    <li class="">
+                        <a href="~/Users/UserDetails"><i class="fa fa-map-marker"></i><br>Address</a>
+                    </li>
+                    <li class="">
+                        <a href="~/Users/PaymentMethod"><i class="fa fa-money"></i><br>Payment Method</a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-eye"></i><br>Order Review</a>
+                    </li>
+                </ul>
+
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Order review</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="content">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Product</th>
+                                            <th>Unit price</th>
+                                            <th>Discount</th>
+                                            <th colspan="2">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.shopingCart)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a href="#">
+                                                        <img src="~/@item.Images.ElementAt(0).Image" alt="White Blouse Armani">
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="~/StoreItems/Details/@item.ID">@item.ItemName</a>
+                                                </td>
+                                                <td>$@item.Price</td>
+                                                <td>$0</td>
+                                                <td>$@item.Price</td>
+
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="5">Total</th>
+                                            @{
+                                                double total = 0.0;
+                                                foreach (var item in Model.shopingCart)
+                                                {
+                                                    total += item.Price;
+                                                }
+
+                                                <th colspan="2">$@total</th>
+
+
+                                            }
+
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                            <!-- /.table-responsive -->
+
+
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="~/Users/PaymentMethod" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back </a>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">
+                                Continue to Payment mathod<i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+            }
+         
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.col-md-9 -->
+
+
+    <div class="col-md-3">
+        <div class="box" id="order-summary">
+            <div class="box-header">
+                <h3>Order summary</h3>
+            </div>
+            <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Order subtotal</td>
+                            <th>0.0</th>
+                        </tr>
+                        <tr>
+                            <td>Shipping and handling</td>
+                            <th>$10.00</th>
+                        </tr>
+                        <tr>
+                            <td>Tax</td>
+                            <th>$0.00</th>
+                        </tr>
+                        <tr class="total">
+                            <td>Total</td>
+                            <th>0.0</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+        <div class="box">
+            <div class="box-header">
+                <h4>Coupon code</h4>
+            </div>
+            <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
+            <form>
+                <div class="input-group">
+
+                    <input type="text" class="form-control">
+
+                    <span class="input-group-btn">
+
+                        <button class="btn btn-primary" type="button"><i class="fa fa-gift"></i></button>
+
+                    </span>
+                </div>
+                <!-- /input-group -->
+            </form>
+        </div>
+
+    </div>
+    <!-- /.col-md-3 -->
+</div>

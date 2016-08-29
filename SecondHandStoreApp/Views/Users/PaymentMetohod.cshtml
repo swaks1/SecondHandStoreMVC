@@ -1,0 +1,240 @@
+﻿@model SecondHandStoreApp.Models.PaymentViewModel
+@{
+    ViewBag.Title = "PaymentMetohod";
+}
+    
+    <style>
+        
+/*  credit cards  */
+.i-iconfont-selected {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0;
+     height: 0;
+    border: 8px solid;
+    border-color: transparent #f80 #f80 transparent;
+}
+
+label > input{ /* HIDE RADIO */
+    display:none;
+}
+label > input + img{ /* IMAGE STYLES */
+    cursor:pointer;
+    border:2px solid transparent;
+}
+label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
+    border: 2px solid  #4fbfa8;
+}
+
+.smaller-card{
+    height: 38px;
+}
+
+.credit-card-box .panel-title {
+    display: inline;
+    font-weight: bold;
+}
+    </style>
+    
+<div class="container">
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>Checkout - Address</li>
+        </ul>
+    </div>
+
+    <div class="col-md-9" id="checkout">
+
+        <div class="box">
+            @using (Html.BeginForm())
+            {
+                <h1>Checkout</h1>
+                <ul class="nav nav-pills nav-justified">
+                    <li class="">
+                        <a href="~/Users/UserDetails"><i class="fa fa-map-marker"></i><br>Address</a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-money"></i><br>Payment Method</a>
+                    </li>
+                    <li class="disabled">
+                        <a href="#"><i class="fa fa-eye"></i><br>Order Review</a>
+                    </li>
+                </ul>
+
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Card type</label>
+                                    <div class="input-group">
+                                        <label>
+                                            <input type="radio" name="fb" value="visa" selected />
+                                            <img src="~/img/creditcards/visa.png">
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="fb" value="master"  />
+                                            <img src="~/img/creditcards/mastercard.png">
+                                        </label>
+
+                                        <label>
+                                            <input id="fb3" type="radio" name="fb" value="maestro" />
+                                            <img src="~/img/creditcards/maestro.png">
+                                        </label>
+
+                                        <label>
+                                            <input id="fb4" type="radio" name="fb" value="amex"  />
+                                            <img src="~/img/creditcards/amex.png">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" >
+                                    @Html.LabelFor(model => model.CardNumber, htmlAttributes: new { @class = "control-label " })
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.CardNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Valid Card Number", @required = "required" } })
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        @Html.ValidationMessageFor(model => model.CardNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-md-6">
+                                <div class="form-group" >
+                                    <label for="cardExpiry">
+                                    <span class="hidden-xs">Expiration</span><span class="visible-xs-inline">EXP</span> date</label>
+                                    @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "MM / YY", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-3 ">
+                                <div class="form-group" >
+                                    <label for="cardCVC">CV code</label>
+                                    @Html.EditorFor(model => model.CVC, new { htmlAttributes = new { @class = "form-control", @placeholder = "CVC", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.CVC, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xs-1 col-md-1 ">
+                                <div class="form-group">
+                                    <label> &nbsp;&nbsp;&nbsp; </label>
+                                    <img class="smaller-card" src="~/img/creditcards/credit.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group" >
+                                    <label>Cardholder name</label>
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "First name", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })        
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6" >
+                                <label>&nbsp;</label>
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last name", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                             </div>
+
+                        </div>
+                        
+                        <div class="row" style="display:none;">
+                            <div class="col-xs-12">
+                                <p class="payment-errors"></p>
+                            </div>
+                        </div>
+                    <!-- /.row -->
+                </div>
+                    <div class="box-footer">
+                        <div class="pull-left">
+                            <a href="~/Users/UserDetails" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to basket</a>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">
+                                PAY<i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.col-md-9 -->
+
+
+    <div class="col-md-3">
+        <div class="box" id="order-summary">
+            <div class="box-header">
+                <h3>Order summary</h3>
+            </div>
+            <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Order subtotal</td>
+                            <th>$@ViewBag.total</th>
+                        </tr>
+                        <tr>
+                            <td>Shipping and handling</td>
+                            <th>$10.00</th>
+                        </tr>
+                        <tr>
+                            <td>Tax</td>
+                            <th>$0.00</th>
+                        </tr>
+                        <tr class="total">
+                            <td>Total</td>
+                            <th>$@ViewBag.total</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+        <div class="box">
+            <div class="box-header">
+                <h4>Coupon code</h4>
+            </div>
+            <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
+            <form>
+                <div class="input-group">
+
+                    <input type="text" class="form-control">
+
+                    <span class="input-group-btn">
+
+                        <button class="btn btn-primary" type="button"><i class="fa fa-gift"></i></button>
+
+                    </span>
+                </div>
+                <!-- /input-group -->
+            </form>
+        </div>
+
+    </div>
+    <!-- /.col-md-3 -->
+</div>
+

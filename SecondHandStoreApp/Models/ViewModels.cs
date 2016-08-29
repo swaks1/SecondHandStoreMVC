@@ -204,4 +204,27 @@ namespace SecondHandStoreApp.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
+    public class PaymentViewModel
+    {
+        [Required]
+        [DataType(DataType.CreditCard)]
+        [Display(Name = "Card number")]
+        public string CardNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Expiration date")]
+        public string ExpirationDate { get; set; }
+
+        [Required]
+        [Display(Name = "CV code")]
+        public string CVC { get; set; }
+
+        [Required]
+        [Display(Name = "Cardholder name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+    }
 }
