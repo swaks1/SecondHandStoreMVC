@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201608271507555_idk.Designer.cs">
       <DependentUpon>201608271507555_idk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608291147496_ItemIsFinished.cs" />
+    <Compile Include="Migrations\201608291147496_ItemIsFinished.Designer.cs">
+      <DependentUpon>201608291147496_ItemIsFinished.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MyImage.cs" />
     <Compile Include="Models\ViewModels.cs" />
@@ -390,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608271507555_idk.resx">
       <DependentUpon>201608271507555_idk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608291147496_ItemIsFinished.resx">
+      <DependentUpon>201608291147496_ItemIsFinished.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

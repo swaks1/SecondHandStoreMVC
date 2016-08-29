@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace SecondHandStoreApp.Models
 
         public bool IsActive { get; set; }
 
+        [Required]
         public string TransactionNum { get; set; }
 
         public string Name { get; set; }

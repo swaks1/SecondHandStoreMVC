@@ -138,7 +138,7 @@ namespace SecondHandStoreApp.Controllers
                     if (image != null && image.ContentLength > 0)
                     {
                         string extension = Path.GetExtension(image.FileName);
-                        string imageName = UserID + "_" + count + extension;
+                        string imageName = storeItem.ID + "_" + count + extension;
 
                         string path = System.IO.Path.Combine(
                                                Server.MapPath(pathToImages), imageName);

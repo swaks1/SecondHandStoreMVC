@@ -18,6 +18,7 @@ namespace SecondHandStoreApp.Models
         public bool IsAvailable { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsApproved { get; set; }
+        public bool IsFinished { get; set; }
 
         [Required]
         public string ItemName { get; set; }
@@ -40,6 +41,7 @@ namespace SecondHandStoreApp.Models
         public Material material { get; set; }
         public Size? size { get; set; }
         public ShoeSize? shoeSize { get; set; }
+        public double? heelSize { get; set; }
         public string  Brand { get; set; }
 
         public int? length { get; set; }
