@@ -18,7 +18,8 @@ namespace SecondHandStoreApp.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var popularProducts = _storeItemRepository.GetPopular();
+            return View(popularProducts);
         }
 
         public ActionResult About()

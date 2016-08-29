@@ -1,46 +1,90 @@
-﻿@{
+﻿@model List<SecondHandStoreApp.Models.StoreItem>
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="container">
-    <div class="row" style="margin-top:60px;">
-        <div class="col-md-3">
-            <div class="alert alert-success">
-                <a href="~/StoreItems/index"> Store Items</a>
+    <div class="col-md-12">
+        <div id="main-slider">
+            <div class="item">
+                <a href="/Home/ListItems?searchGender=male&searchCategory=clothes">
+                    <img alt="" class="img-responsive" src="~/img/slider1.jpg">
+                </a>
+               
+            </div>
+            <div class="item">
+                <a href="/Home/ListItems?searchGender=female&searchCategory=clothes">
+                    <img alt="" class="img-responsive" src="~/img/slider2.jpg">
+                </a>
+            </div>
+            <div class="item">
+                <a href="/Home/ListItems?searchGender=male&searchCategory=clothes">
+                    <img alt="" class="img-responsive" src="~/img/slider3.jpg">
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="/Home/ListItems?searchGender=female&searchCategory=clothes">
+                    <img alt="" class="img-responsive" src="~/img/slider4.jpg">
+                </a>
+            </div>
+          
+        </div>
+        <!-- /#main-slider -->
+    </div>
+</div>
+
+
+<div id="hot">
+
+    <div class="box">
+        <div class="container">
+            <div class="col-md-12">
+                <h2>Popular this week</h2>
             </div>
         </div>
-
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
-        <div class="col-md-3">
-            <h1> WELCOME PAGE </h1>
-        </div>
     </div>
+
+    <div class="container">
+        <div class="product-slider">
+            @foreach (var product in Model)
+            {
+                <div class="item">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <a href="~/StoreItems/Details/@product.ID">
+                                        <img src="~/@product.Images.ElementAt(0).Image" alt="" class="img-responsive">
+                                    </a>
+                                </div>
+                                <div class="back">
+                                    <a href="~/StoreItems/Details/@product.ID">
+                                        <img src="~/@product.Images.ElementAt(1).Image" alt="" class="img-responsive">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="~/StoreItems/Details/@product.ID" class="invisible">
+                            <img src="~/@product.Images.ElementAt(0).Image" alt="" class="img-responsive">
+                        </a>
+                        <div class="text">
+                            <h3>
+                                <a href="~/StoreItems/Details/@product.ID">
+                               @product.ItemName
+                                </a>
+                            </h3>
+                            <p class="price">@product.Price</p>
+                        </div>
+                        <!-- /.text -->
+                    </div>
+                    <!-- /.product -->
+                </div>
+            }
+        </div>
+        <!-- /.product-slider -->
+    </div>
+    <!-- /.container -->
+
 </div>
 

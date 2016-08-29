@@ -175,5 +175,12 @@ namespace SecondHandStoreApp.Repository
 
             return true;
         }
+
+        public List<StoreItem> GetPopular()
+        {
+            var items = db.StoreItems.Where(p => p.IsApproved && p.IsAvailable).Take(9);
+
+            return items.ToList();
+        }
     }
 }

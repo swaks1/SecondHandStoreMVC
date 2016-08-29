@@ -157,7 +157,7 @@ function carousels() {
 	navigation: true, // Show next and prev buttons
 	slideSpeed: 300,
 	paginationSpeed: 400,
-	autoPlay: true,
+	autoPlay: 3000,
 	stopOnHover: true,
 	singleItem: true,
 	afterInit: ''
