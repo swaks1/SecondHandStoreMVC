@@ -1,2 +1,22 @@
 /** Your theme modifications here **/
+.prodSliderImg{
+    width:250px;
+    height:250px;
+}
 
+    .NavA{
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        color: #4fbfa8;
+        text-decoration: none;
+    }
+    .NavA:hover{
+        background-color: #eeeeee;
+        text-decoration: none;
+        background-color: #eee;
+    }
+    .ListItemsIMG{
+        width: 250px;
+        height:250px;
+    }

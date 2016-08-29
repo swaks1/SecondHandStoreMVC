@@ -55,18 +55,18 @@
                             <div class="flipper">
                                 <div class="front">
                                     <a href="~/StoreItems/Details/@product.ID">
-                                        <img src="~/@product.Images.ElementAt(0).Image" alt="" class="img-responsive">
+                                        <img src="~/@product.Images.ElementAt(0).Image" alt="" class="img-responsive prodSliderImg" />
                                     </a>
                                 </div>
                                 <div class="back">
                                     <a href="~/StoreItems/Details/@product.ID">
-                                        <img src="~/@product.Images.ElementAt(1).Image" alt="" class="img-responsive">
+                                        <img src="~/@product.Images.ElementAt(1).Image" alt="" class="img-responsive prodSliderImg">
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <a href="~/StoreItems/Details/@product.ID" class="invisible">
-                            <img src="~/@product.Images.ElementAt(0).Image" alt="" class="img-responsive">
+                            <img src="~/@product.Images.ElementAt(0).Image" alt="" class="img-responsive prodSliderImg">
                         </a>
                         <div class="text">
                             <h3>
@@ -88,3 +88,11 @@
 
 </div>
 
+@section Scripts{
+    <script>
+        $(function () {
+            $(".active").removeClass("active");
+            $("#HomeLink").addClass("active");
+        })
+    </script>
+}

@@ -264,6 +264,9 @@
             $(".shoeSize").hide();
         }
 
+        $(".nav .active").removeClass("active");
+        $("#SellLink").addClass("active");
+
     });
         function handleFileSelect(evt) {
             var files = evt.target.files;
@@ -304,5 +307,7 @@
         }
 
         document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+      
 </script>
 }

@@ -1,0 +1,116 @@
+﻿@model List<SecondHandStoreApp.Models.StoreItem>
+@{
+    ViewBag.Title = "GetSellings";
+}
+
+<div class="container">
+
+    <div class="col-md-12">
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Account/Edit">Edit</a>
+            </li>
+            <li>My orders</li>
+        </ul>
+
+    </div>
+
+    <div class="col-md-3">
+        <!-- *** CUSTOMER MENU ***
+        _________________________________________________________ -->
+        <div class="panel panel-default sidebar-menu">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer section</h3>
+            </div>
+
+            <div class="panel-body">
+
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="customer-orders.html"><i class="fa fa-list"></i> My orders</a>
+                    </li>
+                    <li class="active">
+                        <a href="~/Users/GetSellings"><i class="fa fa-briefcase"></i> My sellings</a>
+                    </li>
+                    <li>
+                        <a href="~/Account/Edit"><i class="fa fa-user"></i> My account</a>
+                    </li>
+                    <li >
+                        <a href="~/Manage/ChangePassword"><i class="fa fa-user"></i> Change Password</a>
+                    </li>
+                    <li>
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form-inline" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a class="NavA" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i>Log off</a>
+
+                        }
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.col-md-3 -->
+        <!-- *** CUSTOMER MENU END *** -->
+    </div>
+
+    <div class="col-md-9" id="customer-orders">
+        <div class="box">
+            <h1>My sellings</h1>
+
+            <p class="lead">All of your items you sell on one place.</p>
+         
+            <hr>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th>@item.ItemName</th>
+                                <td>@item.DateCreated</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    @if (item.IsApproved && item.IsAvailable)
+                                    {
+                                        <span class="label label-success">Active</span>
+                                    }
+                                    else if(!item.IsApproved && item.IsAvailable)
+                                    {
+                                        <span class="label label-danger">Pending Accept</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-info">Sold</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    <a href="~/StoreItems/Details/@item.ID" class="btn btn-primary btn-sm">View</a>
+                                </td>
+                            </tr>
+                        }
+                       
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
