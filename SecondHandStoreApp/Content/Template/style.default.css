@@ -1293,8 +1293,12 @@ h1 {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #4fbfa8;
-  color: #555555;
+  background-color: #555555;
+  color: #ffffff;
+}
+#HomeLink :hover{
+      background-color: #555555;
+      color: #ffffff;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {

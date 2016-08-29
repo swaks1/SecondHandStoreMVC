@@ -1,2 +1,5 @@
 /** Your theme modifications here **/
-
+.prodSliderImg{
+    width:250px;
+    height:250px;
+}
