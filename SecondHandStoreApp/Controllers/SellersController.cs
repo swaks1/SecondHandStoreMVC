@@ -171,6 +171,8 @@ namespace SecondHandStoreApp.Controllers
             {
                 
                 var isSaved = _userRepository.MakeSeller(user.MyUser.ID, model.MyUser.seller.TransactionNum, user.MyUser.FullName);
+                user = _userRepository.GetById(user.MyUser.ID);
+
                 _storeItemRepository.UpdateStep3((int)(itemId ?? storeItemId), user.MyUser.seller.ID);
 
                 if (isSaved)
