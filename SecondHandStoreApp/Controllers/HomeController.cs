@@ -38,14 +38,18 @@ namespace SecondHandStoreApp.Controllers
     
 
         public ActionResult ListItems(string sortOrder, string searchString, string searchGender,
-            string searchCategory, string searchSubcategory, string currentFilter, int? page)
+            string searchCategory, string searchSubcategory, string currentFilter, int? page, int? pageSize)
         {
             ViewBag.CurrentSort = sortOrder;
             //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.PriceSortParm = sortOrder == "price_asc" ? "price_desc" : "price_asc";
             ViewBag.Gender = searchGender;
             ViewBag.Category = searchCategory;
-            ViewBag.Subcategory = searchSubcategory;
+            
+            if(pageSize!= null)
+            {
+                ViewBag.PageSize = pageSize;
+            }
 
             //var items = _storeItemRepository.GetAllApproved();
             IQueryable<StoreItem> items;
@@ -110,12 +114,12 @@ namespace SecondHandStoreApp.Controllers
                     break;
             }
 
-            int pageSize = 3;
+            
             int pageNumber = (page ?? 1);
-            ViewBag.PageSize = pageSize;
+            ViewBag.PageSize = ViewBag.PageSize ?? 3;
 
             //return items ToList... or ToPagedList
-            return View(items.ToPagedList(pageNumber, pageSize));
+            return View(items.ToPagedList(pageNumber, (int)ViewBag.PageSize));
 
         }
     }

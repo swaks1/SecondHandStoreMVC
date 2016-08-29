@@ -1,6 +1,10 @@
 ﻿@model PagedList.IPagedList<SecondHandStoreApp.Models.StoreItem>
 @using PagedList.Mvc;
 
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+    
+
 @{
     ViewBag.Title = "ListItems";
 }
@@ -195,7 +199,31 @@
                         <form class="form-inline">
                             <div class="col-md-6 col-sm-6">
                                 <div class="products-number">
-                                    <strong>Show</strong>  <a href="#" class="btn btn-default btn-sm btn-primary">12</a>  <a href="#" class="btn btn-default btn-sm">24</a>  <a href="#" class="btn btn-default btn-sm">All</a> products
+                                    <strong>Show</strong>  
+                                    @Html.ActionLink("3", "ListItems", new
+                                       {
+                                           sortOrder = ViewBag.CurrentSort,
+                                           currentFilter = ViewBag.CurrentFilter,
+                                           searchString = ViewBag.searchString,
+                                           searchGender = ViewBag.Gender,
+                                           searchCategory = ViewBag.Category,
+                                           searchSubcategory = ViewBag.Subcategory,
+                                           pageSize = 3
+                                       }, 
+                                       new { @class = "btn btn-default btn-sm pageSizeBtn", id="pagesize3" })
+                                    
+                                       @Html.ActionLink("6", "ListItems", new
+                                  {
+                                      sortOrder = ViewBag.CurrentSort,
+                                      currentFilter = ViewBag.CurrentFilter,
+                                      searchString = ViewBag.searchString,
+                                      searchGender = ViewBag.Gender,
+                                      searchCategory = ViewBag.Category,
+                                      searchSubcategory = ViewBag.Subcategory,
+                                      pageSize = 6
+                                  },
+                                       new {@class= "btn btn-default btn-sm pageSizeBtn", id = "pagesize6" }) 
+                                     <a href="#" class="btn btn-default btn-sm">All</a> products
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -208,7 +236,8 @@
                                            searchString = ViewBag.searchString,
                                            searchGender = ViewBag.Gender,
                                            searchCategory = ViewBag.Category,
-                                           searchSubcategory = ViewBag.Subcategory
+                                           searchSubcategory = ViewBag.Subcategory,
+                                           pageSize = ViewBag.PageSize
                                        })
                                 </div>
                             </div>
@@ -227,18 +256,18 @@
                         <div class="flipper">
                             <div class="front">
                                 <a href="~/StoreItems/Details/@item.ID">
-                                    <img src="~/@item.Images.ElementAt(0).Image" alt="" class="img-responsive">
+                                    <img src="~/@item.Images.ElementAt(0).Image" alt="" class="img-responsive ListItemsIMG">
                                 </a>
                             </div>
                             <div class="back">
                                 <a href="~/StoreItems/Details/@item.ID">
-                                    <img src="~/@item.Images.ElementAt(1).Image" alt="" class="img-responsive">
+                                    <img src="~/@item.Images.ElementAt(1).Image" alt="" class="img-responsive ListItemsIMG">
                                 </a>
                             </div>
                         </div>
                     </div>
                     <a href="~/StoreItems/Details/@item.ID" class="invisible">
-                        <img src="~/@item.Images.ElementAt(0).Image" alt="" class="img-responsive">
+                        <img src="~/@item.Images.ElementAt(0).Image" alt="" class="img-responsive ListItemsIMG">
                     </a>
                     <div class="text">
                         <h3><a href="~/StoreItems/Details/@item.ID">@item.ItemName</a></h3>
@@ -268,14 +297,14 @@
                      currentFilter = ViewBag.CurrentFilter,
                      searchGender = ViewBag.Gender,
                      searchCategory = ViewBag.Category,
-                     searchSubcategory = ViewBag.Subcategory
+                     searchSubcategory = ViewBag.Subcategory,
+                     pageSize = ViewBag.PageSize
                  }))
         </div>
 
 
     </div>
     <!-- /.col-md-9 -->
-
 
 
 </div>
@@ -294,20 +323,50 @@
         return vars;
     }
 
+    function scrollBelow() {
+        $('html, body').animate({
+            scrollTop: $("#pagesize3").offset().top
+        }, 1000);
+    }
+
     $(function () {
+       
+
         var first = getUrlVars()["searchGender"];
         switch (first) {
             case "male":
-                        $(".active").removeClass("active");
+                        $(".nav .active").removeClass("active");
                         $("#MaleLink").addClass("active");
+                        scrollBelow();
                         break;
             case "female":
-                        $(".active").removeClass("active");
+                        $(".nav .active").removeClass("active");
                         $("#FemaleLink").addClass("active");
+                        scrollBelow();
                         break;
                 
             
         }
+
+        var pageSize = getUrlVars()["pageSize"];
+
+        switch (pageSize) {
+            case "3":
+                $(".pageSizeBtn").removeClass("btn-primary");
+                $("#pagesize3").addClass("btn-primary");               
+                break;
+            case "6":
+                $(".pageSizeBtn").removeClass("btn-primary");
+                $("#pagesize6").addClass("btn-primary");               
+                break;
+            default:
+                $(".pageSizeBtn").removeClass("btn-primary");
+                $("#pagesize3").addClass("btn-primary");
+                break;
+        }
+
+        
+
     });
 </script>
     
