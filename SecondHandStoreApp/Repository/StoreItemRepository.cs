@@ -25,6 +25,28 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
+        public bool DeleteItem (int id)
+        {
+            var dbItem = GetById(id);
+
+            //get list of the Images..else you will have colleciton has modified error
+            var listImages = dbItem.Images.ToList();
+
+            foreach(var img in listImages)
+            {
+                var dbImg = db.MyImages.FirstOrDefault(i => i.ID == img.ID);
+                db.MyImages.Remove(dbImg);
+            }
+
+            db.SaveChanges();
+
+            db.StoreItems.Remove(dbItem);
+
+            db.SaveChanges();
+
+            return true;
+        }
+
         public bool DisableItem(int id)
         {
             StoreItem si = GetById(id);
@@ -148,6 +170,17 @@ namespace SecondHandStoreApp.Repository
             return true;
         }
 
+        public bool updateStep4(int storeItemID)
+        {
+            var dbObj = GetById(storeItemID);
+            if (dbObj == null)
+                return false;
+            dbObj.IsFinished = true;
+
+            db.SaveChanges();
+            return true;
+        }
+
 
 
         public List<StoreItem> GetAllApproved()
@@ -182,5 +215,7 @@ namespace SecondHandStoreApp.Repository
 
             return items.ToList();
         }
+
+        
     }
 }

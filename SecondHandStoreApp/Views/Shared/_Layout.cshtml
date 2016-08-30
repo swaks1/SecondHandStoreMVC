@@ -282,9 +282,14 @@
             <!--/.nav-collapse -->
 
             <div class="navbar-buttons">
-
+                                            
                 <div class="navbar-collapse collapse right" id="basket-overview">
                     <a href="~/Users/ShoppingCart" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm">Shop cart</span></a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
+                    {
+                        <a href="~/Users/GetSellings" class="btn btn-primary navbar-btn"><i class="fa fa-briefcase"></i><span class="hidden-sm">Selling Items</span></a>
+                    }
+                   
                 </div>
                 <!--/.nav-collapse -->
 

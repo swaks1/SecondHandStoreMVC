@@ -222,6 +222,14 @@
     <Compile Include="Migrations\201608291147496_ItemIsFinished.Designer.cs">
       <DependentUpon>201608291147496_ItemIsFinished.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608300833398_isSold.cs" />
+    <Compile Include="Migrations\201608300833398_isSold.Designer.cs">
+      <DependentUpon>201608300833398_isSold.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608300844217_gender.cs" />
+    <Compile Include="Migrations\201608300844217_gender.Designer.cs">
+      <DependentUpon>201608300844217_gender.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MyImage.cs" />
     <Compile Include="Models\ViewModels.cs" />
@@ -402,6 +410,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608291147496_ItemIsFinished.resx">
       <DependentUpon>201608291147496_ItemIsFinished.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608300833398_isSold.resx">
+      <DependentUpon>201608300833398_isSold.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608300844217_gender.resx">
+      <DependentUpon>201608300844217_gender.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

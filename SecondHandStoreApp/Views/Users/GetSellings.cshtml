@@ -84,16 +84,16 @@
                                 <td>@item.DateCreated</td>
                                 <td>@item.Price</td>
                                 <td>
-                                    @if (item.IsApproved && item.IsAvailable)
+                                    @if (item.IsApproved)
                                     {
                                         <span class="label label-success">Active</span>
                                     }
-                                    else if(!item.IsApproved && item.IsAvailable)
+                                    else if(!item.IsApproved)
                                     {
                                         <span class="label label-danger">Pending Accept</span>
 
                                     }
-                                    else
+                                    else if(!item.IsApproved && item.isSold)
                                     {
                                         <span class="label label-info">Sold</span>
                                     }
@@ -101,6 +101,15 @@
                                 </td>
                                 <td>
                                     <a href="~/StoreItems/Details/@item.ID" class="btn btn-primary btn-sm">View</a>
+                                    @if (!item.isSold)
+                                    {
+                                        <a href="/StoreItems/Delete/@item.ID" class="btn btn-danger btn-sm">Delete</a>
+                                    }
+                                    @if (!item.IsApproved)
+                                    {
+                                        <a href="/StoreItems/Create1/@item.ID" class="btn btn-warning btn-sm">Edit</a>
+                                    }
+                                    
                                 </td>
                             </tr>
                         }

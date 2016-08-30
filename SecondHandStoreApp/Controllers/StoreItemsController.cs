@@ -120,6 +120,13 @@ namespace SecondHandStoreApp.Controllers
         public ActionResult Create2(HttpPostedFileBase[] file, StoreItem storeItem)
         {
             var errors = ModelState.Values.SelectMany(v => v.Errors);
+            var dbItem = _storeItemRepository.GetById(storeItem.ID);
+
+            if(file.Length < 3 && dbItem.Images.Count < 3)
+            {
+                ModelState.AddModelError("", "Please upload 3 picutres");
+            }
+
             if (ModelState.IsValid)
             {
                 string UserID = User.Identity.GetUserId();
@@ -149,9 +156,14 @@ namespace SecondHandStoreApp.Controllers
                     }
                 }
 
-                storeItem.HelperImagePaths = listImgPaths;
+                if(listImgPaths.Count >=3)
+                {
+                    storeItem.HelperImagePaths = listImgPaths;
+                }
 
                 _storeItemRepository.UpdateStep2(storeItem);
+                
+                
 
                 return RedirectToAction("MakeSeller", "Sellers", new { itemId = storeItem.ID });
             }
@@ -171,6 +183,22 @@ namespace SecondHandStoreApp.Controllers
             ViewBag.stoteItemID = storeItemId;
             return View(item);
         }
+
+        [Authorize(Roles = "User")]
+        // GET: StoreItems/CreateCheck/4
+        public ActionResult CreateCheckFinish(int? storeItemId)
+        {
+            if (storeItemId == null || storeItemId == 0)
+                return RedirectToAction("Create1");
+            var item = _storeItemRepository.GetById((int)storeItemId);
+            if (item == null)
+                return RedirectToAction("Create1");
+            item.IsFinished = true;
+            _storeItemRepository.updateStep4(item.ID);
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
 
 
@@ -241,8 +269,9 @@ namespace SecondHandStoreApp.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             _storeItemRepository.DisableItem(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
+
 
 
     }

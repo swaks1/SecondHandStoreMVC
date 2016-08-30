@@ -19,6 +19,7 @@ namespace SecondHandStoreApp.Models
         public DateTime DateCreated { get; set; }
         public bool IsApproved { get; set; }
         public bool IsFinished { get; set; }
+        public bool isSold { get; set;}
 
         [Required]
         public string ItemName { get; set; }
@@ -57,9 +58,10 @@ namespace SecondHandStoreApp.Models
 
     public enum Gender
     {
-        MALE = 1,
-        FEMALE = 2,
-        UNGENDERED = 3
+        UNGENDERED,
+        MALE,
+        FEMALE 
+        
     }
 
     public enum Category

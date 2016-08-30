@@ -176,12 +176,6 @@
                         </dd>
 
                     </dl>
-                    <div class="">
-                        <a href="~/StoreItems/Create1/@ViewBag.stoteItemID" class="btn btn-default">Edit item.</a>
-                    </div>
-                    <div class="">
-                        <a href="~/Sellers/MakeSeller?storeItemId=@ViewBag.stoteItemID" class="btn btn-default">See info</a>
-                    </div>
                 </div>
                 <!-- /.content -->
 
@@ -190,7 +184,7 @@
                         <a href="~/Sellers/MakeSeller?storeItemId=@ViewBag.stoteItemID" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to Payment method</a>
                     </div>
                     <div class="pull-right">
-                        <a href="~/Home" class="btn btn-primary">
+                        <a href="~/StoreItems/CreateCheckFinish/?storeItemId=@ViewBag.stoteItemID" class="btn btn-primary">
                             Finish<i class="fa fa-chevron-right"></i>
                         </a>
                     </div>

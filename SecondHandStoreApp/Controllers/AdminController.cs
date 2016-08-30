@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using System.IO;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -302,6 +303,24 @@ namespace SecondHandStoreApp.Controllers
         {
             var storeItem = _storeItemRepository.ApproveItem(id);
             return RedirectToAction("ListStoreItems", new { query = "notApproved" });
+        }
+
+
+        public ActionResult DeleteReal(int id)
+        {
+            var dbItem = _storeItemRepository.GetById(id);
+
+            if (dbItem != null)
+            {
+                string fullPath = Server.MapPath("~/Images/" + dbItem.ID + "/");
+                if (Directory.Exists(fullPath))
+                {
+                    Directory.Delete(fullPath, recursive: true);
+                }
+
+                _storeItemRepository.DeleteItem(id);
+            }
+            return Json("true", JsonRequestBehavior.AllowGet);
         }
 
 
