@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using SecondHandStoreApp.Models;
+using Microsoft.Owin.Security.Facebook;
 
 namespace SecondHandStoreApp
 {
@@ -57,8 +58,26 @@ namespace SecondHandStoreApp
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "1760849017535982",
+            //   appSecret: "5dce118c24c7ca8d7767fd555489aabc");
+
+            var x = new FacebookAuthenticationOptions();
+            x.Scope.Add("email");
+            x.AppId = "1760849017535982";
+            x.AppSecret = "5dce118c24c7ca8d7767fd555489aabc";
+            x.Provider = new FacebookAuthenticationProvider()
+            {
+                OnAuthenticated = async context =>
+                {
+                    //Get the access token from FB and store it in the database and
+                    //use FacebookC# SDK to get more information about the user
+                    context.Identity.AddClaim(
+                    new System.Security.Claims.Claim("FacebookAccessToken",
+                                                         context.AccessToken));
+                }
+            };
+            x.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+            app.UseFacebookAuthentication(x);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
