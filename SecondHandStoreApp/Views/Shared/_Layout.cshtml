@@ -289,6 +289,10 @@
                     {
                         <a href="~/Users/GetSellings" class="btn btn-primary navbar-btn"><i class="fa fa-briefcase"></i><span class="hidden-sm">Selling Items</span></a>
                     }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a href="~/Admin/Index" class="btn btn-danger navbar-btn"><i class="fa fa-warning"></i><span class="hidden-sm">Admin Panel</span></a>
+                    }
                    
                 </div>
                 <!--/.nav-collapse -->

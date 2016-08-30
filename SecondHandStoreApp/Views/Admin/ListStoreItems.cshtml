@@ -1,4 +1,7 @@
-﻿@model IEnumerable<SecondHandStoreApp.Models.StoreItem>
+﻿@model PagedList.IPagedList<SecondHandStoreApp.Models.StoreItem>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "ListStoreItems";
@@ -27,45 +30,71 @@
 <div class="container-fluid">
     <div class="col-md-12">
         <div class="box">
+            @using (Html.BeginForm("ListStoreItems", "Admin", FormMethod.Get))
+            {
+                <div class="col-md-10">
+                    Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)   &nbsp;     
+                    
+                    <label class="radio-inline">
+                        <input type="radio"
+                               name="sortOrder"
+                               value=""
+                               @(ViewBag.CurrentSort == "" ? "checked" : "") /> All
+                    </label>  &nbsp;
+                        
+                    <label class="radio-inline">
+                        <input type="radio"
+                               name="sortOrder"
+                               value="NotAvaible"
+                               @(ViewBag.CurrentSort == "NotAvaible" ? "checked" : "") /> Not Avaible
+                    </label>  &nbsp;
 
-            @Html.ActionLink("Show ALL", "ListStoreItems", new { query = "" }, new { @class = "btn btn-info" })
-            @Html.ActionLink("Show NOT APPROVED", "ListStoreItems", new { query = "notApproved" }, new { @class = "btn btn-info" })
-            @Html.ActionLink("Show  AVAIBLE", "ListStoreItems", new { query = "Avaible" }, new { @class = "btn btn-info" })
+                        <label class="radio-inline">                         
+                            <input type="radio"
+                                   name="sortOrder"
+                                   value="NotApproved"
+                                   @(ViewBag.CurrentSort == "NotApproved" ? "checked" : "") /> Not Approved
+                        </label> &nbsp; 
+                   
+                        <input type="submit" value="Filter" class="btn btn-success " /> <br />
 
+</div>
+            }
+            <br /><br /><br />                
             <table class="table">
                 <tr>
                     <th>
-                        Seller ID
+                        Seller Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.IsAvailable)
+                        Is avaible
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ItemName)
+                        Item Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.IsApproved)
+                        Is Approved
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.DateCreated)
+                        Date Created
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Price)
+                       Price
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.itemGender)
+                       Item Gender
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.category)
+                        Category
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Description)
+                        Description
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.condition)
+                        Condition
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Brand)
+                        Brand
                     </th>
                     <th></th>
                 </tr>
@@ -74,7 +103,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.seller.ID)
+                            @Html.DisplayFor(modelItem => item.seller.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IsAvailable)
@@ -107,15 +136,17 @@
                             @Html.DisplayFor(modelItem => item.Brand)
                         </td>
                         <td>
-                            @Html.ActionLink("Details", "DetailsItem", new { id = item.ID }, new { @class = "btn btn-info" }) |
+                            @Html.ActionLink("Details", "DetailsItem", new { id = item.ID, returnUrl = HttpContext.Current.Request.Url.AbsoluteUri }, new { @class = "btn btn-info btn-sm" }) |
                             
                             @if (item.IsAvailable == true)
                             {
-                              @Html.ActionLink("DisableItem", "DisableItem", new { id = item.ID }, new { @class = "btn btn-danger" })
+                              @Html.ActionLink("DisableItem", "DisableItem", new { id = item.ID, returnUrl = HttpContext.Current.Request.Url.AbsoluteUri }, new { @class = "btn btn-warning btn-sm" })
                             }
                             else
                             {
-                                @Html.ActionLink("EnableItem", "EnableItem", new { id = item.ID }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("EnableItem", "EnableItem", new { id = item.ID ,returnUrl = HttpContext.Current.Request.Url.AbsoluteUri }, new { @class = "btn btn-default btn-sm" }) <span> |</span>
+
+                                 @Html.ActionLink("*Delete*", "DeleteReal", new { id = item.ID, returnUrl = HttpContext.Current.Request.Url.AbsoluteUri }, new { @class = "btn btn-danger btn-sm" }) 
                             }
 
 
@@ -124,6 +155,15 @@
                 }
 
             </table>
+
+            <br />
+            <div class="text-center">
+
+
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("ListStoreItems", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            </div>
         </div>
     </div>
 </div>

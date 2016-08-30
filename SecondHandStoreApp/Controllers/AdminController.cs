@@ -164,27 +164,51 @@ namespace SecondHandStoreApp.Controllers
 
         //    STORE ITEMS
 
-        public ActionResult ListStoreItems(string query)
+        public ActionResult ListStoreItems(string sortOrder,string searchString, string currentFilter, int? page)
         {
+            
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentSort = ViewBag.CurrentSort ?? "";
+
             var items = _storeItemRepository.GetAll();
 
-            switch (query)
+            if (searchString != null)
             {
-                case "notApproved":
-                    items = items.Where(i => i.IsApproved == false && i.IsAvailable == true).ToList();
-                    break;
-                case "Avaible":
-                    items = items.Where(i => i.IsAvailable == true).ToList();
-                    break;
-
+                page = 1;
             }
-            
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(items);
+            ViewBag.CurrentFilter = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items = items.Where(i=>i.ItemName.Contains(searchString)).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "NotApproved":
+                    items = items.Where(i => i.IsApproved == false).ToList();
+                    break;
+                case "NotAvaible":
+                    items = items.Where(i => i.IsAvailable == false).ToList();
+                    break;
+             
+                 default:                  
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(items.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/DisableItem/5
-        public ActionResult DisableItem(int? id)
+        public ActionResult DisableItem(int? id,string returnUrl)
         {
             if (id == null)
             {
@@ -195,6 +219,8 @@ namespace SecondHandStoreApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            Session["returnUrl"] = returnUrl;
             return View(item);
         }
 
@@ -205,11 +231,21 @@ namespace SecondHandStoreApp.Controllers
         {
 
             _storeItemRepository.DisableItem(id);
-            return RedirectToAction("ListStoreItems");
+
+            var redirectString = Session["returnUrl"] as string;
+            if(redirectString != null)
+            {
+               return Redirect(redirectString);
+            }
+            else
+            {
+                return RedirectToAction("ListStoreItems");
+            }
+           
         }
 
         // GET: Admin/DisableItem/5
-        public ActionResult EnableItem(int? id)
+        public ActionResult EnableItem(int? id, string returnUrl)
         {
             if (id == null)
             {
@@ -220,6 +256,8 @@ namespace SecondHandStoreApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            Session["returnUrl"] = returnUrl;
             return View(item);
         }
 
@@ -230,11 +268,20 @@ namespace SecondHandStoreApp.Controllers
         {
 
             _storeItemRepository.EnableItem(id);
-            return RedirectToAction("ListStoreItems");
+
+            var redirectString = Session["returnUrl"] as string;
+            if (redirectString != null)
+            {
+                return Redirect(redirectString);
+            }
+            else
+            {
+                return RedirectToAction("ListStoreItems");
+            }
         }
 
         // GET: Admin/DetailsItem/5
-        public ActionResult DetailsItem(int? id)
+        public ActionResult DetailsItem(int? id,string returnUrl)
         {
             if (id == null)
             {
@@ -245,6 +292,8 @@ namespace SecondHandStoreApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            Session["returnUrl"] = returnUrl;
             return View(item);
         }
 
@@ -302,11 +351,20 @@ namespace SecondHandStoreApp.Controllers
         public ActionResult ApproveItem(int id)
         {
             var storeItem = _storeItemRepository.ApproveItem(id);
-            return RedirectToAction("ListStoreItems", new { query = "notApproved" });
+
+            var redirectString = Session["returnUrl"] as string;
+            if (redirectString != null)
+            {
+                return Redirect(redirectString);
+            }
+            else
+            {
+                return RedirectToAction("ListStoreItems");
+            }
         }
 
 
-        public ActionResult DeleteReal(int id)
+        public ActionResult DeleteReal(int id, string returnUrl)
         {
             var dbItem = _storeItemRepository.GetById(id);
 
@@ -320,7 +378,9 @@ namespace SecondHandStoreApp.Controllers
 
                 _storeItemRepository.DeleteItem(id);
             }
-            return Json("true", JsonRequestBehavior.AllowGet);
+           
+            return Redirect(returnUrl);
+            
         }
 
 
