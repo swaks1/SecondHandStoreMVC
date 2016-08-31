@@ -10,6 +10,7 @@ namespace SecondHandStoreApp.Models
         public MyUser()
         {
             shopingCart = new List<StoreItem>();
+            boughtItems = new List<Delivery>();
         }
         public int ID { get; set; }
         public string Address { get; set; }
@@ -19,6 +20,8 @@ namespace SecondHandStoreApp.Models
         public virtual int? SellerID { get; set; }
         public virtual Seller seller { get; set; }
 
-        public virtual List<StoreItem > shopingCart { get; set; }
+        public virtual List<StoreItem> shopingCart { get; set; }
+
+        public virtual ICollection<Delivery> boughtItems { get; set; }
     }
 }

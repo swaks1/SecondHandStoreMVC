@@ -53,6 +53,8 @@ namespace SecondHandStoreApp.Models
 
         public virtual ICollection<MyUser> UsersCarts { get; set; }
 
+        public virtual int? orderId { get; set; }
+        public virtual Delivery order { get; set; }
 
     }
 

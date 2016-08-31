@@ -444,6 +444,8 @@ namespace SecondHandStoreApp.Controllers
                 if (result.Succeeded)
                 {
                     user.MyUser = new MyUser() { FullName = model.FullName };
+                    // Add user  to Role User if not already added
+                    var resultRole = UserManager.AddToRole(user.Id, "User");
                     UserManager.Update(user);
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)

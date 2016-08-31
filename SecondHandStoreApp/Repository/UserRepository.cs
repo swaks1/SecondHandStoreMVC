@@ -1,6 +1,7 @@
 ﻿using SecondHandStoreApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -95,6 +96,54 @@ namespace SecondHandStoreApp.Repository
             dbUser.MyUser.shopingCart.Remove(dbUtem);
 
             db.SaveChanges();
+
+            return true;
+        }
+
+
+
+        public bool AddToOrders(string userId)
+        {
+            ApplicationUser dbUser = db.Users.FirstOrDefault(u => u.Id == userId);
+            var cartItems = dbUser.MyUser.shopingCart.ToList();
+            try
+            {
+                foreach (var cartItem in cartItems)
+                {
+                    StoreItem dbItem = db.StoreItems.FirstOrDefault(s => s.ID == cartItem.ID);
+                    dbUser.MyUser.shopingCart.Remove(dbItem);
+                    var delivery = new Delivery()
+                    {
+                        Date = DateTime.Now,
+                        itemId = cartItem.ID,
+                        BuyerId = dbUser.MyUser.ID,
+                        item = cartItem
+                    };
+
+                    db.Deliverys.Add(delivery);
+                    dbItem.isSold = true;
+                    db.SaveChanges();
+
+                    dbItem.orderId = delivery.ID;
+                }
+            
+         
+            db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
 
             return true;
         }

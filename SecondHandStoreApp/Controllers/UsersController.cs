@@ -97,7 +97,8 @@ namespace SecondHandStoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                var userId = User.Identity.GetUserId();
+                _userRepository.AddToOrders(userId);
             }
             return RedirectToAction("OrderReview");
         }

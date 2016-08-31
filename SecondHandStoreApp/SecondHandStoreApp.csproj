@@ -251,7 +251,12 @@
     <Compile Include="Migrations\201608300844217_gender.Designer.cs">
       <DependentUpon>201608300844217_gender.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608311230292_buyer.cs" />
+    <Compile Include="Migrations\201608311230292_buyer.Designer.cs">
+      <DependentUpon>201608311230292_buyer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\MyImage.cs" />
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -439,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608300844217_gender.resx">
       <DependentUpon>201608300844217_gender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608311230292_buyer.resx">
+      <DependentUpon>201608311230292_buyer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

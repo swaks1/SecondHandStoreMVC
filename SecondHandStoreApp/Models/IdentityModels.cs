@@ -36,6 +36,9 @@ namespace SecondHandStoreApp.Models
         public DbSet<Seller> Sellers { get; set; }
         public DbSet<MyUser> MyUsers { get; set; }
         public DbSet<MyImage> MyImages { get; set; }
+        public DbSet<Delivery> Deliverys { get; set; }
+
+
 
     }
 }

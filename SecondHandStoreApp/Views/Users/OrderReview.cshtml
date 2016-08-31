@@ -53,20 +53,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.shopingCart)
+                                        @foreach (var item in Model.boughtItems)
                                         {
                                             <tr>
                                                 <td>
                                                     <a href="#">
-                                                        <img src="~/@item.Images.ElementAt(0).Image" alt="White Blouse Armani">
+                                                        <img src="~/@item.item.Images.ElementAt(0).Image" alt="White Blouse Armani">
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="~/StoreItems/Details/@item.ID">@item.ItemName</a>
+                                                    <a href="~/StoreItems/Details/@item.item.ID">@item.item.ItemName</a>
                                                 </td>
-                                                <td>$@item.Price</td>
+                                                <td>$@item.item.Price</td>
                                                 <td>$0</td>
-                                                <td>$@item.Price</td>
+                                                <td>$@item.item.Price</td>
 
                                             </tr>
                                         }
@@ -78,9 +78,9 @@
                                             <th colspan="5">Total</th>
                                             @{
                                                 double total = 0.0;
-                                                foreach (var item in Model.shopingCart)
+                                                foreach (var item in Model.boughtItems)
                                                 {
-                                                    total += item.Price;
+                                                    total += item.item.Price;
                                                 }
 
                                                 <th colspan="2">$@total</th>
