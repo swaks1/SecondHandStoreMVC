@@ -6,6 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -15,7 +19,7 @@ namespace SecondHandStoreApp.Controllers
         private UserRepository _userRepository = new UserRepository();
         private StoreItemRepository _storeItemRepository = new StoreItemRepository();
 
-
+      
         public ActionResult Index()
         {
             var popularProducts = _storeItemRepository.GetPopular();
@@ -121,6 +125,27 @@ namespace SecondHandStoreApp.Controllers
             //return items ToList... or ToPagedList
             return View(items.ToPagedList(pageNumber, (int)ViewBag.PageSize));
 
+        }
+
+        public async Task<ActionResult> SendMail()
+        {
+            await SendMailTask();
+
+            return Json("ok", JsonRequestBehavior.AllowGet);
+
+        }
+        static async Task SendMailTask()
+        {
+            string apiKey = "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";
+            dynamic sg = new SendGridAPIClient(apiKey);
+
+            Email from = new Email("Riste_P@outlook.com");
+            string subject = "Hello World from the SendGrid CSharp Library!";
+            Email to = new Email("marija283@hotmail.com");
+            Content content = new Content("text/plain", "Zdravo Ubava !");
+            Mail mail = new Mail(from, subject, to, content);
+
+            dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());
         }
     }
 }
