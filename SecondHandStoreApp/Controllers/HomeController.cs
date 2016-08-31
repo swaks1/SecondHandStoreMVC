@@ -9,7 +9,8 @@ using PagedList;
 using System.Threading.Tasks;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-
+using FluentScheduler;
+using SecondHandStoreApp.TaskScheduler;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -26,18 +27,17 @@ namespace SecondHandStoreApp.Controllers
             return View(popularProducts);
         }
 
-        public ActionResult About()
+        public ActionResult StopJob()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            
+            JobManager.RemoveJob("TestWriteTask");          
+            return RedirectToAction("Index","Home");
         }
 
-        public ActionResult Contact()
+        public ActionResult StartJob()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            JobManager.AddJob(new MailingJob(), (s) => s.WithName("TestWriteTask").ToRunEvery(5).Seconds());
+            return RedirectToAction("Index", "Home");
         }
     
 
