@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using SecondHandStoreApp.Models;
 using Microsoft.Owin.Security.Facebook;
+using System.Threading.Tasks;
 
 namespace SecondHandStoreApp
 {
@@ -67,13 +68,14 @@ namespace SecondHandStoreApp
             x.AppSecret = "5dce118c24c7ca8d7767fd555489aabc";
             x.Provider = new FacebookAuthenticationProvider()
             {
-                OnAuthenticated = async context =>
+                OnAuthenticated =  context =>
                 {
                     //Get the access token from FB and store it in the database and
                     //use FacebookC# SDK to get more information about the user
                     context.Identity.AddClaim(
                     new System.Security.Claims.Claim("FacebookAccessToken",
                                                          context.AccessToken));
+                    return Task.FromResult(true);
                 }
             };
             x.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;

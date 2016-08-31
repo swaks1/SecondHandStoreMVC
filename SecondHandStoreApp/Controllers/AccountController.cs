@@ -382,10 +382,22 @@ namespace SecondHandStoreApp.Controllers
             }
             else
             {
-                 //If the user does not have an account, then prompt the user to create an account
+                string emailAdress = "";
+                string fullName = "";
+                if(loginInfo.Login.LoginProvider == "Facebook")
+                {
+                    var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
+                    var accessToken = identity.FindFirstValue("FacebookAccessToken");
+                    var fb = new FacebookClient(accessToken);
+                    dynamic myInfo = fb.Get("/me?fields=email,first_name,last_name,gender");
+                    emailAdress = myInfo.email;
+                    fullName = myInfo.first_name + " " + myInfo.last_name;
+                }
+                             
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = emailAdress , FullName = fullName });
+                
             }
 
             // Sign in the user with this external login provider if the user already has a login
@@ -431,6 +443,8 @@ namespace SecondHandStoreApp.Controllers
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    user.MyUser = new MyUser() { FullName = model.FullName };
+                    UserManager.Update(user);
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
