@@ -85,9 +85,6 @@
                                                     @Html.ActionLink("Jeans", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Jeans }, null)
                                                 </li>
                                                 <li>
-                                                    @Html.ActionLink("Jumpsuit", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Jumpsuit }, null)
-                                                </li>
-                                                <li>
                                                     @Html.ActionLink("Shorts", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Shorts }, null)
                                                 </li>
                                                 <li>
@@ -223,6 +220,18 @@
                                                     @Html.ActionLink(SubcategoryShoes.Shoes.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "shoes" , searchSubcategory = SubcategoryShoes.Shoes }, null)
                                                 </li>
                                             </ul>
+                                            <h5>@Html.ActionLink("All bags", "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags }, null)</h5>
+                                            <ul>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryBags.Backpacks.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Backpacks }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryBags.Bag.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Bag }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryBags.Wallets.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Wallets }, null)
+                                                </li>
+                                            </ul>
                                         </div>
                                         <div class="col-sm-3">
                                             <h5>@Html.ActionLink("All acessories", "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories" }, null)</h5>
@@ -252,18 +261,7 @@
                                                     @Html.ActionLink(SubcategoryAccessories.Watches.ToString() , "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Watches }, null)
                                                 </li>
                                             </ul>
-                                            <h5>@Html.ActionLink("All bags", "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags}, null)</h5>
-                                            <ul>
-                                                <li>
-                                                    @Html.ActionLink(SubcategoryBags.Backpacks.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Backpacks }, null)
-                                                </li>
-                                                <li>
-                                                    @Html.ActionLink(SubcategoryBags.Bag.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Bag }, null)
-                                                </li>
-                                                <li>
-                                                    @Html.ActionLink(SubcategoryBags.Wallets.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Wallets }, null)
-                                                </li>
-                                            </ul>
+                                            
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="banner">
