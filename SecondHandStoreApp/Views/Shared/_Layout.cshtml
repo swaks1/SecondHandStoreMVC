@@ -76,84 +76,81 @@
                                             <h5>@Html.ActionLink("All cloathing", "ListItems", "Home",  new { searchGender = Gender.Male , searchCategory = Category.Clothes }, null)</h5>
                                             <ul>
                                                 <li>
-                                                    <a href="category.html">T-shirts</a>
+                                                    @Html.ActionLink("Blazers", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Blazers  }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Shirts</a>
+                                                    @Html.ActionLink("JacketAndCoat", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.JacketAndCoat }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Pants</a>
+                                                    @Html.ActionLink("Jeans", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Jeans }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Accessories</a>
+                                                    @Html.ActionLink("Jumpsuit", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Jumpsuit }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Shorts", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Shorts }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Suits", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Suits }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Trousers", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Trousers }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Beachwear", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes, searchSubcategory = SubcategoryClothes.Beachwear }, null)
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-3">
-                                            <h5>Shoes</h5>
+                                            <h5>@Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes }, null)</h5>
                                             <ul>
                                                 <li>
-                                                    <a href="category.html">Trainers</a>
+                                                    @Html.ActionLink("Trainers", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes, searchSubcategory = SubcategoryShoes.Trainers }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Sandals</a>
+                                                    @Html.ActionLink("Sandals", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes, searchSubcategory = SubcategoryShoes.Sandals }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Hiking shoes</a>
+                                                    @Html.ActionLink("Boots", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes, searchSubcategory = SubcategoryShoes.Boots }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Casual</a>
+                                                    @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes, searchSubcategory = SubcategoryShoes.Shoes }, null)
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-3">
-                                            <h5>Accessories</h5>
+                                            <h5>@Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories }, null)</h5>
                                             <ul>
                                                 <li>
-                                                    <a href="category.html">Trainers</a>
+                                                    @Html.ActionLink("Belts", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories, searchSubcategory = SubcategoryAccessories.Belts }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Sandals</a>
+                                                    @Html.ActionLink("Glasses", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories, searchSubcategory = SubcategoryAccessories.Glasses }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Hiking shoes</a>
+                                                    @Html.ActionLink("Hats", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories, searchSubcategory = SubcategoryAccessories.Hats }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Casual</a>
+                                                    @Html.ActionLink("Sunglasses", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories, searchSubcategory = SubcategoryAccessories.Sunglasses }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Hiking shoes</a>
+                                                    @Html.ActionLink("Watches", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories, searchSubcategory = SubcategoryAccessories.Watches }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Casual</a>
+                                                    @Html.ActionLink("MobilePhoneCases", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories, searchSubcategory = SubcategoryAccessories.MobilePhoneCases }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("Jewellery", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories, searchSubcategory = SubcategoryAccessories.Jewellery }, null)
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-3">
-                                            <h5>Featured</h5>
-                                            <ul>
-                                                <li>
-                                                    <a href="category.html">Trainers</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Sandals</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Hiking shoes</a>
-                                                </li>
-                                            </ul>
-                                            <h5>Looks and trends</h5>
-                                            <ul>
-                                                <li>
-                                                    <a href="category.html">Trainers</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Sandals</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Hiking shoes</a>
-                                                </li>
-                                            </ul>
+                                            <div class="banner">
+                                                <a href="#">
+                                                    <img src="~/img/banner.jpg" class="img img-responsive" alt="">
+                                                </a>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

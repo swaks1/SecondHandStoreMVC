@@ -115,11 +115,15 @@ namespace SecondHandStoreApp.Controllers
                                 break;
                             case "trousers":
                                 items = items.Where(i => i.category.HasFlag(Category.Clothes)
-                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Tops));
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Trousers));
                                 break;
                             case "jumpsuit":
                                 items = items.Where(i => i.category.HasFlag(Category.Clothes)
                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Jumpsuit));
+                                break;
+                            case "beachwear":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                     && i.subcategoryClothes.HasFlag(SubcategoryClothes.Beachwear));
                                 break;
                             default:
                                 items = items.Where(i => i.category.HasFlag(Category.Clothes));
