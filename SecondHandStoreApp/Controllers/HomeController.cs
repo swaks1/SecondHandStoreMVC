@@ -70,6 +70,7 @@ namespace SecondHandStoreApp.Controllers
                         items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Ungendered) && i.isSold == false) ;
                         break;
                 }
+
                 switch (searchCategory.ToLower())
                 {
                     case "clothes":

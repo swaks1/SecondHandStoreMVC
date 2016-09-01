@@ -1,4 +1,5 @@
-﻿@model SecondHandStoreApp.Models.StoreItem
+﻿@using SecondHandStoreApp.Models
+@model SecondHandStoreApp.Models.StoreItem
 
 @{
     ViewBag.Title = "Details";
@@ -37,53 +38,36 @@
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked category-menu">
                     <li>
-                        <a href="category.html">Men <span class="badge pull-right">42</span></a>
+                        @Html.ActionLink("Men", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = "no" }, null)
                         <ul>
                             <li>
-                                <a href="category.html">T-shirts</a>
+                                @Html.ActionLink("Cloaths", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes }, null)
                             </li>
                             <li>
-                                <a href="category.html">Shirts</a>
+                                @Html.ActionLink("Shoes", "ListItems", "Home",  new { searchGender = Gender.Male , searchCategory = Category.Shoes }, null)                            
                             </li>
                             <li>
-                                <a href="category.html">Pants</a>
+                                @Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories }, null)
                             </li>
                             <li>
-                                <a href="category.html">Accessories</a>
+                                @Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags }, null)
                             </li>
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="category.html">Ladies  <span class="badge pull-right">123</span></a>
+                        @Html.ActionLink("Ladies", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = "no" }, null)
                         <ul>
                             <li>
-                                <a href="category.html">T-shirts</a>
+                                @Html.ActionLink("Cloaths", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Clothes }, null)
                             </li>
                             <li>
-                                <a href="category.html">Skirts</a>
+                                @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Shoes }, null)
                             </li>
                             <li>
-                                <a href="category.html">Pants</a>
+                                @Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Accessories }, null)
                             </li>
                             <li>
-                                <a href="category.html">Accessories</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="category.html">Kids  <span class="badge pull-right">11</span></a>
-                        <ul>
-                            <li>
-                                <a href="category.html">T-shirts</a>
-                            </li>
-                            <li>
-                                <a href="category.html">Skirts</a>
-                            </li>
-                            <li>
-                                <a href="category.html">Pants</a>
-                            </li>
-                            <li>
-                                <a href="category.html">Accessories</a>
+                                @Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Bags }, null)
                             </li>
                         </ul>
                     </li>
