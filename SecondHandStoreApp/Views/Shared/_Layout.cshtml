@@ -169,33 +169,58 @@
                                             <h5>@Html.ActionLink("All cloathing", "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes" }, null)</h5>
                                             <ul>
                                                 <li>
-                                                    <a href="category.html">T-shirts</a>
+                                                    @Html.ActionLink(SubcategoryClothes.Tops.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Tops }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Shirts</a>
+                                                    @Html.ActionLink(SubcategoryClothes.Trousers.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Trousers }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Pants</a>
+                                                    @Html.ActionLink(SubcategoryClothes.Suits.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Suits }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Accessories</a>
+                                                    @Html.ActionLink(SubcategoryClothes.Skirts.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Skirts }, null)
                                                 </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryClothes.Shorts.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Shorts }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryClothes.Knitwear.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Knitwear }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryClothes.Jumpsuit.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Jumpsuit }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryClothes.Jeans.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Jeans }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryClothes.JacketAndCoat.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.JacketAndCoat }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryClothes.Dresses.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Dresses }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryClothes.Blazers.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "clothes", searchSubcategory = SubcategoryClothes.Blazers }, null)
+                                                </li>
+                                               
                                             </ul>
                                         </div>
                                         <div class="col-sm-3">
                                             <h5>@Html.ActionLink("All shoes", "ListItems", "Home", new { searchGender = "female", searchCategory = "shoes" }, null)</h5>
                                             <ul>
                                                 <li>
-                                                    <a href="category.html">Trainers</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Sandals</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Hiking shoes</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Casual</a>
+                                                    @Html.ActionLink(SubcategoryShoes.Boots.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "shoes" , searchSubcategory = SubcategoryShoes.Boots }, null)
+                                                </li>                 
+                                                <li>                  
+                                                    @Html.ActionLink(SubcategoryShoes.Heels.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "shoes" , searchSubcategory = SubcategoryShoes.Heels }, null)
+                                                </li>                 
+                                                <li>                  
+                                                    @Html.ActionLink(SubcategoryShoes.Sandals.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "shoes" , searchSubcategory = SubcategoryShoes.Sandals }, null)
+                                                </li>                 
+                                                <li>                  
+                                                    @Html.ActionLink(SubcategoryShoes.Trainers.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "shoes" , searchSubcategory = SubcategoryShoes.Trainers }, null)
+                                                </li>                 
+                                                <li>                  
+                                                    @Html.ActionLink(SubcategoryShoes.Shoes.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "shoes" , searchSubcategory = SubcategoryShoes.Shoes }, null)
                                                 </li>
                                             </ul>
                                         </div>
@@ -203,34 +228,40 @@
                                             <h5>@Html.ActionLink("All acessories", "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories" }, null)</h5>
                                             <ul>
                                                 <li>
-                                                    <a href="category.html">Trainers</a>
+                                                    @Html.ActionLink(SubcategoryAccessories.Belts.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Belts }, null)
+                                                </li>                
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryAccessories.Glasses.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Glasses }, null)
+                                                </li>                
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryAccessories.Hats.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Hats }, null)
+                                                </li>                
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryAccessories.Jewellery.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Jewellery }, null)
+                                                </li>                
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryAccessories.MobilePhoneCases.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.MobilePhoneCases }, null)
+                                                </li>                
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryAccessories.Scarves.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Scarves }, null)
+                                                </li>                
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryAccessories.Sunglasses.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Sunglasses }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Sandals</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Hiking shoes</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Casual</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Hiking shoes</a>
-                                                </li>
-                                                <li>
-                                                    <a href="category.html">Casual</a>
+                                                    @Html.ActionLink(SubcategoryAccessories.Watches.ToString() , "ListItems", "Home", new { searchGender = "female", searchCategory = "accessories", searchSubcategory = SubcategoryAccessories.Watches }, null)
                                                 </li>
                                             </ul>
-                                            <h5>Looks and trends</h5>
+                                            <h5>@Html.ActionLink("All bags", "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags}, null)</h5>
                                             <ul>
                                                 <li>
-                                                    <a href="category.html">Trainers</a>
+                                                    @Html.ActionLink(SubcategoryBags.Backpacks.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Backpacks }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Sandals</a>
+                                                    @Html.ActionLink(SubcategoryBags.Bag.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Bag }, null)
                                                 </li>
                                                 <li>
-                                                    <a href="category.html">Hiking shoes</a>
+                                                    @Html.ActionLink(SubcategoryBags.Wallets.ToString(), "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Wallets }, null)
                                                 </li>
                                             </ul>
                                         </div>
