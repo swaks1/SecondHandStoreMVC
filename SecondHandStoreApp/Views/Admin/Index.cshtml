@@ -20,6 +20,7 @@
     <div class="col-md-6 col-md-offset-3">
         <div class="box text-center">
             <h3> Welcome to Admin Panel</h3>
+            Send Mail Task:  <input type="checkbox" name="MailTask" checked>
         </div>
     </div>
     <div class="col-md-12">
@@ -34,3 +35,27 @@
          </div>
     </div>
 </div>
+@section Scripts{
+    <link href="~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+    <script src="~/Scripts/bootstrap-switch.js"></script>
+    
+    <script>
+        $(function () {
+            $("[name='MailTask']").bootstrapSwitch();
+
+            $('input[name="MailTask"]').on('switchChange.bootstrapSwitch', function (event, state) {             
+                //console.log(state); 
+                if (state) {
+                    $.get("/Admin/StartJob", function (result) {
+                        console.log(result);
+                    });
+                } else {
+                    $.get("/Admin/StopJob", function (result) {
+                        console.log(result);
+                    });
+                }
+            });
+
+        });
+    </script>
+}

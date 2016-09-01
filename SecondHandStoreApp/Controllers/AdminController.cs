@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using System.IO;
+using FluentScheduler;
+using SecondHandStoreApp.TaskScheduler;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -383,6 +385,19 @@ namespace SecondHandStoreApp.Controllers
             
         }
 
+
+        public ActionResult StopJob()
+        {
+
+            JobManager.RemoveJob("TestWriteTask");
+            return Json("Stoped Task", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult StartJob()
+        {
+            JobManager.AddJob(new MailingJob(), (s) => s.WithName("TestWriteTask").ToRunEvery(5).Seconds());
+            return Json("Started Task", JsonRequestBehavior.AllowGet);
+        }
 
 
 

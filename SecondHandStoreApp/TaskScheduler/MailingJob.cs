@@ -28,7 +28,7 @@ namespace SecondHandStoreApp.TaskScheduler
                         return;
 
                 // Do work, son!
-                System.Diagnostics.Debug.WriteLine("WORKING");
+                System.Diagnostics.Debug.WriteLine("WORKING - " + DateTime.Now.ToLocalTime());
             }
             }
 
