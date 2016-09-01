@@ -60,10 +60,9 @@ namespace SecondHandStoreApp.Models
 
     public enum Gender
     {
-        UNGENDERED,
-        MALE,
-        FEMALE 
-        
+        Ungendered,
+        Male,
+        Female 
     }
 
     public enum Category

@@ -677,7 +677,7 @@ namespace SecondHandStoreApp.Controllers
                     condition = Condition.LikeNew,
                     Description = "Something to describe here",
                     category = Category.Bags,
-                    itemGender = random.Next(50) > 25 ? Gender.MALE : Gender.FEMALE,
+                    itemGender = random.Next(50) > 25 ? Gender.Male : Gender.Female,
                     ItemName = "Item " + user.UserName,
                     Price = 99 + random.Next(1200),
                     SellerId = user.MyUser.seller.ID,

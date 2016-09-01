@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using SecondHandStoreApp.Models
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -72,7 +73,7 @@
                                 <div class="yamm-content">
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <h5>@Html.ActionLink("All cloathing", "ListItems", "Home",  new { searchGender = "male", searchCategory = "clothes" }, null)</h5>
+                                            <h5>@Html.ActionLink("All cloathing", "ListItems", "Home",  new { searchGender = Gender.Male , searchCategory = Category.Clothes }, null)</h5>
                                             <ul>
                                                 <li>
                                                     <a href="category.html">T-shirts</a>

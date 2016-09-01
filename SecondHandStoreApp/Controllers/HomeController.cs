@@ -57,34 +57,191 @@ namespace SecondHandStoreApp.Controllers
             ViewBag.CurrentFilter = searchString;
 
             
-                switch (searchGender)
+                switch (searchGender.ToLower())
                 {
                     case "female":
-                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.FEMALE) && i.isSold==false);
+                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Female) && i.isSold==false);
                         break;
 
                     case "male":
-                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.MALE) && i.isSold == false);
+                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Male) && i.isSold == false);
                         break;
-
                     default:
-                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.UNGENDERED) && i.isSold == false) ;
+                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Ungendered) && i.isSold == false) ;
                         break;
                 }
-                switch (searchCategory)
+                switch (searchCategory.ToLower())
                 {
                     case "clothes":
-                    items = items.Where(i => i.category.HasFlag(Category.Clothes));
+                    if (searchSubcategory != null)
+                    {
+                        switch (searchSubcategory.ToLower())
+                        {
+                            case "blazers":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Blazers));
+                                break;
+                            case "dresses":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Dresses));
+                                break;
+                            case "jacketandcoat":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.JacketAndCoat));
+                                break;
+                            case "jeans":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Jeans));
+                                break;
+                            case "knitwear":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Knitwear));
+                                break;
+                            case "shorts":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Shorts));
+                                break;
+                            case "skirts":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Skirts));
+                                break;
+                            case "suits":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Suits));
+                                break;
+                            case "tops":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Tops));
+                                break;
+                            case "trousers":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Tops));
+                                break;
+                            case "jumpsuit":
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                                     && i.subcategoryClothes.HasFlag(SubcategoryClothes.Jumpsuit));
+                                break;
+                            default:
+                                items = items.Where(i => i.category.HasFlag(Category.Clothes));
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        items = items.Where(i => i.category.HasFlag(Category.Clothes));
+                    }
                         break;
+
                     case "shoes":
-                        items = items.Where(i =>i.category.HasFlag(Category.Shoes));
-                        break;
+                    if (searchSubcategory != null)
+                    {
+                        switch (searchSubcategory.ToLower()) {
+                            case "trainers":
+                                items = items.Where(i => i.category.HasFlag(Category.Shoes)
+                                                     &&  i.subcategoryShoes.HasFlag(SubcategoryShoes.Trainers));
+                                break;
+                            case "sandals":
+                                items = items.Where(i => i.category.HasFlag(Category.Shoes)
+                                                     && i.subcategoryShoes.HasFlag(SubcategoryShoes.Sandals));
+                                break;
+                            case "heels":
+                                items = items.Where(i => i.category.HasFlag(Category.Shoes)
+                                                     && i.subcategoryShoes.HasFlag(SubcategoryShoes.Heels));
+                                break;
+                            case "boots":
+                                items = items.Where(i => i.category.HasFlag(Category.Shoes)
+                                                     && i.subcategoryShoes.HasFlag(SubcategoryShoes.Boots));
+                                break;
+                            case "shoes":
+                                items = items.Where(i => i.category.HasFlag(Category.Shoes)
+                                                     && i.subcategoryShoes.HasFlag(SubcategoryShoes.Shoes));
+                                break;
+                            default:
+                                items = items.Where(i => i.category.HasFlag(Category.Shoes));
+                                break;
+                        }
+
+                    }
+                    else
+                    {
+                        items = items.Where(i => i.category.HasFlag(Category.Shoes));
+
+                    }
+                    break;
                     case "accessories":
+                    if (searchSubcategory != null)
+                    {
+                        switch (searchSubcategory.ToLower())
+                        {
+                            case "belts":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.Belts));
+                                break;
+                            case "glasses":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.Glasses));
+                                break;
+                            case "hats":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.Hats));
+                                break;
+                            case "scarves":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.Scarves));
+                                break;
+                            case "sunglasses":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.Sunglasses));
+                                break;
+                            case "watches":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.Watches));
+                                break;
+                            case "mobilephonecases":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.MobilePhoneCases));
+                                break;
+                            case "jewellery":
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories)
+                                                      && i.subcategoryAccessories.HasFlag(SubcategoryAccessories.Jewellery));
+                                break;
+                            default:
+                                items = items.Where(i => i.category.HasFlag(Category.Accessories));
+                                break;
+                        }
+                    }
+                    else {
                         items = items.Where(i => i.category.HasFlag(Category.Accessories));
+                    }
                         break;
                     case "bags":
+                    if (searchSubcategory != null)
+                    {
+                        switch (searchSubcategory.ToLower())
+                        {
+                            case "backpacks":
+                                items = items.Where(i => i.category.HasFlag(Category.Bags)
+                                                      && i.subcategoryBags.HasFlag(SubcategoryBags.Backpacks));
+                                break;
+                            case "wallets":
+                                items = items.Where(i => i.category.HasFlag(Category.Bags)
+                                                      && i.subcategoryBags.HasFlag(SubcategoryBags.Wallets));
+                                break;
+                            case "bag":
+                                items = items.Where(i => i.category.HasFlag(Category.Bags)
+                                                      && i.subcategoryBags.HasFlag(SubcategoryBags.Bag));
+                                break;
+                            default:
+                                items = items.Where(i => i.category.HasFlag(Category.Bags));
+                                break;
+                        }
+                    }
+                    else
+                    {
                         items = items.Where(i => i.category.HasFlag(Category.Bags));
-                        break;
+
+                    }
+                    break;
                     default:
                         break;
                 }
