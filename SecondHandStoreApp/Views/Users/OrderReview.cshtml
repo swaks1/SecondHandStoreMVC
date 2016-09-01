@@ -53,20 +53,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.boughtItems)
+                                        @foreach (var item in Model.shopingCart)
                                         {
                                             <tr>
                                                 <td>
                                                     <a href="#">
-                                                        <img src="~/@item.item.Images.ElementAt(0).Image" alt="White Blouse Armani">
+                                                        <img src="~/@item.Images.ElementAt(0).Image" alt="White Blouse Armani">
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="~/StoreItems/Details/@item.item.ID">@item.item.ItemName</a>
+                                                    <a href="~/StoreItems/Details/@item.ID">@item.ItemName</a>
                                                 </td>
-                                                <td>$@item.item.Price</td>
+                                                <td>$@item.Price</td>
                                                 <td>$0</td>
-                                                <td>$@item.item.Price</td>
+                                                <td>$@item.Price</td>
 
                                             </tr>
                                         }
@@ -78,9 +78,9 @@
                                             <th colspan="5">Total</th>
                                             @{
                                                 double total = 0.0;
-                                                foreach (var item in Model.boughtItems)
+                                                foreach (var item in Model.shopingCart)
                                                 {
-                                                    total += item.item.Price;
+                                                    total += item.Price;
                                                 }
 
                                                 <th colspan="2">$@total</th>
@@ -102,11 +102,11 @@
                 </div>
                     <div class="box-footer">
                         <div class="pull-left">
-                            <a href="~/Users/PaymentMethod" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back </a>
+                            <a href="~/Users/UserDetails" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back </a>
                         </div>
                         <div class="pull-right">
                             <button type="submit" class="btn btn-primary">
-                                Continue to Payment mathod<i class="fa fa-chevron-right"></i>
+                                Finalize Payment<i class="fa fa-chevron-right"></i>
                             </button>
                         </div>
                     </div>

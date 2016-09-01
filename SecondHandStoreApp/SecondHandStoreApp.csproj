@@ -400,6 +400,7 @@
     <Content Include="Views\Users\OrderReview.cshtml" />
     <Content Include="Views\Users\GetSellings.cshtml" />
     <Content Include="Views\Users\NotSeller.cshtml" />
+    <Content Include="Views\Users\GetOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

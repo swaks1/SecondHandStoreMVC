@@ -274,7 +274,7 @@
                         <p class="price">@item.Price</p>
                         <p class="buttons">
                             <a href="~/StoreItems/Details/@item.ID" class="btn btn-default">View detail</a>
-                            <a href="~/Users/AddToCart/@item.ID" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            <a href="~/Users/AddToCart/@(item.ID)?returnUrl=@Request.Url.AbsoluteUri" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                         </p>
                     </div>
                     <!-- /.text -->

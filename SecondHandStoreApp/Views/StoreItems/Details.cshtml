@@ -203,7 +203,15 @@
                     <p class="price">@Model.Price</p>
 
                     <p class="text-center buttons">
-                        <a href="~/Users/AddToCart/@Model.ID" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a>                       
+                        @if (!Model.isSold)
+                        {
+                            <a href="~/Users/AddToCart/@Model.ID" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                        }
+                        else
+                        {
+                            <label class="label label-danger"><i class="fa fa-times"></i> Already Sold...</label>
+                        }
+
                     </p>
 
 

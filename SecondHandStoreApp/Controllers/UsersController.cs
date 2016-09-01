@@ -14,6 +14,8 @@ namespace SecondHandStoreApp.Controllers
     public class UsersController : Controller
     {
         UserRepository _userRepository = new UserRepository();
+        private StoreItemRepository _storeItemRepository = new StoreItemRepository();
+
         private ApplicationUserManager _userManager;
 
         public ApplicationUserManager UserManager
@@ -33,22 +35,25 @@ namespace SecondHandStoreApp.Controllers
             return View();
         }
 
-        public ActionResult ShoppingCart()
+        public ActionResult ShoppingCart(string returnUrl)
         {
             var userId = User.Identity.GetUserId();
 
             var myUser = _userRepository.GetMyUser(userId);
 
+            ViewBag.popularItems = _storeItemRepository.GetPopular().Take(3);
+            ViewBag.returnUrl = returnUrl;
+
             return View(myUser);
         }
 
-        public ActionResult AddToCart(int id)
+        public ActionResult AddToCart(int id, string returnUrl)
         {
             var userId = User.Identity.GetUserId();
 
             _userRepository.AddItemToShopingCart(userId, id);
 
-            return RedirectToAction("ShoppingCart");
+            return RedirectToAction("ShoppingCart",new {returnUrl = returnUrl});
         }
 
         public ActionResult DeleteFromCart(int id)
@@ -97,8 +102,7 @@ namespace SecondHandStoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = User.Identity.GetUserId();
-                _userRepository.AddToOrders(userId);
+                
             }
             return RedirectToAction("OrderReview");
         }
@@ -110,6 +114,16 @@ namespace SecondHandStoreApp.Controllers
             var myUser = _userRepository.GetMyUser(userId);
 
             return View(myUser);
+        }
+
+        [HttpPost,ActionName("OrderReview")]
+        [ValidateAntiForgeryToken]
+        public ActionResult OrderReviewPost()
+        {
+            var userId = User.Identity.GetUserId();
+            _userRepository.AddToOrders(userId);
+
+            return RedirectToAction("GetOrders");
         }
 
         public ActionResult GetSellings()
@@ -125,6 +139,15 @@ namespace SecondHandStoreApp.Controllers
             return View(user.MyUser.seller.SellingItems.Where(s => s.IsAvailable).ToList());
         }
 
+        public ActionResult GetOrders()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = _userRepository.GetAppUser(userId);
         
+
+            return View(user.MyUser.boughtItems);
+        }
+
+
     }
 }
