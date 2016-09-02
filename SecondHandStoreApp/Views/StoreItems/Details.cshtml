@@ -37,14 +37,14 @@
 
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked category-menu">
-                    <li>
+                    <li class=@(Model.itemGender.HasFlag(Gender.Male)?"active":"")>
                         @Html.ActionLink("Men", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = "no" }, null)
                         <ul>
                             <li>
                                 @Html.ActionLink("Cloaths", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes }, null)
                             </li>
                             <li>
-                                @Html.ActionLink("Shoes", "ListItems", "Home",  new { searchGender = Gender.Male , searchCategory = Category.Shoes }, null)                            
+                                @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes }, null)
                             </li>
                             <li>
                                 @Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories }, null)
@@ -54,7 +54,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
+
+                    <li class=@(Model.itemGender.HasFlag(Gender.Female)? "active" : "")>
                         @Html.ActionLink("Ladies", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = "no" }, null)
                         <ul>
                             <li>

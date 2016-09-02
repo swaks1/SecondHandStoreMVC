@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<SecondHandStoreApp.Models.StoreItem>
-@using PagedList.Mvc;
+@using PagedList.Mvc;.
+@using SecondHandStoreApp.Models
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -32,54 +33,37 @@
 
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked category-menu">
-                    <li>
-                        <a href="category.html">Men <span class="badge pull-right">42</span></a>
+                    <li id="genderFilterMale">
+                        @Html.ActionLink("Men", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = "no" },null)
                         <ul>
-                            <li>
-                                <a href="category.html">T-shirts</a>
+                            <li class="LinksLeft" id="clothesLinkMale">
+                                @Html.ActionLink("Cloaths", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes },null)
                             </li>
-                            <li>
-                                <a href="category.html">Shirts</a>
+                            <li class="LinksLeft" id="shoesLinkMale">
+                                @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes }, null)
                             </li>
-                            <li>
-                                <a href="category.html">Pants</a>
+                            <li class="LinksLeft" id="accessoriesLinkMale">
+                                @Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories }, null)
                             </li>
-                            <li>
-                                <a href="category.html">Accessories</a>
+                            <li class="LinksLeft" id="bagsLinkMale">
+                                @Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags }, null)
                             </li>
                         </ul>
                     </li>
-                    <li class="active">
-                        <a href="category.html">Ladies  <span class="badge pull-right">123</span></a>
+                    <li  id="genderFilterFemale">
+                        @Html.ActionLink("Ladies", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = "no" }, null)
                         <ul>
-                            <li>
-                                <a href="category.html">T-shirts</a>
+                            <li class="LinksLeft" id="clothesLinkFemale">
+                                @Html.ActionLink("Cloaths", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Clothes }, null)
                             </li>
-                            <li>
-                                <a href="category.html">Skirts</a>
+                            <li class="LinksLeft" id="shoesLinkFemale">
+                                @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Shoes }, null)
                             </li>
-                            <li>
-                                <a href="category.html">Pants</a>
+                            <li class="LinksLeft" id="accessoriesLinkFemale">
+                                @Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Accessories }, null)
                             </li>
-                            <li>
-                                <a href="category.html">Accessories</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="category.html">Kids  <span class="badge pull-right">11</span></a>
-                        <ul>
-                            <li>
-                                <a href="category.html">T-shirts</a>
-                            </li>
-                            <li>
-                                <a href="category.html">Skirts</a>
-                            </li>
-                            <li>
-                                <a href="category.html">Pants</a>
-                            </li>
-                            <li>
-                                <a href="category.html">Accessories</a>
+                            <li class="LinksLeft" id="bagsLinkFemale">
+                                @Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Bags }, null)
                             </li>
                         </ul>
                     </li>
@@ -180,6 +164,7 @@
             </a>
         </div>
     </div>
+
 
 
     <div class="col-md-9">
@@ -333,15 +318,33 @@
        
 
         var first = getUrlVars()["searchGender"];
-        switch (first) {
+        var categoryName = "";
+        categoryName = getUrlVars()["searchCategory"].toLowerCase();
+
+        switch (first.toLowerCase()) {
             case "male":
                         $(".nav .active").removeClass("active");
                         $("#MaleLink").addClass("active");
+
+                        $("#genderFilterMale").addClass("active");
+                        $("#genderFilterFemale").removeClass("active");
+
+                        if (categoryName != "") {
+                            changeSubCategoryLink("male", categoryName);
+                        }
+                            
                         scrollBelow();
                         break;
             case "female":
                         $(".nav .active").removeClass("active");
                         $("#FemaleLink").addClass("active");
+
+                        $("#genderFilterFemale").addClass("active");
+                        $("#genderFilterMale").removeClass("active");
+
+                        if (categoryName != "") {
+                            changeSubCategoryLink("female", categoryName);
+                        }
                         scrollBelow();
                         break;
                 
@@ -363,6 +366,18 @@
                 $(".pageSizeBtn").removeClass("btn-primary");
                 $("#pagesize3").addClass("btn-primary");
                 break;
+        }
+
+
+        function changeSubCategoryLink(gender, categoryName) {
+            if (gender == "male") {
+                $(".LinksLeft").removeClass("active");
+                $("#" + categoryName + "LinkMale").addClass("active");
+            }
+            else {
+                $(".LinksLeft").removeClass("active");
+                $("#" + categoryName + "LinkFemale").addClass("active");
+            }
         }
 
         
