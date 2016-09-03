@@ -231,7 +231,7 @@
             <h4>Size & Fit</h4>
             <ul>
                 <li>
-                    @Model.size ?? @Model.shoeSize
+                    @(Model.category.HasFlag(Category.Shoes)? Model.shoeSize.ToString() : Model.size.ToString())
                 </li>
             </ul>
             <h4>Condition</h4>
@@ -247,11 +247,7 @@
                 </li>
             </ul>
 
-            <ul>
-                <li>
-                    @Model.subcategoryClothes
-                </li>
-            </ul>
+           
 
             <hr>
             @*<div class="social">
@@ -272,33 +268,35 @@
                 </div>
             </div>
 
+           @foreach (SecondHandStoreApp.Models.StoreItem item in ViewBag.popularItems)
+            {
             <div class="col-md-3 col-sm-6">
                 <div class="product same-height">
                     <div class="flip-container">
                         <div class="flipper">
                             <div class="front">
                                 <a href="detail.html">
-                                    <img src="img/product2.jpg" alt="" class="img-responsive">
+                                    <img src="~/@item.Images.ElementAt(0).Image" alt="" class="img-responsive prodSliderImg">
                                 </a>
                             </div>
                             <div class="back">
                                 <a href="detail.html">
-                                    <img src="img/product2_2.jpg" alt="" class="img-responsive">
+                                    <img src="~/@item.Images.ElementAt(1).Image" alt="" class="img-responsive prodSliderImg">
                                 </a>
                             </div>
                         </div>
                     </div>
                     <a href="detail.html" class="invisible">
-                        <img src="img/product2.jpg" alt="" class="img-responsive">
+                        <img src="~/@item.Images.ElementAt(2).Image" alt="" class="img-responsive prodSliderImg">
                     </a>
                     <div class="text">
-                        <h3>Fur coat</h3>
-                        <p class="price">$143</p>
+                        <h3>@item.ItemName</h3>
+                        <p class="price">$@item.Price</p>
                     </div>
                 </div>
                 <!-- /.product -->
             </div>
-
+           }
                     
 
         </div>

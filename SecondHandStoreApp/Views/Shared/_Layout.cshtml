@@ -421,33 +421,40 @@
 
                         <h4>Top categories</h4>
 
-                        <h5>Men</h5>
+                        <h5>
+                            @Html.ActionLink("Men", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = "no" }, null)
+                        </h5>
 
                         <ul>
                             <li>
-                                <a href="category.html">T-shirts</a>
+                                @Html.ActionLink("Cloaths", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Clothes }, null)
                             </li>
                             <li>
-                                <a href="category.html">Shirts</a>
+                                @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes }, null)
                             </li>
                             <li>
-                                <a href="category.html">Accessories</a>
+                                @Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Accessories }, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags }, null)
                             </li>
                         </ul>
 
-                        <h5>Ladies</h5>
+                        <h5>
+                            @Html.ActionLink("Ladies", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = "no" }, null)
+                        </h5>
                         <ul>
                             <li>
-                                <a href="category.html">T-shirts</a>
+                                @Html.ActionLink("Cloaths", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Clothes }, null)
                             </li>
                             <li>
-                                <a href="category.html">Skirts</a>
+                                @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Shoes }, null)
                             </li>
                             <li>
-                                <a href="category.html">Pants</a>
+                                @Html.ActionLink("Accessories", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Accessories }, null)
                             </li>
                             <li>
-                                <a href="category.html">Accessories</a>
+                                @Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = Gender.Female, searchCategory = Category.Bags }, null)
                             </li>
                         </ul>
 

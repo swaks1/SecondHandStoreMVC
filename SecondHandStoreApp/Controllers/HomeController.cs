@@ -56,8 +56,10 @@ namespace SecondHandStoreApp.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            
-                switch (searchGender.ToLower())
+
+            //TODO: if(searchGender == null)  what to return??
+
+            switch (searchGender.ToLower())
                 {
                     case "female":
                         items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Female) && i.isSold==false);

@@ -50,6 +50,8 @@ namespace SecondHandStoreApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.popularItems = _storeItemRepository.GetPopular().Take(3);
+
             return View(storeItem);
         }
 
