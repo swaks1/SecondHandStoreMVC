@@ -111,15 +111,15 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-5">
-                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control price" } })
                                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Your earaings</label>
+                                <label class="control-label col-md-2">Your earaings</label>
                                 <div class="col-md-5">
-                                    <label></label>
+                                    <input class="eararings form-control" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -197,6 +197,11 @@
 
         $(".nav .active").removeClass("active");
         $("#SellLink").addClass("active");
+
+        $(".price").change(function () {
+            var price = $(this).val();
+            $(".eararings").val(price * 0.8);
+        });
 
         });
 </script>    
