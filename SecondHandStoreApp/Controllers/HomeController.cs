@@ -278,6 +278,61 @@ namespace SecondHandStoreApp.Controllers
 
         }
 
+        public ActionResult Search(string searchString)
+        {
+          
+            //var items = _storeItemRepository.GetAllApproved();
+            IQueryable<StoreItem> items;
+            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items = _storeItemRepository
+                                .Filter(i => i.ItemName.ToLower().Contains(searchString.ToLower()) && i.isSold == false);
+
+                ViewBag.searchString = searchString;
+                return View(items.ToList());
+
+            }
+            return View();
+           
+        }
+
+
+        public ActionResult Contact()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Contact(ContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await SendContactMailTask(model);
+                ViewBag.message = "Mail sent successfully";
+            }
+            return View();
+        }
+
+        public ActionResult FAQ()
+        {
+
+            return View();
+        }
+
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+
+
+        public ActionResult LearnMore()
+        {
+
+            return View();
+        }
+
         public async Task<ActionResult> SendMail()
         {
             await SendMailTask();
@@ -290,10 +345,24 @@ namespace SecondHandStoreApp.Controllers
             string apiKey = "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";
             dynamic sg = new SendGridAPIClient(apiKey);
 
-            Email from = new Email("Riste_P@outlook.com");
+            Email from = new Email("Riste_P@outlook.com");// company address
             string subject = "Hello World from the SendGrid CSharp Library!";
             Email to = new Email("marija283@hotmail.com");
             Content content = new Content("text/plain", "Zdravo Ubava !");
+            Mail mail = new Mail(from, subject, to, content);
+
+            dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());
+        }
+
+        static async Task SendContactMailTask(ContactViewModel model)
+        {
+            string apiKey = "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";
+            dynamic sg = new SendGridAPIClient(apiKey);
+
+            Email to = new Email("marija283@hotmail.com");// company address
+            Email from = new Email(model.Email, model.FirstName + " " + model.LastName );
+            string subject = model.Subject;
+            Content content = new Content("text/plain", model.Message);
             Mail mail = new Mail(from, subject, to, content);
 
             dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());

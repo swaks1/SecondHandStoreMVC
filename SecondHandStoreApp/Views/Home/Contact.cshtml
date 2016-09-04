@@ -1,0 +1,156 @@
+﻿@model SecondHandStoreApp.Models.ContactViewModel
+@{
+    ViewBag.Title = "Contact";
+}
+
+<div class="container">
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home">Home</a>
+            </li>
+            <li>Contact</li>
+        </ul>
+
+    </div>
+
+    <div class="col-md-3">
+        <!-- *** PAGES MENU ***
+        _________________________________________________________ -->
+        <div class="panel panel-default sidebar-menu">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Pages</h3>
+            </div>
+
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="~/Home/AboutUs">About us</a>
+                    </li>
+                    <li>
+                        <a href="#" class="active">Contact page</a>
+                    </li>
+                    <li>
+                        <a href="~/Home/FAQ">FAQ</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+        <!-- *** PAGES MENU END *** -->
+
+
+        <div class="banner">
+            <a href="#">
+                <img src="img/banner.jpg" alt="sales 2014" class="img-responsive">
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        @if (@ViewBag.message != null)
+        {
+            <div class="bg-success">
+                <blockquote>
+                    @ViewBag.message
+                </blockquote>
+            </div>
+        }
+
+        <div class="box" id="contact">
+             
+            <h1>Contact</h1>
+
+            <p class="lead">Are you curious about something? Do you have some kind of problem with our products?</p>
+            <p>Please feel free to contact us, our customer service center is working for you 24/7.</p>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <h3><i class="fa fa-phone"></i> Call center</h3>
+                    <p class="text-muted">This number is not toll free, otherwise we advise you to use the electronic form of communication.</p>
+                    <p>
+                        <strong>+389 75 555 555</strong>
+                    </p>
+                </div>
+                <!-- /.col-sm-5 -->
+                <div class="col-sm-5">
+                    <h3><i class="fa fa-envelope"></i> Electronic support</h3>
+                    <p class="text-muted">Please feel free to write an email to us or to use our electronic ticketing system.</p>
+                    <ul>
+                        <li>
+                            <strong><a href="mailto:">info@fakeemail.com</a></strong>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.col-sm-5 -->
+            </div>
+            <!-- /.row -->
+
+
+            <hr>
+            <h2>Contact form</h2>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                    </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label " })
+                            @Html.TextAreaFor(model => model.Message, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send message</button>
+
+                    </div>
+                </div>
+                <!-- /.row -->
+            }
+
+
+        </div>
+
+
+    </div>
+    <!-- /.col-md-9 -->
+</div>
+<!-- /.container -->

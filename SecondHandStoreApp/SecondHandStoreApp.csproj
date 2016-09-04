@@ -413,6 +413,11 @@
     <Content Include="Views\Users\GetSellings.cshtml" />
     <Content Include="Views\Users\NotSeller.cshtml" />
     <Content Include="Views\Users\GetOrders.cshtml" />
+    <Content Include="Views\Home\LearnMore.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

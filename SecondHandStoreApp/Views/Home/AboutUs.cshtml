@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "AboutUs";
+}
+
+<div class="container">
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="~/Home">Home</a>
+            </li>
+            <li>About us</li>
+        </ul>
+
+    </div>
+
+    <div class="col-md-3">
+        <!-- *** PAGES MENU ***
+        _________________________________________________________ -->
+        <div class="panel panel-default sidebar-menu">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Pages</h3>
+            </div>
+
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="~/Home/AboutUs" class="active">About us</a>
+                    </li>
+                    <li>
+                        <a href="~/Home/Contact">Contact page</a>
+                    </li>
+                    <li>
+                        <a href="~/Home/FAQ">FAQ</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+        <!-- *** PAGES MENU END *** -->
+
+
+        <div class="banner">
+            <a href="#">
+                <img src="img/banner.jpg" alt="sales 2014" class="img-responsive">
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        @if (@ViewBag.message != null)
+        {
+            <div class="bg-success">
+                <blockquote>
+                    @ViewBag.message
+                </blockquote>
+            </div>
+        }
+
+        <div class="box" >
+
+            <h1>About us</h1>
+
+            <p class="lead">This is your online marketplace for fashion items
+                               in the second hand sector</p>
+
+            <hr>
+
+           
+        </div>
+
+
+    </div>
+    <!-- /.col-md-9 -->
+</div>
+<!-- /.container -->
+

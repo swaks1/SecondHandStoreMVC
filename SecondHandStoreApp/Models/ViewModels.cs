@@ -94,7 +94,7 @@ namespace SecondHandStoreApp.Models
 
         [Display(Name = "City")]
         public string City { get; set; }
-       
+
         [Display(Name = "Phone number")]
         public string Phone { get; set; }
     }
@@ -228,5 +228,26 @@ namespace SecondHandStoreApp.Models
 
         [Required]
         public string LastName { get; set; }
+    }
+
+    public class ContactViewModel
+    {
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; } 
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string Subject { get; set; }
+
+        [Required]
+        public string Message { get; set; }
     }
 }

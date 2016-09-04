@@ -1,4 +1,6 @@
 ﻿@using SecondHandStoreApp.Models
+@using Microsoft.AspNet.Identity
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -290,7 +292,7 @@
                                     <div class="row">
                                         <div class="col-sm-offset-4 col-sm-3">
                                             <h5><a href="~/storeitems/create1">Sell</a></h5>
-                                            <h5>Learn more</h5>
+                                            <h5><a href="~/Home/LearnMore">Learn more</a></h5>
                                         </div>
                                        
                                     </div>
@@ -335,11 +337,11 @@
 
             <div class="collapse clearfix" id="search">
 
-                <form class="navbar-form" role="search">
+                <form class="navbar-form" method="get" action="~/Home/Search" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="searchString" class="form-control" placeholder="Search">
                         <span class="input-group-btn">
-
+                            
                             <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 
                         </span>
@@ -381,21 +383,18 @@
         <div id="footer" data-animate="fadeInUp">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 col-sm-6">
+                    <div class="col-md-4 col-sm-6">
                         <h4>Pages</h4>
 
                         <ul>
                             <li>
-                                <a href="text.html">About us</a>
+                                <a href="~/Home/AboutUs">About us</a>
                             </li>
                             <li>
-                                <a href="text.html">Terms and conditions</a>
+                                <a href="~/Home/FAQ">FAQ</a>
                             </li>
                             <li>
-                                <a href="faq.html">FAQ</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact us</a>
+                                <a href="~/Home/Contact">Contact us</a>
                             </li>
                         </ul>
 
@@ -404,20 +403,39 @@
                         <h4>User section</h4>
 
                         <ul>
+                           @if (Request.IsAuthenticated)
+                           {
                             <li>
-                                <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form-inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Edit", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+                                }
                             </li>
                             <li>
-                                <a href="register.html">Regiter</a>
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
                             </li>
+
+                               if (User.IsInRole("Admin"))
+                               {
+                                <li><a href="~/Admin/Index">ADMIN</a></li>
+                               }
+                           }
+                           else
+                           {
+                            <li><a href="#" data-toggle="modal" id="loginLink" data-target="#login-modal">Login</a></li>
+                            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                           }
                         </ul>
 
                         <hr class="hidden-md hidden-lg hidden-sm">
 
                     </div>
-                    <!-- /.col-md-3 -->
+                    <!-- /.col-md-4 -->
 
-                    <div class="col-md-3 col-sm-6">
+                    <div class="col-md-4 col-sm-6">
 
                         <h4>Top categories</h4>
 
@@ -461,36 +479,13 @@
                         <hr class="hidden-md hidden-lg">
 
                     </div>
-                    <!-- /.col-md-3 -->
+                    <!-- /.col-md-4 -->
 
-                    <div class="col-md-3 col-sm-6">
-
-                        <h4>Where to find us</h4>
-
-                        <p>
-                            <strong>Obaju Ltd.</strong>
-                            <br>13/25 New Avenue
-                            <br>New Heaven
-                            <br>45Y 73J
-                            <br>England
-                            <br>
-                            <strong>Great Britain</strong>
-                        </p>
-
-                        <a href="contact.html">Go to contact page</a>
-
-                        <hr class="hidden-md hidden-lg">
-
-                    </div>
-                    <!-- /.col-md-3 -->
-
-
-
-                    <div class="col-md-3 col-sm-6">
+                    <div class="col-md-4 col-sm-6">
 
                         <h4>Get the news</h4>
 
-                        <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                        <p class="text-muted">Subscribe to our newsletter with the latest fashion news, hot offers and pieces.</p>
 
                         <form>
                             <div class="input-group">
@@ -521,7 +516,7 @@
 
 
                     </div>
-                    <!-- /.col-md-3 -->
+                    <!-- /.col-md-4 -->
 
                 </div>
                 <!-- /.row -->
