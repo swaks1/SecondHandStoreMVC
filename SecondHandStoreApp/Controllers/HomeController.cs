@@ -342,7 +342,7 @@ namespace SecondHandStoreApp.Controllers
         }
         static async Task SendMailTask()
         {
-            string apiKey = "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";
+            string apiKey = System.Configuration.ConfigurationManager.AppSettings["mailApiKey"]; 
             dynamic sg = new SendGridAPIClient(apiKey);
 
             Email from = new Email("Riste_P@outlook.com");// company address
@@ -356,7 +356,7 @@ namespace SecondHandStoreApp.Controllers
 
         static async Task SendContactMailTask(ContactViewModel model)
         {
-            string apiKey = "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";
+            string apiKey = System.Configuration.ConfigurationManager.AppSettings["mailApiKey"];
             dynamic sg = new SendGridAPIClient(apiKey);
 
             Email to = new Email("marija283@hotmail.com");// company address

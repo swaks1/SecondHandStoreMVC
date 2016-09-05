@@ -303,3 +303,4 @@ $RECYCLE.BIN/
 *.lnk
 SecondHandStoreApp/Images/
 SecondHandStoreApp/Content/bower_components/
+SecondHandStoreApp/AppSetingsSecrets.config
