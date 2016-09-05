@@ -422,6 +422,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Payment\PaymentSuccess.cshtml" />
     <Content Include="Views\Payment\PaymentFailure.cshtml" />
+    <Content Include="Views\Shared\GoogleAnalyticsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
