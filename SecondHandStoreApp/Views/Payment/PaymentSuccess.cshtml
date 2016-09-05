@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "PaymentSuccess";
+}
+
+<div class="container">
+    <div class="box text-center">
+        <h2><i class="fa fa-2x fa-check" style="color:#4fbfa8"></i>Payment Successful</h2>
+        <a href="/Users/GetOrders">See your orders</a>
+        <br />
+        Redirecting in <span id="redirectSpan" style="font-weight:bold">3</span>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            var count = 3;
+
+            var countdown = setInterval(function () {
+                $("#redirectSpan").html(count);
+                if (count == 0) {
+                    clearInterval(countdown);
+                    window.location.href = "/Users/GetOrders";
+                }
+                count--;
+            }, 1000);
+            
+        });
+    </script>
+}
