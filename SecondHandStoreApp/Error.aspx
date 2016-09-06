@@ -4,6 +4,7 @@
     ViewBag.Title = "Error";
 }
 
+<% Response.StatusCode = 404 %>
 <div class="container">
 
     <div class="col-md-12">
@@ -21,7 +22,7 @@
                 <div class="box">
 
                     <p class="text-center">
-                        <img src="~/img/logo.png" >
+                        <img src="img/logo.png" >
                     </p>
 
                     <h3>We are sorry - this page is not here anymore</h3>

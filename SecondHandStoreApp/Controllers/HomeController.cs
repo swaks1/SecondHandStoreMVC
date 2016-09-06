@@ -408,6 +408,11 @@ namespace SecondHandStoreApp.Controllers
 
         }
 
+        public ActionResult ShowErrorPage()
+        {
+            return View("Error");
+        }
+
 
     }
 }

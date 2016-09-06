@@ -18,7 +18,7 @@ namespace SecondHandStoreApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            BundleTable.EnableOptimizations = true;
             JobManager.Initialize(new MyRegistry());
         }
     }

@@ -296,6 +296,8 @@
     <Content Include="Content\Template\bootstrap.min.css" />
     <Content Include="Content\Template\custom.css" />
     <Content Include="Content\Template\font-awesome.css" />
+    <Content Include="Content\Template\fonts\flexslider-icon.svg" />
+    <Content Include="Content\Template\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Template\owl.carousel.css" />
     <Content Include="Content\Template\owl.theme.css" />
     <Content Include="Content\Template\owl.transitions.css" />
@@ -308,7 +310,56 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\1\1_1.jpg" />
+    <Content Include="Images\1\1_2.jpg" />
+    <Content Include="Images\1\1_3.jpg" />
+    <Content Include="Images\2\2_1.jpg" />
+    <Content Include="Images\2\2_2.jpg" />
+    <Content Include="Images\2\2_3.jpg" />
+    <Content Include="Images\3\3_1.jpg" />
+    <Content Include="Images\3\3_2.jpg" />
+    <Content Include="Images\3\3_3.jpg" />
+    <Content Include="Images\4\4_1.jpg" />
+    <Content Include="Images\4\4_2.jpg" />
+    <Content Include="Images\4\4_3.jpg" />
+    <Content Include="Images\5\5_1.jpg" />
+    <Content Include="Images\5\5_2.jpg" />
+    <Content Include="Images\5\5_3.jpg" />
+    <Content Include="Images\6\6_1.jpg" />
+    <Content Include="Images\6\6_2.jpg" />
+    <Content Include="Images\6\6_3.jpg" />
+    <Content Include="Images\7\7_1.jpg" />
+    <Content Include="Images\7\7_2.jpg" />
+    <Content Include="Images\7\7_3.jpg" />
+    <Content Include="Images\8\8_1.jpg" />
+    <Content Include="Images\8\8_2.jpg" />
+    <Content Include="Images\8\8_3.jpg" />
+    <Content Include="Images\9\9_1.jpg" />
+    <Content Include="Images\9\9_2.jpg" />
+    <Content Include="Images\9\9_3.jpg" />
+    <Content Include="img\AjaxLoader.gif" />
+    <Content Include="img\banner.jpg" />
+    <Content Include="img\banner2.jpg" />
+    <Content Include="img\creditcards\amex.png" />
+    <Content Include="img\creditcards\credit.png" />
+    <Content Include="img\creditcards\dankort.png" />
+    <Content Include="img\creditcards\diners.png" />
+    <Content Include="img\creditcards\discover.png" />
+    <Content Include="img\creditcards\forbru.png" />
+    <Content Include="img\creditcards\google.png" />
+    <Content Include="img\creditcards\jcb.png" />
+    <Content Include="img\creditcards\laser.png" />
+    <Content Include="img\creditcards\maestro.png" />
+    <Content Include="img\creditcards\mastercard.png" />
+    <Content Include="img\creditcards\money.png" />
+    <Content Include="img\creditcards\paypa.png" />
+    <Content Include="img\creditcards\shopify.png" />
+    <Content Include="img\creditcards\solo.png" />
+    <Content Include="img\creditcards\visa.png" />
     <Content Include="img\filterImg.jpg" />
+    <Content Include="img\logo-small.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\sellnow2.jpg" />
     <Content Include="img\slider1.jpg" />
     <Content Include="img\slider2.jpg" />
     <Content Include="img\slider3.jpg" />
@@ -320,6 +371,15 @@
     <Content Include="bower.json" />
     <Content Include="Content\Template\bootstrap.css.map" />
     <Content Include="AppSetingsSecrets.config" />
+    <Content Include="Content\Template\fonts\flexslider-icon.eot" />
+    <Content Include="Content\Template\fonts\flexslider-icon.ttf" />
+    <Content Include="Content\Template\fonts\flexslider-icon.woff" />
+    <Content Include="Content\Template\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Template\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Template\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Template\fonts\FontAwesome.otf" />
+    <Content Include="Error.aspx" />
+    <None Include="Properties\PublishProfiles\SecondHandStore - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -344,7 +404,9 @@
     <Content Include="Scripts\Template\respond.min.js" />
     <Content Include="Scripts\Template\waypoints.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -431,8 +493,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Template\fonts\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
