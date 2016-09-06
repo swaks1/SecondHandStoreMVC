@@ -67,7 +67,7 @@ namespace SecondHandStoreApp.Repository
         {
             var result = db.StoreItems
                     .Where(s => s.IsApproved == true && s.IsAvailable == true)
-                    .Where(predicate);
+                    .Where(predicate);        
             return result;
         }
 

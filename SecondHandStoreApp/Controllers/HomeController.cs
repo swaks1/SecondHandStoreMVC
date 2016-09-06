@@ -69,14 +69,15 @@ namespace SecondHandStoreApp.Controllers
                         break;
 
                     case "male":
-                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Male) && i.isSold == false);
-                        break;
+                         items = _storeItemRepository.Filter(i => i.itemGender.ToString()=="Male" && i.isSold == false);
+                    break;
                     default:
                         items = _storeItemRepository.Filter(i => (i.itemGender.HasFlag(Gender.Female) || i.itemGender.HasFlag(Gender.Male)) && i.isSold == false) ;
                         break;
                 }
+          
 
-                switch (searchCategory.ToLower())
+            switch (searchCategory.ToLower())
                 {
                     case "clothes":
                     if (searchSubcategory != null)
@@ -275,7 +276,7 @@ namespace SecondHandStoreApp.Controllers
             
             int pageNumber = (page ?? 1);
             ViewBag.PageSize = ViewBag.PageSize ?? 3;
-
+          
             //return items ToList... or ToPagedList
             return View(items.ToPagedList(pageNumber, (int)ViewBag.PageSize));
 
