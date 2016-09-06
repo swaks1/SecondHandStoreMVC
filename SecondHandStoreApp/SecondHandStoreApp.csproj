@@ -304,6 +304,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\filterImg.jpg" />
     <Content Include="img\slider1.jpg" />
     <Content Include="img\slider2.jpg" />
     <Content Include="img\slider3.jpg" />
