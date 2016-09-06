@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201608311230292_buyer.Designer.cs">
       <DependentUpon>201608311230292_buyer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609061155013_ungenderedGone.cs" />
+    <Compile Include="Migrations\201609061155013_ungenderedGone.Designer.cs">
+      <DependentUpon>201609061155013_ungenderedGone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\MyImage.cs" />
@@ -471,6 +475,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608311230292_buyer.resx">
       <DependentUpon>201608311230292_buyer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609061155013_ungenderedGone.resx">
+      <DependentUpon>201609061155013_ungenderedGone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

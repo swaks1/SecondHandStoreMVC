@@ -72,7 +72,7 @@ namespace SecondHandStoreApp.Controllers
                         items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Male) && i.isSold == false);
                         break;
                     default:
-                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Ungendered) && i.isSold == false) ;
+                        items = _storeItemRepository.Filter(i => (i.itemGender.HasFlag(Gender.Female) || i.itemGender.HasFlag(Gender.Male)) && i.isSold == false) ;
                         break;
                 }
 
