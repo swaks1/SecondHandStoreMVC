@@ -22,15 +22,15 @@ namespace SecondHandStoreApp.Controllers
         private UserRepository _userRepository = new UserRepository();
         private StoreItemRepository _storeItemRepository = new StoreItemRepository();
 
-      
+
         public ActionResult Index()
         {
             var popularProducts = _storeItemRepository.GetPopular();
             return View(popularProducts);
         }
 
-       
-    
+
+
         public ActionResult ListItems(string sortOrder, string searchString, string searchGender,
             string searchCategory, string searchSubcategory, string currentFilter, int? page, int? pageSize)
         {
@@ -39,8 +39,8 @@ namespace SecondHandStoreApp.Controllers
             ViewBag.PriceSortParm = sortOrder == "price_asc" ? "price_desc" : "price_asc";
             ViewBag.Gender = searchGender;
             ViewBag.Category = searchCategory;
-            
-            if(pageSize!= null)
+
+            if (pageSize != null)
             {
                 ViewBag.PageSize = pageSize;
             }
@@ -63,93 +63,96 @@ namespace SecondHandStoreApp.Controllers
             //TODO: if(searchGender == null)  what to return??
 
             switch (searchGender.ToLower())
-                {
-                    case "female":
-                        items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Female) && i.isSold==false);
-                        break;
-
-                    case "male":
-                         items = _storeItemRepository.Filter(i => i.itemGender.ToString()=="Male" && i.isSold == false);
+            {
+                case "female":
+                    items = _storeItemRepository.Filter(i => i.itemGender.HasFlag(Gender.Female) && i.isSold == false);
                     break;
-                    default:
-                        items = _storeItemRepository.Filter(i => (i.itemGender.HasFlag(Gender.Female) || i.itemGender.HasFlag(Gender.Male)) && i.isSold == false) ;
-                        break;
-                }
-          
+
+                case "male":
+                    items = _storeItemRepository.Filter(i => i.itemGender.ToString() == "Male" && i.isSold == false);
+                    break;
+                default:
+                    items = _storeItemRepository.Filter(i => (i.itemGender.HasFlag(Gender.Female) || i.itemGender.HasFlag(Gender.Male)) && i.isSold == false);
+                    break;
+            }
+
+            if (searchCategory == null)
+                searchCategory = "no";
 
             switch (searchCategory.ToLower())
-                {
-                    case "clothes":
+            {
+                case "clothes":
                     if (searchSubcategory != null)
                     {
                         switch (searchSubcategory.ToLower())
                         {
                             case "blazers":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Blazers));
                                 break;
                             case "dresses":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Dresses));
                                 break;
                             case "jacketandcoat":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.JacketAndCoat));
                                 break;
                             case "jeans":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Jeans));
                                 break;
                             case "knitwear":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Knitwear));
                                 break;
                             case "shorts":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Shorts));
                                 break;
                             case "skirts":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Skirts));
                                 break;
                             case "suits":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Suits));
                                 break;
                             case "tops":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Tops));
                                 break;
                             case "trousers":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                       && i.subcategoryClothes.HasFlag(SubcategoryClothes.Trousers));
                                 break;
                             case "jumpsuit":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Jumpsuit));
                                 break;
                             case "beachwear":
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes)
+                                items = items.Where(i => i.category.ToString() == "Clothes"
                                                      && i.subcategoryClothes.HasFlag(SubcategoryClothes.Beachwear));
                                 break;
                             default:
-                                items = items.Where(i => i.category.HasFlag(Category.Clothes));
+                                items = items.Where(i => i.category.ToString() == "Clothes");
                                 break;
                         }
                     }
                     else
                     {
-                        items = items.Where(i => i.category.HasFlag(Category.Clothes));
+                        items = items.Where(i => i.category.ToString() == "Clothes");
                     }
-                        break;
+                    break;
 
-                    case "shoes":
+                case "shoes":
                     if (searchSubcategory != null)
                     {
-                        switch (searchSubcategory.ToLower()) {
+                        switch (searchSubcategory.ToLower())
+                        {
                             case "trainers":
                                 items = items.Where(i => i.category.HasFlag(Category.Shoes)
-                                                     &&  i.subcategoryShoes.HasFlag(SubcategoryShoes.Trainers));
+                                                     && i.subcategoryShoes.HasFlag(SubcategoryShoes.Trainers));
                                 break;
                             case "sandals":
                                 items = items.Where(i => i.category.HasFlag(Category.Shoes)
@@ -179,7 +182,7 @@ namespace SecondHandStoreApp.Controllers
 
                     }
                     break;
-                    case "accessories":
+                case "accessories":
                     if (searchSubcategory != null)
                     {
                         switch (searchSubcategory.ToLower())
@@ -221,11 +224,12 @@ namespace SecondHandStoreApp.Controllers
                                 break;
                         }
                     }
-                    else {
+                    else
+                    {
                         items = items.Where(i => i.category.HasFlag(Category.Accessories));
                     }
-                        break;
-                    case "bags":
+                    break;
+                case "bags":
                     if (searchSubcategory != null)
                     {
                         switch (searchSubcategory.ToLower())
@@ -253,9 +257,9 @@ namespace SecondHandStoreApp.Controllers
 
                     }
                     break;
-                    default:
-                        break;
-                }
+                default:
+                    break;
+            }
 
             switch (sortOrder)
             {
@@ -273,10 +277,10 @@ namespace SecondHandStoreApp.Controllers
                     break;
             }
 
-            
+
             int pageNumber = (page ?? 1);
             ViewBag.PageSize = ViewBag.PageSize ?? 3;
-          
+
             //return items ToList... or ToPagedList
             return View(items.ToPagedList(pageNumber, (int)ViewBag.PageSize));
 
@@ -284,10 +288,10 @@ namespace SecondHandStoreApp.Controllers
 
         public ActionResult Search(string searchString)
         {
-          
+
             //var items = _storeItemRepository.GetAllApproved();
             IQueryable<StoreItem> items;
-            
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 items = _storeItemRepository
@@ -298,7 +302,7 @@ namespace SecondHandStoreApp.Controllers
 
             }
             return View();
-           
+
         }
 
 
@@ -346,7 +350,7 @@ namespace SecondHandStoreApp.Controllers
         }
         static async Task SendMailTask()
         {
-            string apiKey = System.Configuration.ConfigurationManager.AppSettings["mailApiKey"]; 
+            string apiKey = System.Configuration.ConfigurationManager.AppSettings["mailApiKey"];
             dynamic sg = new SendGridAPIClient(apiKey);
 
             Email from = new Email("Riste_P@outlook.com");// company address
