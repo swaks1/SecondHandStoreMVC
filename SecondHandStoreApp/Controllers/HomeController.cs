@@ -289,19 +289,37 @@ namespace SecondHandStoreApp.Controllers
 
         public ActionResult Search(string searchString)
         {
+            //SEARCH WITHOUT LUCINE
+            //IQueryable<StoreItem> items;
 
-            //var items = _storeItemRepository.GetAllApproved();
-            IQueryable<StoreItem> items;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    items = _storeItemRepository
+            //                    .Filter(i => i.ItemName.ToLower().Contains(searchString.ToLower()) && i.isSold == false);
 
+            //    ViewBag.searchString = searchString;
+            //    return View(items.ToList());
+
+            //}
+            //return View();
+
+            //LUCINE SEARCH
             if (!String.IsNullOrEmpty(searchString))
             {
-                items = _storeItemRepository
-                                .Filter(i => i.ItemName.ToLower().Contains(searchString.ToLower()) && i.isSold == false);
-
+                var items = LuceneSearch.Search(searchString);
                 ViewBag.searchString = searchString;
-                return View(items.ToList());
 
+                List<StoreItem> result = new List<StoreItem>();
+
+                foreach (var item in items)
+                {
+                    var dbItem = _storeItemRepository.GetById(item.ID);
+                    result.Add(dbItem);
+                }
+
+                return View(result);
             }
+
             return View();
 
         }
