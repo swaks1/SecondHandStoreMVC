@@ -304,3 +304,4 @@ $RECYCLE.BIN/
 SecondHandStoreApp/Images/
 SecondHandStoreApp/Content/bower_components/
 SecondHandStoreApp/AppSetingsSecrets.config
+SecondHandStoreApp/lucene_index/
