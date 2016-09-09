@@ -9,7 +9,7 @@ namespace SecondHandStoreApp.TaskScheduler
     {
         public MyRegistry()
         {          
-            Schedule<MailingJob>().WithName("TestWriteTask").ToRunNow().AndEvery(10).Seconds();
+            Schedule<MailingJob>().WithName("TestWriteTask").ToRunNow().AndEvery(5).Days();
 
             // Schedule an IJob to run at an interval
             //Schedule<MyJob>().ToRunNow().AndEvery(2).Seconds();

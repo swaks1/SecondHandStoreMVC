@@ -1,4 +1,5 @@
 ﻿using SecondHandStoreApp.Interfaces;
+using SecondHandStoreApp.LuceneNetSearch;
 using SecondHandStoreApp.Models;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace SecondHandStoreApp.Repository
             obj.DateCreated = DateTime.Now;
             obj.IsAvailable = true;
             obj.IsApproved = false;
-         
             db.StoreItems.Add(obj);
             db.SaveChanges();
+          
             return true;
         }
 
@@ -40,6 +41,9 @@ namespace SecondHandStoreApp.Repository
 
             db.SaveChanges();
 
+            //delete the Lucene Index
+            LuceneSearch.ClearLuceneIndexRecord(dbItem.ID);
+
             db.StoreItems.Remove(dbItem);
 
             db.SaveChanges();
@@ -52,6 +56,10 @@ namespace SecondHandStoreApp.Repository
             StoreItem si = GetById(id);
             si.IsAvailable = false;
             db.SaveChanges();
+
+            //delete the Lucene Index
+            LuceneSearch.ClearLuceneIndexRecord(si.ID);
+
             return true;
         }
 
@@ -60,6 +68,10 @@ namespace SecondHandStoreApp.Repository
             StoreItem si = GetById(id);
             si.IsAvailable = true;
             db.SaveChanges();
+
+            //add the item to Lucene Index too
+            LuceneSearch.AddUpdateLuceneIndex(new List<StoreItem> { si });
+
             return true;
         }
 
@@ -73,12 +85,12 @@ namespace SecondHandStoreApp.Repository
 
         public List<StoreItem> GetAll()
         {
-            return db.StoreItems.ToList();
+            return db.StoreItems.Where(i => i.IsFinished).ToList();
         }
 
         public StoreItem GetById(int id)
         {
-            return GetAll().FirstOrDefault(si => si.ID == id);
+            return db.StoreItems.FirstOrDefault(i => i.ID == id);
         }
 
         public bool Update(StoreItem obj)
@@ -114,6 +126,13 @@ namespace SecondHandStoreApp.Repository
 
             db.SaveChanges();
 
+            if (dbObj.IsApproved)
+            {
+                //add the item to Lucene Index too
+                LuceneSearch.AddUpdateLuceneIndex(new List<StoreItem> { dbObj });
+            }
+            
+
             return true;
         }
 
@@ -133,6 +152,12 @@ namespace SecondHandStoreApp.Repository
             dbObj.subcategoryShoes = obj.subcategoryShoes;
 
             db.SaveChanges();
+
+            if (dbObj.IsApproved)
+            {
+                //add the item to Lucene Index too
+                LuceneSearch.AddUpdateLuceneIndex(new List<StoreItem> { dbObj });
+            }
 
             return true;
         }
@@ -157,6 +182,14 @@ namespace SecondHandStoreApp.Repository
                 dbObj.Images.Add(new MyImage { Image = img, StoreItemId = dbObj.ID });
             }
             db.SaveChanges();
+
+            if (dbObj.IsApproved)
+            {
+                //add the item to Lucene Index too
+                LuceneSearch.AddUpdateLuceneIndex(new List<StoreItem> { dbObj });
+            }
+
+
             return true;
         }
 
@@ -167,6 +200,7 @@ namespace SecondHandStoreApp.Repository
                 return false;
             dbObj.SellerId = sellerID;      
             db.SaveChanges();
+
             return true;
         }
 
@@ -191,7 +225,7 @@ namespace SecondHandStoreApp.Repository
 
         public List<StoreItem> GetAllUnapproved()
         {
-            return GetAll().FindAll(s => s.IsApproved == false && s.IsAvailable == true);
+            return GetAll().FindAll(s => s.IsApproved == false && s.IsAvailable == true && s.IsFinished);
         }
 
         public List<StoreItem> GetItemsForUser(int id)
@@ -206,12 +240,15 @@ namespace SecondHandStoreApp.Repository
             dbItem.IsApproved = true;
             db.SaveChanges();
 
+            //add the item to Lucene Index too
+            LuceneSearch.AddUpdateLuceneIndex(new List<StoreItem> { dbItem });
+
             return true;
         }
 
         public List<StoreItem> GetPopular()
         {
-            var items = db.StoreItems.Where(p => p.IsApproved && p.IsAvailable).Take(9);
+            var items = db.StoreItems.Where(p => p.IsApproved && p.IsAvailable && p.IsFinished).Take(9);
 
             return items.ToList();
         }

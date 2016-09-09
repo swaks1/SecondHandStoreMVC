@@ -12,6 +12,7 @@ using PagedList;
 using System.IO;
 using FluentScheduler;
 using SecondHandStoreApp.TaskScheduler;
+using SecondHandStoreApp.LuceneNetSearch;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -40,6 +41,7 @@ namespace SecondHandStoreApp.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            ViewBag.ServiceActive = JobManager.AllSchedules.Count() > 0 ? true : false;
             return View();
         }
 
@@ -395,8 +397,15 @@ namespace SecondHandStoreApp.Controllers
 
         public ActionResult StartJob()
         {
-            JobManager.AddJob(new MailingJob(), (s) => s.WithName("TestWriteTask").ToRunEvery(5).Seconds());
+            JobManager.AddJob(new MailingJob(), (s) => s.WithName("TestWriteTask").ToRunNow().AndEvery(5).Days());
             return Json("Started Task", JsonRequestBehavior.AllowGet);
+        }
+
+        //use this just once
+        public ActionResult AddAllItemsToIndex()
+        {
+            LuceneSearch.AddUpdateLuceneIndex(_storeItemRepository.GetAllApproved());
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
 

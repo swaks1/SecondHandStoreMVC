@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Net;
+using SecondHandStoreApp.LuceneNetSearch;
 
 namespace SecondHandStoreApp.Controllers
 {
@@ -418,6 +419,13 @@ namespace SecondHandStoreApp.Controllers
             return View("Error");
         }
 
+        //make sure you have already added all items to Index.. \Admin\AddAllItemsToIndex
+        public ActionResult SearchWithLucene(string query)
+        {
+            
+            var items = LuceneSearch.Search(query);
 
+            return Json(items,JsonRequestBehavior.AllowGet); 
+        }
     }
 }

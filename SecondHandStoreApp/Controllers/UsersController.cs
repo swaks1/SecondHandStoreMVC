@@ -136,7 +136,7 @@ namespace SecondHandStoreApp.Controllers
                 return View("NotSeller");
             }
 
-            return View(user.MyUser.seller.SellingItems.Where(s => s.IsAvailable).ToList());
+            return View(user.MyUser.seller.SellingItems.Where(s => s.IsAvailable && s.IsFinished).ToList());
         }
 
         public ActionResult GetOrders()
