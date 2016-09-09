@@ -446,11 +446,6 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\MyUsers\Create.cshtml" />
-    <Content Include="Views\MyUsers\Delete.cshtml" />
-    <Content Include="Views\MyUsers\Details.cshtml" />
-    <Content Include="Views\MyUsers\Edit.cshtml" />
-    <Content Include="Views\MyUsers\Index.cshtml" />
     <Content Include="Views\Sellers\Create.cshtml" />
     <Content Include="Views\Sellers\Delete.cshtml" />
     <Content Include="Views\Sellers\Details.cshtml" />
@@ -480,7 +475,6 @@
     <Content Include="Views\Shared\_TopBarPartial.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Home\ListItems.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\ShoppingCart.cshtml" />
     <Content Include="Views\Admin\EnableUser.cshtml" />
     <Content Include="Views\Admin\EnableItem.cshtml" />

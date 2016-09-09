@@ -74,96 +74,7 @@
         </div>
 
 
-        <div class="panel panel-default sidebar-menu">
 
-            <div class="panel-heading">
-                <h3 class="panel-title">Brands <a class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</a></h3>
-            </div>
-
-            <div class="panel-body">
-
-                <form>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Armani (10)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Versace (12)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Carlo Bruni (15)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">Jack Honey (14)
-                            </label>
-                        </div>
-                    </div>
-
-                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
-
-                </form>
-
-            </div>
-        </div>
-
-        <div class="panel panel-default sidebar-menu">
-
-            <div class="panel-heading">
-                <h3 class="panel-title">Colours <a class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</a></h3>
-            </div>
-
-            <div class="panel-body">
-
-                <form>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour white"></span> White
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour blue"></span> Blue
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour green"></span> Green
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour yellow"></span> Yellow
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour red"></span> Red
-                            </label>
-                        </div>
-                    </div>
-
-                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
-
-                </form>
-
-            </div>
-        </div>
-
-        <!-- *** MENUS AND FILTERS END *** -->
-
-        <div class="banner">
-            <a href="#">
-                <img src="img/banner.jpg" alt="sales 2014" class="img-responsive">
-            </a>
-        </div>
 
         <!-- *** MENUS AND FILTERS END *** -->
 
@@ -212,7 +123,19 @@
                                       pageSize = 6
                                   },
                                        new {@class= "btn btn-default btn-sm pageSizeBtn", id = "pagesize6" }) 
-                                     <a href="#" class="btn btn-default btn-sm">All</a> products
+
+                                    @Html.ActionLink("All", "ListItems", new
+                                        {
+                                            sortOrder = ViewBag.CurrentSort,
+                                            currentFilter = ViewBag.CurrentFilter,
+                                            searchString = ViewBag.searchString,
+                                            searchGender = ViewBag.Gender,
+                                            searchCategory = ViewBag.Category,
+                                            searchSubcategory = ViewBag.Subcategory,
+                                            pageSize = 100
+                                        },
+                                       new { @class = "btn btn-default btn-sm pageSizeBtn", id = "pagesize100" })
+                                    
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -365,6 +288,10 @@
             case "6":
                 $(".pageSizeBtn").removeClass("btn-primary");
                 $("#pagesize6").addClass("btn-primary");               
+                break;
+            case "100":
+                $(".pageSizeBtn").removeClass("btn-primary");
+                $("#pagesize100").addClass("btn-primary");
                 break;
             default:
                 $(".pageSizeBtn").removeClass("btn-primary");

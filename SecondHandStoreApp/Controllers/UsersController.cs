@@ -29,11 +29,7 @@ namespace SecondHandStoreApp.Controllers
                 _userManager = value;
             }
         }
-        // GET: User
-        public ActionResult Index()
-        {
-            return View();
-        }
+
 
         public ActionResult ShoppingCart(string returnUrl)
         {

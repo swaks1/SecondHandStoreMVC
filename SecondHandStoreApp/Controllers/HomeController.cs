@@ -35,8 +35,14 @@ namespace SecondHandStoreApp.Controllers
         public ActionResult ListItems(string sortOrder, string searchString, string searchGender,
             string searchCategory, string searchSubcategory, string currentFilter, int? page, int? pageSize)
         {
+
+            if (searchGender == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+
             ViewBag.CurrentSort = sortOrder;
-            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.PriceSortParm = sortOrder == "price_asc" ? "price_desc" : "price_asc";
             ViewBag.Gender = searchGender;
             ViewBag.Category = searchCategory;
@@ -61,7 +67,6 @@ namespace SecondHandStoreApp.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            //TODO: if(searchGender == null)  what to return??
 
             switch (searchGender.ToLower())
             {
