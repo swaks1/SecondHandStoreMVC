@@ -56,7 +56,7 @@
                         <i class="fa fa-search"></i>
                     </button>
                     <a class="btn btn-default navbar-toggle" href="~/Users/ShoppingCart">
-                        <i class="fa fa-shopping-cart"></i>  <span class="hidden-xs">3 itedasdasdasdms in cart</span>
+                        <i class="fa fa-shopping-cart"></i>  <span class="hidden-xs">3 items in cart</span>
                     </a>
                 </div>
             </div>
@@ -114,6 +114,18 @@
                                                 </li>
                                                 <li>
                                                     @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes, searchSubcategory = SubcategoryShoes.Shoes }, null)
+                                                </li>
+                                            </ul>
+                                            <h5>@Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags }, null)</h5>
+                                            <ul>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryBags.Backpacks.ToString(), "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Backpacks }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryBags.Bag.ToString(), "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Bag }, null)
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(SubcategoryBags.Wallets.ToString(), "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Wallets }, null)
                                                 </li>
                                             </ul>
                                         </div>
