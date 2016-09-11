@@ -390,6 +390,7 @@
     <Content Include="Content\Template\fonts\FontAwesome.otf" />
     <Content Include="Error.aspx" />
     <None Include="Properties\PublishProfiles\SecondHandStore - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\SecondHandStore.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
