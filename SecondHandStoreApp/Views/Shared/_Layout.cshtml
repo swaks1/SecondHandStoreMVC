@@ -116,7 +116,7 @@
                                                     @Html.ActionLink("Shoes", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Shoes, searchSubcategory = SubcategoryShoes.Shoes }, null)
                                                 </li>
                                             </ul>
-                                            <h5>@Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = "female", searchCategory = Category.Bags }, null)</h5>
+                                            <h5>@Html.ActionLink("Bags", "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags }, null)</h5>
                                             <ul>
                                                 <li>
                                                     @Html.ActionLink(SubcategoryBags.Backpacks.ToString(), "ListItems", "Home", new { searchGender = Gender.Male, searchCategory = Category.Bags, searchSubcategory = SubcategoryBags.Backpacks }, null)
